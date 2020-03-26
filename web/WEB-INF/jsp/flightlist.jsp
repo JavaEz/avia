@@ -40,7 +40,8 @@
                                     <td><c:if test="${flight.flightStatusId ==0}">OPENED</c:if>
                                         <c:if test="${flight.flightStatusId ==1}">CLOSED</c:if>
                                         <c:if test="${flight.flightStatusId ==2}">CANCELED</c:if></td>
-                                    <td>${flight.crewId}</td>
+                                    <td><c:if test="${flight.crewId ==0}">NOT READY</c:if>
+                                        <c:if test="${flight.crewId ==1}">READY</c:if></td>
                                     <c:if test="${userRole.name == 'admin'}">
                                     <td class="content center">
                                         <form id="edit_flight" action="controller" method="post">

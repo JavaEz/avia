@@ -190,6 +190,7 @@ public class DBManager {
             pstmt.setDate(k++, flight.getDate());
             pstmt.setInt(k++, flight.getFlightStatusId());
             pstmt.setInt(k++, flight.getCrewId());
+            pstmt.setInt(k++,flight.getId());
             pstmt.executeUpdate();
             con.commit();
         }catch (SQLException e){
