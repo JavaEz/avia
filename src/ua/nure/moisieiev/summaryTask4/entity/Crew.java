@@ -1,25 +1,14 @@
 package ua.nure.moisieiev.summaryTask4.entity;
-/**
- * Crew entity.
- *
- * @author S.Moisieiev
- *
- */
-public class Crew  extends Entity{
-    private String crewName;
 
-    public String getCrewName() {
-        return crewName;
+public enum Crew {
+    READY,NOT_READY;
+
+    public static Crew getFlightStatus(Flight flight) {
+        int crew = flight.getCrewId();
+        return Crew.values()[crew];
     }
 
-    public void setCrewName(String crewName) {
-        this.crewName = crewName;
-    }
-
-    @Override
-    public String toString() {
-        return "Crew{" +
-                "crewName='" + crewName + '\'' +
-                '}';
+    public String getName() {
+        return name().toLowerCase();
     }
 }

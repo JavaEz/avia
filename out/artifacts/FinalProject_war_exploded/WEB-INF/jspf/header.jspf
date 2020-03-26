@@ -22,7 +22,7 @@ This is the user menu.
 This way we define the ADMIN MENU. 
 ===========================================================================--%> 
 		<c:when test="${userRole.name == 'admin' }">
-			<a href="controller?command=listOrders">All orders</a> &nbsp;
+			<a href="controller?command=flightList">All flight</a> &nbsp;
 		</c:when>
 
 		

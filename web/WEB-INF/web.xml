@@ -55,7 +55,7 @@
         <filter-class>ua.nure.moisieiev.summaryTask4.web.filter.CommandAccessFilter</filter-class>
         <init-param>
             <param-name>admin</param-name>
-            <param-value>listOrders</param-value>
+            <param-value>deleteFlight editFlight saveFlight</param-value>
         </init-param>
         <init-param>
             <param-name>dispatcher</param-name>
@@ -67,7 +67,7 @@
         </init-param>
         <init-param>
             <param-name>out-of-control</param-name>
-            <param-value>login</param-value>
+            <param-value>login logout</param-value>
         </init-param>
     </filter>
 

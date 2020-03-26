@@ -12,12 +12,12 @@
         <tr>
             <td class="content">
                 <%-- CONTENT --%>
-                    <form id="make_order" action="controller">
-                        <input type="hidden" name="command" value="makeOrder"/>
-                        <input value="Make an order" type="submit"/>
+                    <form id="create_flight" action="controller" method="post">
+                        <input type="hidden" name="command" value="CreateFlight"/>
+                        <input value="Create new Flight" type="submit"/>
                     </form>
 
-                        <table id="list_menu_table">
+                        <table id="list_flights_table">
                             <thead>
                             <tr>
                                 <td>ID</td>
@@ -40,21 +40,23 @@
                                     <td><c:if test="${flight.flightStatusId ==0}">OPENED</c:if>
                                         <c:if test="${flight.flightStatusId ==1}">CLOSED</c:if>
                                         <c:if test="${flight.flightStatusId ==2}">CANCELED</c:if></td>
-
-
                                     <td>${flight.crewId}</td>
+                                    <c:if test="${userRole.name == 'admin'}">
                                     <td class="content center">
-                                        <form id="action" action="controller">
-                                            <input type="hidden" name="command" value="edit"/>
+                                        <form id="edit_flight" action="controller" method="post">
+                                            <input type="hidden" name="command" value="editFlight"/>
+                                            <input type="hidden" name="id_flight" value="${flight.id}"/>
                                             <input value="Edit" type="submit"/>
                                         </form>
                                       </td>
                                     <td class="content center">
-                                        <form id="actionTwo" action="controller">
-                                            <input type="hidden" name="command" value="delete"/>
+                                        <form id="delete_flight" action="controller" method="post">
+                                            <input type="hidden" name="command" value="deleteFlight"/>
+                                            <input type="hidden" name="id_flight" value="${flight.id}"/>
                                             <input value="Delete" type="submit"/>
                                         </form>
                                     </td>
+                                    </c:if>
 
                                 </tr>
                             </c:forEach>

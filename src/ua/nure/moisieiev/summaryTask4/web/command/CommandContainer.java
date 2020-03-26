@@ -1,6 +1,10 @@
 package ua.nure.moisieiev.summaryTask4.web.command;
 
 import org.apache.log4j.Logger;
+import ua.nure.moisieiev.summaryTask4.web.command.flightCommands.FlightEditCommand;
+import ua.nure.moisieiev.summaryTask4.web.command.flightCommands.FlightListCommand;
+import ua.nure.moisieiev.summaryTask4.web.command.flightCommands.FlightDeleteCommand;
+import ua.nure.moisieiev.summaryTask4.web.command.flightCommands.FlightSaveCommand;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -14,7 +18,7 @@ public class CommandContainer {
     static {
         // common commands
         commands.put("login", new LoginCommand());
-        //commands.put("logout", new LogoutCommand());
+        commands.put("logout", new LogoutCommand());
        // commands.put("viewSettings", new ViewSettingsCommand());
         //commands.put("noCommand", new NoCommand());
 
@@ -22,7 +26,9 @@ public class CommandContainer {
         commands.put("flightList", new FlightListCommand());
 
         // admin commands
-       // commands.put("listOrders", new ListOrdersCommand());
+        commands.put("deleteFlight", new FlightDeleteCommand());
+        commands.put("editFlight", new FlightEditCommand());
+        commands.put("saveFlight", new FlightSaveCommand());
 
         LOG.debug("Command container was successfully initialized");
         LOG.trace("Number of commands --> " + commands.size());

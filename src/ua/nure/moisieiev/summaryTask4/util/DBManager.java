@@ -63,12 +63,15 @@ public class DBManager {
 
     private static final String SQL_FIND_USER_BY_LOGIN = "SELECT * FROM users WHERE login=?";
     private static final String SQL_FIND_ALL_FLIGHTS = "SELECT * FROM flights";
+    private static final String SQL_DELETE_FLIGHT_BY_ID = "DELETE FROM flights WHERE id = ?";
+    private static final String SQL_FIND_FLIGHT_BY_ID = "SELECT * FROM flights WHERE id = ?";
+    private static final String SQL_UPDATE_FLIGHT_BY_ID = "UPDATE flights SET flight_name = ?, whence = ?,"+
+            "whereto = ?, date = ?, flight_status = ?, crew_id = ? WHERE id = ?";
 
     /**
      * Returns a user with the given login.
      *
-     * @param login
-     *            User login.
+     * @param login User login.
      * @return User entity.
      * @throws DBException
      */
@@ -83,7 +86,7 @@ public class DBManager {
             statement = con.prepareStatement(SQL_FIND_USER_BY_LOGIN);
             statement.setString(1, login);
             rs = statement.executeQuery();
-            if(rs.next()){
+            if (rs.next()) {
                 user = extractUser(rs);
             }
             con.commit();
@@ -96,6 +99,7 @@ public class DBManager {
         }
         return user;
     }
+
     /**
      * Returns all flight.
      *
@@ -124,13 +128,86 @@ public class DBManager {
         return flightList;
     }
 
+    /**
+     * Delete flight by flight id.
+     *
+     * @param id;
+     */
+
+    public void deleteFlightById(int id) throws DBException, SQLException {
+        PreparedStatement statement = null;
+        Connection con = null;
+        try {
+            con = getConnection();
+            statement = con.prepareStatement(SQL_DELETE_FLIGHT_BY_ID);
+            statement.setInt(1, id);
+            statement.executeUpdate();
+            con.commit();
+        } catch (SQLException e) {
+            con.rollback();
+            LOG.error("CANNOT DELETE BY ID");
+            throw new DBException("CANNOT DELETE BY ID", e);
+        } finally {
+            close(con);
+            close(statement);
+        }
+    }
+
+    public Flight findFlightById(int id) throws DBException, SQLException {
+        Flight flight = null;
+        PreparedStatement statement = null;
+        ResultSet rs = null;
+        Connection con = null;
+        try {
+            con = getConnection();
+            statement = con.prepareStatement(SQL_FIND_FLIGHT_BY_ID);
+            statement.setInt(1, id);
+            rs = statement.executeQuery();
+            if (rs.next()) {
+                flight = extractFlight(rs);
+            }
+            con.commit();
+        } catch (SQLException e){
+            con.rollback();
+            LOG.error(Messages.ERR_CANNOT_GET_USER_BY_ID, e);
+            throw new DBException(Messages.ERR_CANNOT_GET_USER_BY_ID, e);
+        }finally {
+            close(con, statement, rs);
+        }
+        return flight;
+    }
+
+    public void updateFlightById (Flight flight) throws SQLException, DBException {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        try{
+            con = getConnection();
+            pstmt = con.prepareStatement(SQL_UPDATE_FLIGHT_BY_ID);
+            int k = 1;
+            pstmt.setString(k++,flight.getFlightName());
+            pstmt.setString(k++,flight.getWhence());
+            pstmt.setString(k++, flight.getWhereto());
+            pstmt.setDate(k++, flight.getDate());
+            pstmt.setInt(k++, flight.getFlightStatusId());
+            pstmt.setInt(k++, flight.getCrewId());
+            pstmt.executeUpdate();
+            con.commit();
+        }catch (SQLException e){
+            con.rollback();
+            LOG.error("CANNOT UPDATE FLIGHT BY ID");
+            throw new DBException("CANNOT UPDATE FLIGHT BY ID", e);
+        }finally {
+            close(con);
+            close(pstmt);
+        }
+    }
+
 
 
     /**
      * Extracts a user entity from the result set.
      *
-     * @param rs
-     *            Result set from which a user entity will be extracted.
+     * @param rs Result set from which a user entity will be extracted.
      * @return User entity
      */
     private User extractUser(ResultSet rs) throws SQLException {
@@ -147,12 +224,11 @@ public class DBManager {
     /**
      * Extracts a flight entity from the result set.
      *
-     * @param rs
-     *            Result set from which a Flight entity will be extracted.
+     * @param rs Result set from which a Flight entity will be extracted.
      * @return Flight entity
      */
 
-    private Flight extractFlight(ResultSet rs) throws SQLException{
+    private Flight extractFlight(ResultSet rs) throws SQLException {
         Flight flight = new Flight();
         flight.setId(rs.getInt(Fields.ENTITY_ID));
         flight.setFlightName(rs.getString(Fields.FLIGHT_NAME));
@@ -163,11 +239,11 @@ public class DBManager {
         flight.setCrewId(rs.getInt(Fields.CREW_ID_IN_FLIGHT));
         return flight;
     }
+
     /**
      * Closes a connection.
      *
-     * @param con
-     *            Connection to be closed.
+     * @param con Connection to be closed.
      */
     private void close(Connection con) {
         if (con != null) {

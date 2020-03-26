@@ -32,7 +32,7 @@ public class Messages {
 
 	public static final String ERR_CANNOT_OBTAIN_ORDERS_BY_USER_AND_STATUS_ID = "Cannot obtain orders by user and status id";
 
-	public static final String ERR_CANNOT_OBTAIN_USER_BY_ID = "Cannot obtain a user by its id";
+	public static final String ERR_CANNOT_GET_USER_BY_ID = "Cannot get a user by its id";
 
 	public static final String ERR_CANNOT_OBTAIN_USER_BY_LOGIN = "Cannot obtain a user by its login";
 

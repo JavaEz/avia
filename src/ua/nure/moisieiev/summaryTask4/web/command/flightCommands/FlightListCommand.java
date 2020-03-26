@@ -1,10 +1,12 @@
-package ua.nure.moisieiev.summaryTask4.web.command;
+package ua.nure.moisieiev.summaryTask4.web.command.flightCommands;
 
 import org.apache.log4j.Logger;
 import ua.nure.moisieiev.summaryTask4.Path;
 import ua.nure.moisieiev.summaryTask4.entity.Flight;
 import ua.nure.moisieiev.summaryTask4.exception.AppException;
 import ua.nure.moisieiev.summaryTask4.util.DBManager;
+import ua.nure.moisieiev.summaryTask4.web.command.Command;
+import ua.nure.moisieiev.summaryTask4.web.command.CommandContainer;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -31,7 +33,7 @@ public class FlightListCommand extends Command {
             e.printStackTrace();
         }
         if(flightList == null){
-            throw new AppException("ШО ЗЗА ДЕРЬМО!");
+            throw new AppException("Cannot get a flight list");
         }
 
         // put flight list to the request
