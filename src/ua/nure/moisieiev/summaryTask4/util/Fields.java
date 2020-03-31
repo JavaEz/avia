@@ -23,5 +23,10 @@ public final class Fields {
     public static final String FLIGHT_STATUS = "flight_status";
     public static final String CREW_ID_IN_FLIGHT = "crew_id";
 
+    public static final String STAFF_FIRST_NAME = "staff_fname";
+    public static final String STAFF_LAST_NAME = "staff_lname";
+    public static final String STAFF_DEPARTAMENT_ID = "departament_id";
+
+
 
 }

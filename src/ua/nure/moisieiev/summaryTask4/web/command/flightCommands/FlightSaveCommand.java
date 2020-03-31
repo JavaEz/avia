@@ -19,40 +19,73 @@ public class FlightSaveCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws DBException {
         LOG.debug("Command starts");
+        String flightName = request.getParameter("flightName");
+        LOG.trace("Request parameter: flightName --> " + flightName);
+        String departure = request.getParameter("departure");
+        LOG.trace("Request parameter: departure --> " + departure);
+        String arrival = request.getParameter("arrival");
+        LOG.trace("Request parameter: arrival --> " + arrival);
+        String date = request.getParameter("date");
+        LOG.trace("Request parameter: date --> " + date);
+        String flightStatus = request.getParameter("flightStatus");
+        LOG.trace("Request parameter: flightStatus --> " + flightStatus);
+        String crewNumber = request.getParameter("crewNumber");
+        LOG.trace("Request parameter: crewNumber --> " + crewNumber);
+
         DBManager dbManager = DBManager.getInstance();
 
         Integer id = null;
         try {
             id = Integer.parseInt(request.getParameter("id_flight"));
         } catch (NumberFormatException e) {
-            LOG.error("Id not number");
+            LOG.error("MISTAKE! ID not a number");
         }
-        Flight flight = new Flight();
+        Flight flight;
         if (id != null) {
-        try{
-            flight = dbManager.findFlightById(id);
-        }catch(SQLException e) {
-            e.printStackTrace();
-        }
-        }else{
-            flight.setFlightStatusId(2);
-        }
-        flight.setFlightName(request.getParameter("flightName"));
-        flight.setWhence(request.getParameter("departure"));
-        flight.setWhereto(request.getParameter("arrival"));
-        flight.setDate(Date.valueOf(request.getParameter("date")));
-        flight.setFlightStatusId(Integer.parseInt(request.getParameter("flightStatus")));
-        flight.setCrewId(Integer.parseInt(request.getParameter("crewNumber")));
-
-        if (flight.getFlightName() != null && flight.getWhence() != null
-                && flight.getWhereto()!=null && flight.getDate()!=null
-                &&(Integer) flight.getFlightStatusId() !=null && (Integer)flight.getCrewId() !=null){
             try {
-                dbManager.updateFlightById(flight);
+                flight = dbManager.findFlightById(id);
+                flight.setFlightName(flightName);
+                flight.setWhence(departure);
+                flight.setWhereto(arrival);
+                flight.setDate(Date.valueOf(date));
+                flight.setFlightStatusId(Integer.parseInt(flightStatus));
+                flight.setCrewId(Integer.parseInt(crewNumber));
+
+                if (flight.getFlightName() != null && flight.getWhence() != null
+                        && flight.getWhereto() != null && flight.getDate() != null
+                        &&  flight.getFlightStatusId() != 0 &&  flight.getCrewId() != 0) {
+                    try {
+                        dbManager.updateFlightById(flight);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+        } else {
+            if (flightName == null || flightName.isEmpty() || departure == null || departure.isEmpty()
+                    || arrival == null || arrival.isEmpty() || date == null || date.isEmpty()
+                    || flightStatus == null || flightStatus.isEmpty() || crewNumber == null
+                    || crewNumber.isEmpty()) {
+                LOG.error("MISTAKE");
+                return Path.PAGE_ERROR_PAGE;
+            } else {
+                try {
+                    Flight flight1 = new Flight();
+                    flight1.setFlightName(flightName);
+                    flight1.setWhence(departure);
+                    flight1.setWhereto(arrival);
+                    flight1.setDate(Date.valueOf(date));
+                    flight1.setFlightStatusId(Integer.parseInt(flightStatus));
+                    flight1.setCrewId(Integer.parseInt(crewNumber));
+                    dbManager.createFlight(flight1); //пишем новую логику
+                } catch (SQLException e) {
+                    LOG.error("CANNOT CREATE A NEW FLIGHT");
+                }
+            }
         }
+
         LOG.debug("Command finished");
         return Path.COMMAND_FLIGHT_LIST;
     }

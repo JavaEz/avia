@@ -2,6 +2,7 @@ package ua.nure.moisieiev.summaryTask4.util;
 
 import org.apache.log4j.Logger;
 import ua.nure.moisieiev.summaryTask4.entity.Flight;
+import ua.nure.moisieiev.summaryTask4.entity.Staff;
 import ua.nure.moisieiev.summaryTask4.entity.User;
 import ua.nure.moisieiev.summaryTask4.exception.DBException;
 import ua.nure.moisieiev.summaryTask4.exception.Messages;
@@ -65,8 +66,18 @@ public class DBManager {
     private static final String SQL_FIND_ALL_FLIGHTS = "SELECT * FROM flights";
     private static final String SQL_DELETE_FLIGHT_BY_ID = "DELETE FROM flights WHERE id = ?";
     private static final String SQL_FIND_FLIGHT_BY_ID = "SELECT * FROM flights WHERE id = ?";
-    private static final String SQL_UPDATE_FLIGHT_BY_ID = "UPDATE flights SET flight_name = ?, whence = ?,"+
+    private static final String SQL_UPDATE_FLIGHT_BY_ID = "UPDATE flights SET flight_name = ?, whence = ?," +
             "whereto = ?, date = ?, flight_status = ?, crew_id = ? WHERE id = ?";
+    private static final String SQL_CREATE_FLIGHT = "INSERT INTO flights" +
+            "(flight_name, whence, whereto, date, flight_status, crew_id)" +
+            "VALUES(?, ?, ?, ?, ?, ? )";
+    private static final String SQL_FIND_ALL_STAFF = "SELECT * FROM staff";
+    private static final String SQL_DELETE_STAFF_BY_ID = "DELETE FROM staff WHERE id = ?";
+    private static final String SQL_FIND_STAFF_BY_ID = "SELECT * FROM staff WHERE id = ?";
+    private static final String SQL_UPDATE_STAFF_BY_ID = "UPDATE staff SET staff_fname = ?, staff_lname = ?," +
+            "departament_id = ? WHERE id = ?";
+    private static final String SQL_CREATE_STAFF = "INSERT INTO STAFF (staff_fname, staff_lname, departament_id)" +
+            "VALUES(?, ?, ?)";
 
     /**
      * Returns a user with the given login.
@@ -145,13 +156,19 @@ public class DBManager {
             con.commit();
         } catch (SQLException e) {
             con.rollback();
-            LOG.error("CANNOT DELETE BY ID");
-            throw new DBException("CANNOT DELETE BY ID", e);
+            LOG.error(Messages.ERR_CANNOT_DELETE_FLIGHT);
+            throw new DBException(Messages.ERR_CANNOT_DELETE_FLIGHT, e);
         } finally {
             close(con);
             close(statement);
         }
     }
+
+    /**
+     * Find flight by flight id.
+     *
+     * @param id;
+     */
 
     public Flight findFlightById(int id) throws DBException, SQLException {
         Flight flight = null;
@@ -167,43 +184,227 @@ public class DBManager {
                 flight = extractFlight(rs);
             }
             con.commit();
-        } catch (SQLException e){
+        } catch (SQLException e) {
             con.rollback();
-            LOG.error(Messages.ERR_CANNOT_GET_USER_BY_ID, e);
-            throw new DBException(Messages.ERR_CANNOT_GET_USER_BY_ID, e);
-        }finally {
+            LOG.error(Messages.ERR_CANNOT_GET_FLIGHT_BY_ID, e);
+            throw new DBException(Messages.ERR_CANNOT_GET_FLIGHT_BY_ID, e);
+        } finally {
             close(con, statement, rs);
         }
         return flight;
     }
 
-    public void updateFlightById (Flight flight) throws SQLException, DBException {
+    /**
+     * Update flight.
+     *
+     * @param flight;
+     */
+
+    public void updateFlightById(Flight flight) throws SQLException, DBException {
         Connection con = null;
         PreparedStatement pstmt = null;
-        try{
+        try {
             con = getConnection();
             pstmt = con.prepareStatement(SQL_UPDATE_FLIGHT_BY_ID);
             int k = 1;
-            pstmt.setString(k++,flight.getFlightName());
-            pstmt.setString(k++,flight.getWhence());
+            pstmt.setString(k++, flight.getFlightName());
+            pstmt.setString(k++, flight.getWhence());
             pstmt.setString(k++, flight.getWhereto());
             pstmt.setDate(k++, flight.getDate());
             pstmt.setInt(k++, flight.getFlightStatusId());
             pstmt.setInt(k++, flight.getCrewId());
-            pstmt.setInt(k++,flight.getId());
+            pstmt.setInt(k++, flight.getId());
             pstmt.executeUpdate();
             con.commit();
-        }catch (SQLException e){
+        } catch (SQLException e) {
             con.rollback();
-            LOG.error("CANNOT UPDATE FLIGHT BY ID");
-            throw new DBException("CANNOT UPDATE FLIGHT BY ID", e);
-        }finally {
+            LOG.error(Messages.ERR_CANNOT_UPDATE_FLIGHT);
+            throw new DBException(Messages.ERR_CANNOT_UPDATE_FLIGHT, e);
+        } finally {
             close(con);
             close(pstmt);
         }
     }
 
+    /**
+     * Create flight.
+     *
+     * @param flight;
+     */
 
+    public void createFlight(Flight flight) throws DBException, SQLException {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        try {
+            con = getConnection();
+            pstmt = con.prepareStatement(SQL_CREATE_FLIGHT, Statement.RETURN_GENERATED_KEYS);
+            int k = 1;
+            pstmt.setString(k++, flight.getFlightName());
+            pstmt.setString(k++, flight.getWhence());
+            pstmt.setString(k++, flight.getWhereto());
+            pstmt.setDate(k++, flight.getDate());
+            pstmt.setInt(k++, flight.getFlightStatusId());
+            pstmt.setInt(k++, flight.getCrewId());
+            pstmt.executeUpdate();
+            ResultSet rs = pstmt.getGeneratedKeys();
+            if (rs.next()) {
+                flight.setId(rs.getInt(1));
+            }
+            con.commit();
+        } catch (SQLException e) {
+            con.rollback();
+            LOG.error(Messages.ERR_CANNOT_CREATE_FLIGHT);
+            throw new DBException(Messages.ERR_CANNOT_CREATE_FLIGHT, e);
+        } finally {
+            close(con);
+            close(pstmt);
+        }
+    }
+
+    /**
+     * Returns all staff list.
+     *
+     * @return List of staff entities.
+     */
+
+    public List<Staff> findAllStaff() throws SQLException, DBException {
+        List<Staff> staffList = new ArrayList<>();
+        Statement stmt = null;
+        ResultSet rs = null;
+        Connection con = null;
+        try {
+            con = getConnection();
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(SQL_FIND_ALL_STAFF);
+            while (rs.next()) {
+                staffList.add(extractStaff(rs));
+            }
+            con.commit();
+        } catch (SQLException e) {
+            con.rollback();
+            LOG.error(Messages.ERR_CANNOT_GET_ALL_STAFF, e);
+            throw new DBException(Messages.ERR_CANNOT_GET_ALL_STAFF, e);
+        } finally {
+            close(con, stmt, rs);
+        }
+        return staffList;
+    }
+
+    /**
+     * Delete staff by staff id.
+     *
+     * @param id;
+     */
+
+    public void deleteStaffById(int id) throws DBException, SQLException {
+        PreparedStatement pstmt = null;
+        Connection con = null;
+        try {
+            con = getConnection();
+            pstmt = con.prepareStatement(SQL_DELETE_STAFF_BY_ID);
+            pstmt.setInt(1, id);
+            pstmt.executeUpdate();
+            con.commit();
+        } catch (SQLException e) {
+            con.rollback();
+            LOG.error(Messages.ERR_CANNOT_DELETE_STAFF);
+            throw new DBException(Messages.ERR_CANNOT_DELETE_STAFF, e);
+        } finally {
+            close(con);
+            close(pstmt);
+        }
+    }
+
+    /**
+     * Find staff by staff id.
+     *
+     * @param id;
+     */
+
+    public Staff findStaffById(int id) throws DBException, SQLException {
+        Staff staff = null;
+        PreparedStatement pstmt = null;
+        Connection con = null;
+        ResultSet rs = null;
+        try {
+            con = getConnection();
+            pstmt = con.prepareStatement(SQL_FIND_STAFF_BY_ID);
+            pstmt.setInt(1, id);
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
+                staff = extractStaff(rs);
+            }
+            con.commit();
+        } catch (SQLException e) {
+            con.rollback();
+            LOG.error(Messages.ERR_CANNOT_GET_STAFF_BY_ID);
+            throw new DBException(Messages.ERR_CANNOT_GET_STAFF_BY_ID, e);
+        } finally {
+            close(con, pstmt, rs);
+        }
+        return staff;
+    }
+
+    /**
+     * Update staff.
+     *
+     * @param staff;
+     */
+
+    public void updateStaffById(Staff staff) throws DBException, SQLException {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        try {
+            con = getConnection();
+            pstmt = con.prepareStatement(SQL_UPDATE_STAFF_BY_ID);
+            int k = 1;
+            pstmt.setString(k++, staff.getFirstName());
+            pstmt.setString(k++, staff.getLastName());
+            pstmt.setInt(k++, staff.getDepartamenId());
+            pstmt.setInt(k++, staff.getId());
+            pstmt.executeUpdate();
+            con.commit();
+        } catch (SQLException e) {
+            con.rollback();
+            LOG.error(Messages.ERR_CANNOT_UPDATE_STAFF);
+            throw new DBException(Messages.ERR_CANNOT_UPDATE_STAFF, e);
+        } finally {
+            close(con);
+            close(pstmt);
+        }
+    }
+
+    /**
+     * Create staff.
+     *
+     * @param staff;
+     */
+
+    public void createStaff (Staff staff) throws SQLException, DBException {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        try{
+            con = getConnection();
+            pstmt = con.prepareStatement(SQL_CREATE_STAFF, Statement.RETURN_GENERATED_KEYS);
+            int k = 1;
+            pstmt.setString(k++, staff.getFirstName());
+            pstmt.setString(k++, staff.getLastName());
+            pstmt.setInt(k++, staff.getDepartamenId());
+            pstmt.executeUpdate();
+            ResultSet rs = pstmt.getGeneratedKeys();
+            if (rs.next()){
+                staff.setId(rs.getInt(1));
+            }
+            con.commit();
+        }catch (SQLException e){
+            con.rollback();
+            LOG.error(Messages.ERR_CANNOT_CREATE_STAFF);
+            throw new DBException(Messages.ERR_CANNOT_CREATE_STAFF, e);
+        } finally {
+            close(con);
+            close(pstmt);
+        }
+    }
 
     /**
      * Extracts a user entity from the result set.
@@ -239,6 +440,22 @@ public class DBManager {
         flight.setFlightStatusId(rs.getInt(Fields.FLIGHT_STATUS));
         flight.setCrewId(rs.getInt(Fields.CREW_ID_IN_FLIGHT));
         return flight;
+    }
+
+    /**
+     * Extracts a staff entity from the result set.
+     *
+     * @param rs Result set from which a Staff entity will be extracted.
+     * @return Staff entity
+     */
+
+    private Staff extractStaff(ResultSet rs) throws SQLException {
+        Staff staff = new Staff();
+        staff.setId(rs.getInt(Fields.ENTITY_ID));
+        staff.setFirstName(rs.getString(Fields.STAFF_FIRST_NAME));
+        staff.setLastName(rs.getString(Fields.STAFF_LAST_NAME));
+        staff.setDepartamenId(rs.getInt(Fields.STAFF_DEPARTAMENT_ID));
+        return staff;
     }
 
     /**

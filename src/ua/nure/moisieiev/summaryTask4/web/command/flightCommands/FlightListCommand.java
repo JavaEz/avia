@@ -6,22 +6,18 @@ import ua.nure.moisieiev.summaryTask4.entity.Flight;
 import ua.nure.moisieiev.summaryTask4.exception.AppException;
 import ua.nure.moisieiev.summaryTask4.util.DBManager;
 import ua.nure.moisieiev.summaryTask4.web.command.Command;
-import ua.nure.moisieiev.summaryTask4.web.command.CommandContainer;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
 public class FlightListCommand extends Command {
 
-    private static final Logger LOG = Logger.getLogger(CommandContainer.class);
+    private static final Logger LOG = Logger.getLogger(FlightListCommand.class);
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws AppException {
         LOG.debug("Command starts");
 
         //get flights list
@@ -29,6 +25,7 @@ public class FlightListCommand extends Command {
         List<Flight> flightList = null;
         try {
             flightList = DBManager.getInstance().findAllFlights();
+            LOG.trace("Found in DB: flightList --> " + flightList);
         } catch (SQLException e) {
             e.printStackTrace();
         }

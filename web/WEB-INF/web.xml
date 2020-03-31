@@ -55,7 +55,7 @@
         <filter-class>ua.nure.moisieiev.summaryTask4.web.filter.CommandAccessFilter</filter-class>
         <init-param>
             <param-name>admin</param-name>
-            <param-value>deleteFlight editFlight saveFlight</param-value>
+            <param-value>deleteFlight editFlight saveFlight deleteStaff editStaff saveStaff</param-value>
         </init-param>
         <init-param>
             <param-name>dispatcher</param-name>
@@ -63,7 +63,7 @@
         </init-param>
         <init-param>
             <param-name>common</param-name>
-            <param-value>logout noCommand viewSettings flightList</param-value>
+            <param-value>logout noCommand viewSettings flightList staffList</param-value>
         </init-param>
         <init-param>
             <param-name>out-of-control</param-name>
@@ -95,5 +95,25 @@
         <error-code>404</error-code>
         <location>/WEB-INF/jsp/error_page.jsp</location>
     </error-page>
+
+
+<!--    pages-->
+
+    <servlet-mapping>
+    <servlet-name>editFlight</servlet-name>
+    <url-pattern>/editFlight</url-pattern>
+</servlet-mapping>
+    <servlet>
+        <servlet-name>editFlight</servlet-name>
+        <jsp-file>/WEB-INF/jsp/flight_edit.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>editStaff</servlet-name>
+        <url-pattern>/editStaff</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>editStaff</servlet-name>
+        <jsp-file>/WEB-INF/jsp/staff_edit.jsp</jsp-file>
+    </servlet>
 
 </web-app>

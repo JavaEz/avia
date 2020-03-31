@@ -52,7 +52,7 @@ after you submit current form.
 						<input type="password" name="password"/>
 					</fieldset><br/>
 					
-					<input type="submit" value="Login">								
+					<input type="submit" value="Login">
 				</form>
 				
 			<%-- CONTENT --%>

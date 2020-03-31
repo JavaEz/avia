@@ -122,7 +122,7 @@ Settings form (settings.jsp)
 }
 
 /***************************************************************
-List menu table (list_menu.jsp)
+List flight table (flightlist.jsp)
 ***************************************************************/
 #list_flights_table {
 	margin-top: 5px;
@@ -133,6 +133,21 @@ List menu table (list_menu.jsp)
 }
 
 #list_flights_table td:last-child {
+	text-align: center;
+}
+
+/***************************************************************
+List staff table (staff_list.jsp)
+***************************************************************/
+#list_staff_table {
+	margin-top: 5px;
+}
+
+#list_staff_table thead {
+	text-align: center;
+}
+
+#list_staff_table td:last-child {
 	text-align: center;
 }
 
@@ -155,5 +170,9 @@ List order table (list_order.jsp)
 Make order form (list_menu.jsp)
 ***************************************************************/
 #create_flight {
+	margin-top: 10px;
+}
+
+#create_staff {
 	margin-top: 10px;
 }
