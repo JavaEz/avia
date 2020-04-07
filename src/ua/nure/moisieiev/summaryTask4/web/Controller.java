@@ -46,7 +46,7 @@ public class Controller extends HttpServlet {
         String commandName = request.getParameter("command"); //
         LOG.trace("Request parameter: command --> " + commandName);
 
-        // obtain command object by its name
+        // get command object by its name
         Command command = CommandContainer.get(commandName);
         LOG.trace("Obtained command --> " + command);
         //request.getContextPath();

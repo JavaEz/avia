@@ -59,11 +59,11 @@
         </init-param>
         <init-param>
             <param-name>dispatcher</param-name>
-          <param-value>listMenu</param-value> <!--  // команды в которые он сможет зайти-->
+          <param-value>listMenu deleteCrew editCrew</param-value> <!--  // команды в которые он сможет зайти-->
         </init-param>
         <init-param>
             <param-name>common</param-name>
-            <param-value>logout noCommand viewSettings flightList staffList</param-value>
+            <param-value>logout noCommand viewSettings flightList staffList crewList</param-value>
         </init-param>
         <init-param>
             <param-name>out-of-control</param-name>
@@ -114,6 +114,14 @@
     <servlet>
         <servlet-name>editStaff</servlet-name>
         <jsp-file>/WEB-INF/jsp/staff_edit.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>editCrew</servlet-name>
+        <url-pattern>/editCrew</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>editCrew</servlet-name>
+        <jsp-file>/WEB-INF/jsp/crew_edit.jsp</jsp-file>
     </servlet>
 
 </web-app>

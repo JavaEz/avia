@@ -1,6 +1,7 @@
 package ua.nure.moisieiev.summaryTask4.util;
 
 import org.apache.log4j.Logger;
+import ua.nure.moisieiev.summaryTask4.entity.Crew;
 import ua.nure.moisieiev.summaryTask4.entity.Flight;
 import ua.nure.moisieiev.summaryTask4.entity.Staff;
 import ua.nure.moisieiev.summaryTask4.entity.User;
@@ -78,6 +79,10 @@ public class DBManager {
             "departament_id = ? WHERE id = ?";
     private static final String SQL_CREATE_STAFF = "INSERT INTO STAFF (staff_fname, staff_lname, departament_id)" +
             "VALUES(?, ?, ?)";
+    private static final String SQL_FIND_ALL_CREW = "SELECT * FROM crew";
+    private static final String SQL_DELETE_CREW_BY_ID = "DELETE FROM crew WHERE id = ?";
+    private static final String SQL_FIND_CREW_BY_ID = "SELECT * FROM crew WHERE id = ?";
+   // private static final String SQL_UPDATE
 
     /**
      * Returns a user with the given login.
@@ -407,6 +412,88 @@ public class DBManager {
     }
 
     /**
+     * Returns all crew list.
+     *
+     * @return List of crew entities.
+     */
+    public List<Crew> findAllCrew() throws DBException, SQLException {
+        List<Crew> crewList = new ArrayList<>();
+        Statement stmt = null;
+        ResultSet rs = null;
+        Connection con = null;
+        try{
+            con = getConnection();
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(SQL_FIND_ALL_CREW);
+            while (rs.next()){
+                crewList.add(extractCrew(rs));
+            }
+            con.commit();
+        } catch (SQLException e) {
+            con.rollback();
+            LOG.error(Messages.ERR_CANNOT_GET_ALL_CREW);
+            throw new DBException(Messages.ERR_CANNOT_GET_ALL_CREW, e);
+        } finally {
+            close(con, stmt, rs);
+        }
+        return crewList;
+    }
+
+    /**
+     * Delete crew by crew id.
+     *
+     * @param id;
+     */
+    public void deleteCrewById(int id) throws DBException, SQLException {
+        PreparedStatement pstmt = null;
+        Connection con = null;
+        try{
+            con = getConnection();
+            pstmt = con.prepareStatement(SQL_DELETE_CREW_BY_ID);
+            pstmt.setInt(1, id);
+            pstmt.executeUpdate();
+            con.commit();
+        }catch (SQLException e){
+            con.rollback();
+            LOG.error(Messages.ERR_CANNOT_DELETE_CREW);
+            throw new DBException(Messages.ERR_CANNOT_DELETE_CREW, e);
+        }finally {
+            close(con);
+            close(pstmt);
+        }
+    }
+
+    /**
+     * Find crew by crew id.
+     *
+     * @param id;
+     */
+
+    public Crew findCrewById(int id) throws SQLException, DBException {
+        Crew crew = null;
+        PreparedStatement pstmt = null;
+        Connection con = null;
+        ResultSet rs = null;
+        try {
+            con = getConnection();
+            pstmt = con.prepareStatement(SQL_FIND_CREW_BY_ID);
+            pstmt.setInt(1, id);
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
+                crew = extractCrew(rs);
+            }
+            con.commit();
+        } catch (SQLException e) {
+            con.rollback();
+            LOG.error(Messages.ERR_CANNOT_GET_CREW_BY_ID);
+            throw new DBException(Messages.ERR_CANNOT_GET_CREW_BY_ID, e);
+        } finally {
+            close(con, pstmt, rs);
+        }
+        return crew;
+    }
+
+    /**
      * Extracts a user entity from the result set.
      *
      * @param rs Result set from which a user entity will be extracted.
@@ -456,6 +543,20 @@ public class DBManager {
         staff.setLastName(rs.getString(Fields.STAFF_LAST_NAME));
         staff.setDepartamenId(rs.getInt(Fields.STAFF_DEPARTAMENT_ID));
         return staff;
+    }
+
+    /**
+     * Extracts a crew entity from the result set.
+     *
+     * @param rs Result set from which a Crew entity will be extracted.
+     * @return Crew entity
+     */
+
+    private Crew extractCrew(ResultSet rs) throws SQLException {
+        Crew crew = new Crew();
+        crew.setId(rs.getInt(Fields.ENTITY_ID));
+        crew.setCrewStatusId(rs.getInt(Fields.CREW_STATUS));
+        return crew;
     }
 
     /**

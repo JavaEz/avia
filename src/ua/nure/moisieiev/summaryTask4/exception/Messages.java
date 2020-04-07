@@ -20,6 +20,8 @@ public class Messages {
 
 	public static final String ERR_CANNOT_GET_ALL_FLIGHTS = "Cannot get flight list";
 
+	public static final String ERR_CANNOT_GET_ALL_CREW = "Cannot get crew list";
+
 	public static final String ERR_CANNOT_GET_ALL_STAFF = "Cannot get staff list";
 
 	public static final String ERR_CANNOT_CREATE_FLIGHT = "Cannot create flight";
@@ -29,6 +31,8 @@ public class Messages {
 	public static final String ERR_CANNOT_DELETE_FLIGHT = "Cannot delete flight";
 
 	public static final String ERR_CANNOT_DELETE_STAFF = "Cannot delete staff";
+
+	public static final String ERR_CANNOT_DELETE_CREW = "Cannot delete crew";
 
 	public static final String ERR_CANNOT_OBTAIN_MENU_ITEMS_BY_ORDER = "Cannot obtain menu items by order";
 
@@ -47,6 +51,8 @@ public class Messages {
 	public static final String ERR_CANNOT_GET_FLIGHT_BY_ID = "Cannot get a flight by its id";
 
 	public static final String ERR_CANNOT_GET_STAFF_BY_ID = "Cannot get a staff by its id";
+
+	public static final String ERR_CANNOT_GET_CREW_BY_ID = "Cannot get a crew by its id";
 
 	public static final String ERR_CANNOT_OBTAIN_USER_BY_LOGIN = "Cannot obtain a user by its login";
 

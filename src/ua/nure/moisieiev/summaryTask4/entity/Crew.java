@@ -1,14 +1,20 @@
 package ua.nure.moisieiev.summaryTask4.entity;
 
-public enum Crew {
-    READY,NOT_READY;
+public class Crew extends Entity{
+    private int crewStatusId;
 
-    public static Crew getFlightStatus(Flight flight) {
-        int crew = flight.getCrewId();
-        return Crew.values()[crew];
+    public int getCrewStatusId() {
+        return crewStatusId;
     }
 
-    public String getName() {
-        return name().toLowerCase();
+    public void setCrewStatusId(int crewStatusId) {
+        this.crewStatusId = crewStatusId;
+    }
+
+    @Override
+    public String toString() {
+        return "Crew{" +
+                "crewStatusId=" + crewStatusId +
+                '}';
     }
 }

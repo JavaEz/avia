@@ -88,12 +88,7 @@ CREATE TABLE `finaltask`.`staff` (
 ALTER TABLE `finaltask`.`staff`
     ADD INDEX `department_id_idx` (`departament_id` ASC) VISIBLE;
 ;
-ALTER TABLE `finaltask`.`staff`
-    ADD CONSTRAINT `department_id`
-        FOREIGN KEY (`departament_id`)
-            REFERENCES `finaltask`.`departaments` (id)
-            ON DELETE CASCADE
-            ON UPDATE RESTRICT;
+i
 
 CREATE TABLE `finaltask`.`crew_staff` (
                                           `cr_id` INT NOT NULL,

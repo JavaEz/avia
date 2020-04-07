@@ -27,6 +27,8 @@ public final class Fields {
     public static final String STAFF_LAST_NAME = "staff_lname";
     public static final String STAFF_DEPARTAMENT_ID = "departament_id";
 
+    public static final String CREW_STATUS = "crewstatus_id";
+
 
 
 }

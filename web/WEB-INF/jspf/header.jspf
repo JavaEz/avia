@@ -24,16 +24,18 @@ This way we define the ADMIN MENU.
 		<c:when test="${userRole.name == 'admin' }">
 			<a href="controller?command=flightList">All flight</a> &nbsp;
 			<a href="controller?command=staffList">All staff </a>  &nbsp;&nbsp;
+			<a href="controller?command=crewList">Crew list </a>
 		</c:when>
 
 
 
 <%--===========================================================================
-This way we define the USER MENU.
+This way we define the DISPATCHER MENU.
 ===========================================================================--%>
 		<c:when test="${userRole.name == 'dispatcher'}">
 			<a href="controller?command=flightList">All flight</a> &nbsp;
 			<a href="controller?command=staffList">All staff </a>  &nbsp;&nbsp;
+			<a href="controller?command=crewList">Crew list </a>  &nbsp;&nbsp;
 		</c:when>
 	</c:choose>
 	

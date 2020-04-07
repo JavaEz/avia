@@ -1,6 +1,8 @@
 package ua.nure.moisieiev.summaryTask4.web.command;
 
 import org.apache.log4j.Logger;
+import ua.nure.moisieiev.summaryTask4.web.command.crewCommands.CrewDeleteCommand;
+import ua.nure.moisieiev.summaryTask4.web.command.crewCommands.CrewListCommand;
 import ua.nure.moisieiev.summaryTask4.web.command.flightCommands.FlightEditCommand;
 import ua.nure.moisieiev.summaryTask4.web.command.flightCommands.FlightListCommand;
 import ua.nure.moisieiev.summaryTask4.web.command.flightCommands.FlightDeleteCommand;
@@ -25,10 +27,14 @@ public class CommandContainer {
         commands.put("logout", new LogoutCommand());
         commands.put("flightList", new FlightListCommand());
         commands.put("staffList", new StaffListCommand());
-       // commands.put("viewSettings", new ViewSettingsCommand());
+        commands.put("crewList", new CrewListCommand());
+        //commands.put("viewSettings", new ViewSettingsCommand());
         //commands.put("noCommand", new NoCommand());
 
         // dispatcher commands
+        commands.put("deleteCrew", new CrewDeleteCommand());
+       // commands.put("editCrew", new CrewEditCommand());
+
 
         // admin commands
         commands.put("deleteFlight", new FlightDeleteCommand());
