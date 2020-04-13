@@ -19,7 +19,7 @@
                 </div>
                 <br/>
                 <div>
-                    <label for="lastName">First name:</label>
+                    <label for="lastName">Last name:</label>
                     <input type="text" name="lastName" required id="lastName"/><br/>
                 </div>
                 <br/>
@@ -32,7 +32,7 @@
                 <div>
                     <div>
                         <label for="crewId">crewId</label>
-                        <input type="number" name="crewId" required
+                        <input type="number" name="crewId"
                                id="crewId"/><br/>
                     </div>
                     <br/>

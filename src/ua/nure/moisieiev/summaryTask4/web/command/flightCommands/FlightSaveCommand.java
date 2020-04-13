@@ -50,32 +50,23 @@ public class FlightSaveCommand extends Command {
                 flight.setDate(Date.valueOf(date));
                 flight.setFlightStatusId(Integer.parseInt(flightStatus));
                 flight.setCrewId(Integer.parseInt(crewNumber));
-
-                if (flight.getFlightName() != null && flight.getWhence() != null
-                        && flight.getWhereto() != null && flight.getDate() != null
-                        &&  flight.getFlightStatusId() != 0 &&  flight.getCrewId() != 0) {
-                    try {
-                        dbManager.updateFlightById(flight);
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-                }
+                dbManager.updateFlightById(flight);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         } else {
-                try {
-                    Flight flight1 = new Flight();
-                    flight1.setFlightName(flightName);
-                    flight1.setWhence(departure);
-                    flight1.setWhereto(arrival);
-                    flight1.setDate(Date.valueOf(date));
-                    flight1.setFlightStatusId(3);
-                    flight1.setCrewId(Integer.parseInt(crewNumber));
-                    dbManager.createFlight(flight1); //пишем новую логику
-                } catch (SQLException e) {
-                    LOG.error("CANNOT CREATE A NEW FLIGHT");
-                }
+            try {
+                Flight flight1 = new Flight();
+                flight1.setFlightName(flightName);
+                flight1.setWhence(departure);
+                flight1.setWhereto(arrival);
+                flight1.setDate(Date.valueOf(date));
+                flight1.setFlightStatusId(3);
+                flight1.setCrewId(Integer.parseInt(crewNumber));
+                dbManager.createFlight(flight1); //пишем новую логику
+            } catch (SQLException e) {
+                LOG.error("CANNOT CREATE A NEW FLIGHT");
+            }
         }
 
         LOG.debug("Command finished");

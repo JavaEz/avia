@@ -28,8 +28,10 @@
                     <td>Navigators</td>
                     <td>Operators radio</td>
                     <td>Steward/Stewardess</td>
-                    <td class="content center">Action</td>
-                    <td class="content center">Action2</td>
+                    <c:if test="${userRole.name == 'dispatcher'}">
+                        <td class="content center">Action</td>
+                        <td class="content center">Action2</td>
+                    </c:if>
                 </tr>
                 </thead>
 
@@ -44,22 +46,22 @@
                         <td><c:forEach var="staff" items="${staffList}">
                             <c:if test="${staff.crewId == crew.id}">
                                 <c:if test="${staff.departamenId == 4}">
-                                   <p> ${staff.firstName}
-                                           ${staff.lastName}</p></c:if>
+                                    <p> ${staff.firstName}
+                                            ${staff.lastName}</p></c:if>
                             </c:if>
                         </c:forEach></td>
                         <td><c:forEach var="staff" items="${staffList}">
                             <c:if test="${staff.crewId == crew.id}">
                                 <c:if test="${staff.departamenId == 1}">
-                                   <p> ${staff.firstName}
-                                           ${staff.lastName}</p></c:if>
+                                    <p> ${staff.firstName}
+                                            ${staff.lastName}</p></c:if>
                             </c:if>
                         </c:forEach></td>
                         <td><c:forEach var="staff" items="${staffList}">
                             <c:if test="${staff.crewId == crew.id}">
                                 <c:if test="${staff.departamenId == 2}">
-                                   <p> ${staff.firstName}
-                                           ${staff.lastName}</p></c:if>
+                                    <p> ${staff.firstName}
+                                            ${staff.lastName}</p></c:if>
                             </c:if>
                         </c:forEach></td>
                         <td><c:forEach var="staff" items="${staffList}">

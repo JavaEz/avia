@@ -15,17 +15,17 @@
             <form action="controller" method="post">
                 <div>
                     <label for="firstName">First name:</label>
-                    <input type="text" name="firstName" id="firstName"/><br/>
+                    <input type="text" name="firstName" required id="firstName"/><br/>
                 </div>
                 <br/>
                 <div>
-                    <label for="lastName">First name:</label>
-                    <input type="text" name="lastName" id="lastName"/><br/>
+                    <label for="lastName">Last name:</label>
+                    <input type="text" name="lastName" required id="lastName"/><br/>
                 </div>
                 <br/>
                 <div>
                     <label for="departamenId">Departament</label>
-                    <input type="number" name="departamenId" min="1" max="4"
+                    <input type="number" name="departamenId" min="1" max="4" required
                            id="departamenId"/><br/>
                 </div>
                 <br/>

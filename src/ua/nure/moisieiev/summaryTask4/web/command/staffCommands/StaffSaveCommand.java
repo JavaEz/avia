@@ -17,7 +17,7 @@ public class StaffSaveCommand extends Command {
 
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws  AppException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws AppException {
         LOG.debug("Command starts");
         String firstName = request.getParameter("firstName");
         LOG.trace("Request parameter: firstName --> " + firstName);
@@ -38,42 +38,27 @@ public class StaffSaveCommand extends Command {
             LOG.error("MISTAKE! ID not a number");
         }
         Staff staff;
-        if(id !=null){
+        if (id != null) {
             try {
                 staff = dbManager.findStaffById(id);
                 staff.setFirstName(firstName);
                 staff.setLastName(lastName);
                 staff.setDepartamenId(Integer.parseInt(departamenId));
                 staff.setCrewId(Integer.parseInt(crewId));
-
-                if(staff.getFirstName() != null && staff.getLastName() !=null
-                    && staff.getDepartamenId() != 0){
-                    try {
-                        dbManager.updateStaffById(staff);
-                    }catch (SQLException e){
-                        e.printStackTrace();
-                    }
-                }
+                dbManager.updateStaffById(staff);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         } else {
-            if(firstName == null || firstName.isEmpty() || lastName == null
-            || lastName.isEmpty() || departamenId == null || departamenId.isEmpty()
-            || crewId == null || crewId.isEmpty()){
-                LOG.error("MISTAKE");
-                return Path.PAGE_ERROR_PAGE;
-            }else{
-                try{
-                    Staff staff1 = new Staff();
-                    staff1.setFirstName(firstName);
-                    staff1.setLastName(lastName);
-                    staff1.setDepartamenId(Integer.parseInt(departamenId));
-                    staff1.setCrewId(Integer.parseInt(crewId));
-                    dbManager.createStaff(staff1);
-                }catch (SQLException e){
-                    LOG.error("CANNOT CREATE A NEW STAFF MEMBER");
-                }
+            try {
+                Staff staff1 = new Staff();
+                staff1.setFirstName(firstName);
+                staff1.setLastName(lastName);
+                staff1.setDepartamenId(Integer.parseInt(departamenId));
+                staff1.setCrewId(Integer.parseInt(crewId));
+                dbManager.createStaff(staff1);
+            } catch (SQLException e) {
+                LOG.error("CANNOT CREATE A NEW STAFF MEMBER");
             }
         }
         LOG.debug("Command finished");

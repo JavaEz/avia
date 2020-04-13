@@ -15,37 +15,37 @@
             <form action="controller" method="post">
                 <div>
                     <laber for="flightName">Flight name:</laber>
-                    <input type="text" name="flightName"
+                    <input type="text" name="flightName" required
                            id="flightName"/><br/>
                 </div>
                 <br/>
                 <div>
                     <label for="departure">Departure:</label>
-                    <input type="text" name="departure"
+                    <input type="text" name="departure" required
                            id="departure"/><br/>
                 </div>
                 <br/>
                 <div>
                     <label for="arrival">Arrival:</label>
-                    <input type="text" name="arrival"
+                    <input type="text" name="arrival" required
                            id="arrival"/><br/>
                 </div>
                 <br/>
                 <div>
                     <label for="date">Date of Departure:</label>
-                    <input type="date" name="date"
+                    <input type="date" name="date" required
                            id="date"/><br/>
                 </div>
                 <br/>
                 <div>
                     <label for="flightStatus">Flight status:</label>
-                    <input type="number" name="flightStatus" min="1" max="3"
+                    <input type="number" name="flightStatus" min="1" max="3" required
                            id="flightStatus"/><br/>
                 </div>
                 <br/>
                 <div>
                     <label for="crewNumber">Crew Number:</label>
-                    <input type="text" name="crewNumber"
+                    <input type="text" name="crewNumber" required
                            id="crewNumber"/><br/>
 
                 </div>
