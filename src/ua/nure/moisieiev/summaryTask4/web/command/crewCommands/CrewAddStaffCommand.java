@@ -12,31 +12,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
-public class CrewDeleteCommand extends Command {
+public class CrewAddStaffCommand extends Command {
 
-    private static final Logger LOG = Logger.getLogger(CrewDeleteCommand.class);
+    private static final Logger LOG = Logger.getLogger(CrewAddStaffCommand.class);
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
         LOG.debug("Command starts");
-        Integer id = null;
-        try{
-            id = Integer.parseInt(request.getParameter("id_crew"));
-        }catch (NumberFormatException e){
-            LOG.error("MISTAKE! ID not a number");
-        }
 
-        LOG.trace("Request parameter: id --> " + id);
-        if (id != null){
-            DBManager dbManager = DBManager.getInstance();
-            try {
-                dbManager.addDefaultCrewToStaff(id); // сделать функцию
-                dbManager.deleteCrewById(id);
-            }catch (SQLException e){
-                LOG.error("CANNOT DELETE CREW");
-            }
+        List<Staff> staffListForCrew = null;
+        DBManager dbManager = DBManager.getInstance();
+        try{
+            staffListForCrew = dbManager.findAllFreeStaff();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        return Path.COMMAND_CREW_LIST;
+        request.getSession().setAttribute("staffListForCrew", staffListForCrew);
+        LOG.debug("Command finished");
+        return Path.PAGE_ADD_CREW;
     }
 }

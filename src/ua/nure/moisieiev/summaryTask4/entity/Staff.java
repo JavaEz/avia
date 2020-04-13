@@ -9,6 +9,15 @@ public class Staff extends Entity {
     private String firstName;
     private String lastName;
     private int departamenId;
+    private int crewId;
+
+    public int getCrewId() {
+        return crewId;
+    }
+
+    public void setCrewId(int crewId) {
+        this.crewId = crewId;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -40,6 +49,7 @@ public class Staff extends Entity {
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", departamenId=" + departamenId +
+                ", crewId=" + crewId +
                 '}';
     }
 }

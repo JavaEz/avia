@@ -23,7 +23,7 @@ public class CrewEditCommand extends Command {
 
         Integer id = null;
         try {
-            id = Integer.parseInt(request.getParameter("id_staff"));
+            id = Integer.parseInt(request.getParameter("id_crew"));
         } catch (NumberFormatException e) {
             LOG.error("MISTAKE! ID not a number");
         }

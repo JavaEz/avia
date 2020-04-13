@@ -76,14 +76,15 @@ public class DBManager {
     private static final String SQL_DELETE_STAFF_BY_ID = "DELETE FROM staff WHERE id = ?";
     private static final String SQL_FIND_STAFF_BY_ID = "SELECT * FROM staff WHERE id = ?";
     private static final String SQL_UPDATE_STAFF_BY_ID = "UPDATE staff SET staff_fname = ?, staff_lname = ?," +
-            "departament_id = ? WHERE id = ?";
-    private static final String SQL_CREATE_STAFF = "INSERT INTO STAFF (staff_fname, staff_lname, departament_id)" +
-            "VALUES(?, ?, ?)";
+            "departament_id = ?, crew_id = ? WHERE id = ?";
+    private static final String SQL_CREATE_STAFF = "INSERT INTO STAFF (staff_fname, staff_lname, departament_id, crew_id)" +
+            "VALUES(?, ?, ?, ?)";
     private static final String SQL_FIND_ALL_CREW = "SELECT * FROM crew";
     private static final String SQL_DELETE_CREW_BY_ID = "DELETE FROM crew WHERE id = ?";
     private static final String SQL_FIND_CREW_BY_ID = "SELECT * FROM crew WHERE id = ?";
-   // private static final String SQL_UPDATE
-
+    private static final String SQL_SET_DEFAULT_CREW_TO_STAFF = "UPDATE staff SET staff.crew_id = 0 WHERE staff.crew_id = ?";
+    private static final String SQL_FIND_ALL_FREE_STAFF = "SELECT * FROM staff WHERE staff.crew_id = 0";
+    private static final String SQL_CREATE_CREW = "INSERT INTO crew VALUES(default, default)";
     /**
      * Returns a user with the given login.
      *
@@ -366,6 +367,7 @@ public class DBManager {
             pstmt.setString(k++, staff.getFirstName());
             pstmt.setString(k++, staff.getLastName());
             pstmt.setInt(k++, staff.getDepartamenId());
+            pstmt.setInt(k++, staff.getCrewId());
             pstmt.setInt(k++, staff.getId());
             pstmt.executeUpdate();
             con.commit();
@@ -390,16 +392,13 @@ public class DBManager {
         PreparedStatement pstmt = null;
         try{
             con = getConnection();
-            pstmt = con.prepareStatement(SQL_CREATE_STAFF, Statement.RETURN_GENERATED_KEYS);
+            pstmt = con.prepareStatement(SQL_CREATE_STAFF);
             int k = 1;
             pstmt.setString(k++, staff.getFirstName());
             pstmt.setString(k++, staff.getLastName());
             pstmt.setInt(k++, staff.getDepartamenId());
+            pstmt.setInt(k++, staff.getCrewId());
             pstmt.executeUpdate();
-            ResultSet rs = pstmt.getGeneratedKeys();
-            if (rs.next()){
-                staff.setId(rs.getInt(1));
-            }
             con.commit();
         }catch (SQLException e){
             con.rollback();
@@ -437,6 +436,29 @@ public class DBManager {
             close(con, stmt, rs);
         }
         return crewList;
+    }
+
+    public List<Staff> findAllFreeStaff() throws DBException, SQLException {
+        List<Staff> staffList = new ArrayList<>();
+        Statement stmt = null;
+        ResultSet rs = null;
+        Connection con = null;
+        try {
+            con = getConnection();
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(SQL_FIND_ALL_FREE_STAFF);
+            while (rs.next()){
+                staffList.add(extractStaff(rs));
+            }
+            con.commit();
+        } catch (SQLException e) {
+            con.rollback();
+            LOG.error("Cannot find free staff", e);
+            throw new DBException("Cannot find free staff", e);
+        } finally {
+            close(con, stmt, rs);
+        }
+        return staffList;
     }
 
     /**
@@ -493,6 +515,53 @@ public class DBManager {
         return crew;
     }
 
+    public void addDefaultCrewToStaff (int id) throws DBException, SQLException {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        try{
+            con = getConnection();
+            pstmt = con.prepareStatement(SQL_SET_DEFAULT_CREW_TO_STAFF);
+            pstmt.setInt(1, id);
+            pstmt.executeUpdate();
+            con.commit();
+        }catch (SQLException e) {
+            con.rollback();
+            LOG.error("CANT SET DEFAULT CREW TO STAFF");
+            throw new DBException(Messages.ERR_CANNOT_UPDATE_STAFF, e);
+        } finally {
+            close(con);
+            close(pstmt);
+        }
+    }
+
+    /**
+     * Create crew.
+     *
+     * @param crew;
+     */
+
+    public void createCrew(Crew crew) throws DBException, SQLException {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        try {
+            con = getConnection();
+            pstmt = con.prepareStatement(SQL_CREATE_CREW, Statement.RETURN_GENERATED_KEYS);
+            pstmt.executeUpdate();
+            ResultSet rs = pstmt.getGeneratedKeys();
+            if (rs.next()) {
+                crew.setId(rs.getInt(1));
+            }
+            con.commit();
+        } catch (SQLException e){
+            con.rollback();
+            LOG.error("CANNOT CREATE CREW");
+            throw new DBException("CANNOT CREATE CREW", e);
+        }finally {
+            close(con);
+            close(pstmt);
+        }
+    }
+
     /**
      * Extracts a user entity from the result set.
      *
@@ -542,6 +611,7 @@ public class DBManager {
         staff.setFirstName(rs.getString(Fields.STAFF_FIRST_NAME));
         staff.setLastName(rs.getString(Fields.STAFF_LAST_NAME));
         staff.setDepartamenId(rs.getInt(Fields.STAFF_DEPARTAMENT_ID));
+        staff.setCrewId(rs.getInt(Fields.STAFF_CREW_ID));
         return staff;
     }
 

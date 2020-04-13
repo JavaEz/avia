@@ -64,26 +64,18 @@ public class FlightSaveCommand extends Command {
                 e.printStackTrace();
             }
         } else {
-            if (flightName == null || flightName.isEmpty() || departure == null || departure.isEmpty()
-                    || arrival == null || arrival.isEmpty() || date == null || date.isEmpty()
-                    || flightStatus == null || flightStatus.isEmpty() || crewNumber == null
-                    || crewNumber.isEmpty()) {
-                LOG.error("MISTAKE");
-                return Path.PAGE_ERROR_PAGE;
-            } else {
                 try {
                     Flight flight1 = new Flight();
                     flight1.setFlightName(flightName);
                     flight1.setWhence(departure);
                     flight1.setWhereto(arrival);
                     flight1.setDate(Date.valueOf(date));
-                    flight1.setFlightStatusId(Integer.parseInt(flightStatus));
+                    flight1.setFlightStatusId(3);
                     flight1.setCrewId(Integer.parseInt(crewNumber));
                     dbManager.createFlight(flight1); //пишем новую логику
                 } catch (SQLException e) {
                     LOG.error("CANNOT CREATE A NEW FLIGHT");
                 }
-            }
         }
 
         LOG.debug("Command finished");

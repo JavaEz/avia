@@ -12,10 +12,9 @@
     <tr>
         <td class="content">
             <%-- CONTENT --%>
-            <form id="create_staff" action="controller" method="post">
-                <input type="hidden" name="command" value="editStaff"/>
-                <input value="Add new member to staff" type="submit"/>
-            </form>
+            <c:if test="${userRole.name == 'admin'}">
+                <button><a href="/addStaff">Add new member to Staff</a></button>
+            </c:if>
 
             <table id="list_staff_table">
                 <thead>
@@ -32,10 +31,12 @@
                         <td>${staff.id}</td>
                         <td>${staff.firstName}</td>
                         <td>${staff.lastName}</td>
-                        <td><c:if test="${staff.departamenId == 0}">PILOT</c:if>
+                        <td><c:if test="${staff.departamenId == 4}">PILOT</c:if>
                             <c:if test="${staff.departamenId == 1}">NAVIGATOR</c:if>
                             <c:if test="${staff.departamenId == 2}">SPARK</c:if>
                             <c:if test="${staff.departamenId == 3}">STEWARD</c:if></td>
+                        <td><c:if test="${staff.crewId == 0}">FREE</c:if>
+                            <c:if test="${staff.crewId != 0}">IN CREW(BUSY) - Crew №:${staff.crewId}</c:if></td>
                         <c:if test="${userRole.name == 'admin'}">
                             <td class="content center">
                                 <form id="edit_staff" action="controller" method="post">

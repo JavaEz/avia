@@ -25,6 +25,9 @@ public class StaffSaveCommand extends Command {
         LOG.trace("Request parameter: lastName --> " + lastName);
         String departamenId = request.getParameter("departamenId");
         LOG.trace("Request parameter: departamenId --> " + departamenId);
+        String crewId = request.getParameter("crewId");
+        LOG.trace("Request parameter: crewId --> " + crewId);
+
 
         DBManager dbManager = DBManager.getInstance();
 
@@ -41,6 +44,7 @@ public class StaffSaveCommand extends Command {
                 staff.setFirstName(firstName);
                 staff.setLastName(lastName);
                 staff.setDepartamenId(Integer.parseInt(departamenId));
+                staff.setCrewId(Integer.parseInt(crewId));
 
                 if(staff.getFirstName() != null && staff.getLastName() !=null
                     && staff.getDepartamenId() != 0){
@@ -55,7 +59,8 @@ public class StaffSaveCommand extends Command {
             }
         } else {
             if(firstName == null || firstName.isEmpty() || lastName == null
-            || lastName.isEmpty() || departamenId == null || departamenId.isEmpty()){
+            || lastName.isEmpty() || departamenId == null || departamenId.isEmpty()
+            || crewId == null || crewId.isEmpty()){
                 LOG.error("MISTAKE");
                 return Path.PAGE_ERROR_PAGE;
             }else{
@@ -64,6 +69,7 @@ public class StaffSaveCommand extends Command {
                     staff1.setFirstName(firstName);
                     staff1.setLastName(lastName);
                     staff1.setDepartamenId(Integer.parseInt(departamenId));
+                    staff1.setCrewId(Integer.parseInt(crewId));
                     dbManager.createStaff(staff1);
                 }catch (SQLException e){
                     LOG.error("CANNOT CREATE A NEW STAFF MEMBER");

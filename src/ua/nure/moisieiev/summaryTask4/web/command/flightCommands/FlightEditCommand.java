@@ -35,7 +35,7 @@ public class FlightEditCommand extends Command {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            request.getSession().setAttribute("flight", flight); //
+            request.getSession().setAttribute("flight", flight);
             LOG.trace("Set the request attribute: flightList --> " + flight);
         }
 

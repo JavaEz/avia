@@ -59,7 +59,7 @@
         </init-param>
         <init-param>
             <param-name>dispatcher</param-name>
-          <param-value>listMenu deleteCrew editCrew</param-value> <!--  // команды в которые он сможет зайти-->
+          <param-value>listMenu deleteCrew editCrew addCrew saveCrew</param-value> <!--  // команды в которые он сможет зайти-->
         </init-param>
         <init-param>
             <param-name>common</param-name>
@@ -122,6 +122,30 @@
     <servlet>
         <servlet-name>editCrew</servlet-name>
         <jsp-file>/WEB-INF/jsp/crew_edit.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>addFlight</servlet-name>
+        <url-pattern>/addFlight</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>addFlight</servlet-name>
+        <jsp-file>/WEB-INF/jsp/add_flight.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>addStaff</servlet-name>
+        <url-pattern>/addStaff</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>addStaff</servlet-name>
+        <jsp-file>/WEB-INF/jsp/add_staff.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>addCrew</servlet-name>
+        <url-pattern>/addCrew</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>addCrew</servlet-name>
+        <jsp-file>/WEB-INF/jsp/add_crew.jsp</jsp-file>
     </servlet>
 
 </web-app>

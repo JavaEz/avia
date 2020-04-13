@@ -12,10 +12,9 @@
     <tr>
         <td class="content">
             <%-- CONTENT --%>
-            <form id="create_flight" action="controller" method="post">
-                <input type="hidden" name="command" value="editFlight"/>
-                <input value="Create new Flight" type="submit"/>
-            </form>
+            <c:if test="${userRole.name == 'admin'}">
+                <button><a href="/addFlight">Create a new Flight</a></button>
+            </c:if>
 
             <table id="list_flights_table">
                 <thead>
@@ -37,9 +36,9 @@
                         <td>${flight.whence}</td>
                         <td>${flight.whereto}</td>
                         <td>${flight.date}</td>
-                        <td><c:if test="${flight.flightStatusId ==0}">OPENED</c:if>
-                        <c:if test="${flight.flightStatusId ==1}">ARRIVED</c:if>
-                        <c:if test="${flight.flightStatusId ==2}">CANCELED</c:if></td>
+                        <td><c:if test="${flight.flightStatusId ==3}">OPENED</c:if>
+                            <c:if test="${flight.flightStatusId ==1}">ARRIVED</c:if>
+                            <c:if test="${flight.flightStatusId ==2}">CANCELED</c:if></td>
                         <td>${flight.crewId}</td>
                         <c:if test="${userRole.name == 'admin'}">
                             <td class="content center">

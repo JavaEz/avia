@@ -12,48 +12,90 @@
     <tr>
         <td class="content">
             <%-- CONTENT --%>
-            <form id="create_crew" action="controller" method="post">
-                <input type="hidden" name="command" value="editCrew"/>
-                <input value="Add new Crew" type="submit"/>
-            </form>
+            <c:if test="${userRole.name == 'dispatcher'}">
+                <form id="edit_staff" action="controller" method="post">
+                    <input type="hidden" name="command" value="addCrew"/>
+                    <input type="submit" value="Create a new Crew">
+                </form>
+            </c:if>
 
             <table id="list_staff_table">
                 <thead>
                 <tr>
-                    <td>ID</td>
+                    <td>Crew ID</td>
                     <td>Crew Status</td>
+                    <td>Pilots</td>
+                    <td>Navigators</td>
+                    <td>Operators radio</td>
+                    <td>Steward/Stewardess</td>
+                    <td class="content center">Action</td>
+                    <td class="content center">Action2</td>
                 </tr>
                 </thead>
 
                 <c:forEach var="crew" items="${crewList}">
                     <tr>
-    <td>${crew.id}</td>
-    <td><c:if test="${crew.crewStatusId == 0}">Not Ready</c:if>
-        <c:if test="${crew.crewStatusId == 1}">Ready</c:if></td>
-    <c:if test="${userRole.name == 'dispatcher'}">
-            <td class="content center">
-                <form id="edit_crew" action="controller" method="post">
-                    <input type="hidden" name="command" value="editCrew"/>
-                    <input type="hidden" name="id_crew" value="${crew.id}"/>
-                    <input type="submit" value="Edit">
-                </form>
-            </td>
-            <td class="content center">
-                 <form id="delete_crew" action="controller" method="post">
-                     <input type="hidden" name="command" value="deleteCrew"/>
-                     <input type="hidden" name="id_crew" value="${crew.id}"/>
-                     <input type="submit" value="Delete">
-                 </form>
-             </td>
-    </c:if>
-</tr>
+                        <td>${crew.id}</td>
+                        <td><c:if test="${crew.id != 0}">
+                            <c:if test="${crew.crewStatusId == 2}">Not Ready</c:if>
+                            <c:if test="${crew.crewStatusId == 1}">Ready</c:if>
+                        </c:if>
+                            <c:if test="${crew.id == 0}">Free person</c:if></td>
+                        <td><c:forEach var="staff" items="${staffList}">
+                            <c:if test="${staff.crewId == crew.id}">
+                                <c:if test="${staff.departamenId == 4}">
+                                   <p> ${staff.firstName}
+                                           ${staff.lastName}</p></c:if>
+                            </c:if>
+                        </c:forEach></td>
+                        <td><c:forEach var="staff" items="${staffList}">
+                            <c:if test="${staff.crewId == crew.id}">
+                                <c:if test="${staff.departamenId == 1}">
+                                   <p> ${staff.firstName}
+                                           ${staff.lastName}</p></c:if>
+                            </c:if>
+                        </c:forEach></td>
+                        <td><c:forEach var="staff" items="${staffList}">
+                            <c:if test="${staff.crewId == crew.id}">
+                                <c:if test="${staff.departamenId == 2}">
+                                   <p> ${staff.firstName}
+                                           ${staff.lastName}</p></c:if>
+                            </c:if>
+                        </c:forEach></td>
+                        <td><c:forEach var="staff" items="${staffList}">
+                            <c:if test="${staff.crewId == crew.id}">
+                                <c:if test="${staff.departamenId == 3}">
+                                    <p> ${staff.firstName}
+                                            ${staff.lastName}</p>
+                                </c:if>
+                            </c:if>
+                        </c:forEach></td>
+                        <c:if test="${userRole.name == 'dispatcher'}">
+                            <c:if test="${crew.id != 0}">
+                                <td class="content center">
+                                    <form id="edit_crew" action="controller" method="post">
+                                        <input type="hidden" name="command" value="editCrew"/>
+                                        <input type="hidden" name="id_crew" value="${crew.id}"/>
+                                        <input type="submit" value="Edit">
+                                    </form>
+                                </td>
+                                <td class="content center">
+                                    <form id="delete_crew" action="controller" method="post">
+                                        <input type="hidden" name="command" value="deleteCrew"/>
+                                        <input type="hidden" name="id_crew" value="${crew.id}"/>
+                                        <input type="submit" value="Delete">
+                                    </form>
+                                </td>
+                            </c:if>
+                        </c:if>
+                    </tr>
                 </c:forEach>
             </table>
             <%-- CONTENT --%>
         </td>
     </tr>
 
-<%@ include file="/WEB-INF/jspf/footer.jspf" %>
+    <%@ include file="/WEB-INF/jspf/footer.jspf" %>
 
 </table>
 </body>
