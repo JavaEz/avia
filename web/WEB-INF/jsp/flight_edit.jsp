@@ -13,6 +13,7 @@
         <td class="content center">
             <%-- CONTENT --%>
             <form action="controller" method="post">
+                <c:if test="${userRole.name == 'admin'}">
                 <div>
                     <label for="flightName">Flight name:</label>
                     <input type="text" name="flightName" required
@@ -55,6 +56,20 @@
                     <input type="hidden" name="id_flight" value="${flight.id}"/>
                     <input value="Send" type="submit"/>
                 </div>
+                </c:if>
+                <c:if test="${userRole.name == 'dispatcher'}">
+                    <div>
+                        <label for="flightStatus">Flight status:</label>
+                        <input type="number" name="flightStatus" min="1" max="3" required
+                               id="flightStatusForDispathcer" value="${flight.flightStatusId }"/><br/>
+                    </div>
+                    <br/>
+                    <div>
+                        <input type="hidden" name="command" value="saveFlightStatus"/>
+                        <input type="hidden" name="id_flight" value="${flight.id}"/>
+                        <input value="Send" type="submit"/>
+                    </div>
+                </c:if>
             </form>
             <%-- CONTENT --%>
         </td>

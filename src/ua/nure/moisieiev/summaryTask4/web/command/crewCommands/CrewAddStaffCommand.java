@@ -31,6 +31,7 @@ public class CrewAddStaffCommand extends Command {
             e.printStackTrace();
         }
         request.getSession().setAttribute("staffListForCrew", staffListForCrew);
+        LOG.trace("Set the request attribute: staffListForCrew --> " + staffListForCrew);
         LOG.debug("Command finished");
         return Path.PAGE_ADD_CREW;
     }

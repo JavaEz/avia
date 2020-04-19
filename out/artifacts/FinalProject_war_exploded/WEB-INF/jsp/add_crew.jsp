@@ -2,7 +2,7 @@
 <%@ include file="/WEB-INF/jspf/directive/page.jspf" %>
 <%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
 <html>
-<c:set var="title" value="Creation / change of staff" scope="page"/>
+<c:set var="title" value="Create a new Crew" scope="page"/>
 <%@ include file="/WEB-INF/jspf/head.jspf" %>
 <body>
 <table id="main-container">

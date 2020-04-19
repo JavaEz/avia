@@ -41,6 +41,21 @@
     </filter-mapping>
 
 
+    <filter>
+        <display-name>AdminFilter</display-name>
+        <filter-name>AdminFilter</filter-name>
+        <filter-class>ua.nure.moisieiev.summaryTask4.web.filter.AdminFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AdminFilter</filter-name>
+        <url-pattern>/editStaff</url-pattern>
+        <url-pattern>/addFlight</url-pattern>
+        <url-pattern>/addStaff</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </filter-mapping>
+
+
     <!--============================================================
         Security filter.
         1) admin: admin commands
@@ -55,15 +70,15 @@
         <filter-class>ua.nure.moisieiev.summaryTask4.web.filter.CommandAccessFilter</filter-class>
         <init-param>
             <param-name>admin</param-name>
-            <param-value>deleteFlight editFlight saveFlight deleteStaff editStaff saveStaff</param-value>
+            <param-value>deleteFlight deleteStaff editStaff saveStaff saveFlight</param-value>
         </init-param>
         <init-param>
             <param-name>dispatcher</param-name>
-          <param-value>listMenu deleteCrew editCrew addCrew saveCrew</param-value> <!--  // команды в которые он сможет зайти-->
+          <param-value>listMenu deleteCrew editCrew addCrew saveCrew saveFlightStatus </param-value> <!--  // команды в которые он сможет зайти-->
         </init-param>
         <init-param>
             <param-name>common</param-name>
-            <param-value>logout noCommand viewSettings flightList staffList crewList</param-value>
+            <param-value>logout noCommand viewSettings flightList staffList crewList editFlight searchFlights </param-value>
         </init-param>
         <init-param>
             <param-name>out-of-control</param-name>
@@ -146,6 +161,22 @@
     <servlet>
         <servlet-name>addCrew</servlet-name>
         <jsp-file>/WEB-INF/jsp/add_crew.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>flightlist</servlet-name>
+        <url-pattern>/flightlist</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>flightlist</servlet-name>
+        <jsp-file>/WEB-INF/jsp/flightlist.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>errorPage</servlet-name>
+        <url-pattern>/errorPage</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>errorPage</servlet-name>
+        <jsp-file>/WEB-INF/jsp/error_page.jsp</jsp-file>
     </servlet>
 
 </web-app>

@@ -32,7 +32,7 @@
 				<c:if test="${not empty code}">
 					<h3>Error code: ${code}</h3>
 				</c:if>			
-				
+
 				<c:if test="${not empty message}">
 					<h3>${message}</h3>
 				</c:if>
@@ -47,6 +47,13 @@
 				</c:if>
 
 			<%-- CONTENT --%>
+				<button onclick="goBack()">Go Back</button>
+
+				<script>
+					function goBack() {
+						window.history.back();
+					}
+				</script>
 			</td>
 		</tr>
 

@@ -85,6 +85,9 @@ public class DBManager {
     private static final String SQL_SET_DEFAULT_CREW_TO_STAFF = "UPDATE staff SET staff.crew_id = 0 WHERE staff.crew_id = ?";
     private static final String SQL_FIND_ALL_FREE_STAFF = "SELECT * FROM staff WHERE staff.crew_id = 0";
     private static final String SQL_CREATE_CREW = "INSERT INTO crew VALUES(default, default)";
+    private static final String SQL_FIND_ALL_STAFF_BY_CREW_ID = "SELECT * FROM staff WHERE staff.crew_id = ?";
+
+
     /**
      * Returns a user with the given login.
      *
@@ -357,7 +360,7 @@ public class DBManager {
      * @param staff;
      */
 
-    public void updateStaffById(Staff staff) throws DBException, SQLException {
+    public void updateStaff(Staff staff) throws DBException, SQLException {
         Connection con = null;
         PreparedStatement pstmt = null;
         try {
@@ -387,10 +390,10 @@ public class DBManager {
      * @param staff;
      */
 
-    public void createStaff (Staff staff) throws SQLException, DBException {
+    public void createStaff(Staff staff) throws SQLException, DBException {
         Connection con = null;
         PreparedStatement pstmt = null;
-        try{
+        try {
             con = getConnection();
             pstmt = con.prepareStatement(SQL_CREATE_STAFF);
             int k = 1;
@@ -400,7 +403,7 @@ public class DBManager {
             pstmt.setInt(k++, staff.getCrewId());
             pstmt.executeUpdate();
             con.commit();
-        }catch (SQLException e){
+        } catch (SQLException e) {
             con.rollback();
             LOG.error(Messages.ERR_CANNOT_CREATE_STAFF);
             throw new DBException(Messages.ERR_CANNOT_CREATE_STAFF, e);
@@ -420,11 +423,11 @@ public class DBManager {
         Statement stmt = null;
         ResultSet rs = null;
         Connection con = null;
-        try{
+        try {
             con = getConnection();
             stmt = con.createStatement();
             rs = stmt.executeQuery(SQL_FIND_ALL_CREW);
-            while (rs.next()){
+            while (rs.next()) {
                 crewList.add(extractCrew(rs));
             }
             con.commit();
@@ -447,7 +450,7 @@ public class DBManager {
             con = getConnection();
             stmt = con.createStatement();
             rs = stmt.executeQuery(SQL_FIND_ALL_FREE_STAFF);
-            while (rs.next()){
+            while (rs.next()) {
                 staffList.add(extractStaff(rs));
             }
             con.commit();
@@ -469,17 +472,17 @@ public class DBManager {
     public void deleteCrewById(int id) throws DBException, SQLException {
         PreparedStatement pstmt = null;
         Connection con = null;
-        try{
+        try {
             con = getConnection();
             pstmt = con.prepareStatement(SQL_DELETE_CREW_BY_ID);
             pstmt.setInt(1, id);
             pstmt.executeUpdate();
             con.commit();
-        }catch (SQLException e){
+        } catch (SQLException e) {
             con.rollback();
             LOG.error(Messages.ERR_CANNOT_DELETE_CREW);
             throw new DBException(Messages.ERR_CANNOT_DELETE_CREW, e);
-        }finally {
+        } finally {
             close(con);
             close(pstmt);
         }
@@ -515,16 +518,16 @@ public class DBManager {
         return crew;
     }
 
-    public void addDefaultCrewToStaff (int id) throws DBException, SQLException {
+    public void addDefaultCrewToStaff(int id) throws DBException, SQLException {
         Connection con = null;
         PreparedStatement pstmt = null;
-        try{
+        try {
             con = getConnection();
             pstmt = con.prepareStatement(SQL_SET_DEFAULT_CREW_TO_STAFF);
             pstmt.setInt(1, id);
             pstmt.executeUpdate();
             con.commit();
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             con.rollback();
             LOG.error("CANT SET DEFAULT CREW TO STAFF");
             throw new DBException(Messages.ERR_CANNOT_UPDATE_STAFF, e);
@@ -552,14 +555,74 @@ public class DBManager {
                 crew.setId(rs.getInt(1));
             }
             con.commit();
-        } catch (SQLException e){
+        } catch (SQLException e) {
             con.rollback();
             LOG.error("CANNOT CREATE CREW");
             throw new DBException("CANNOT CREATE CREW", e);
-        }finally {
+        } finally {
             close(con);
             close(pstmt);
         }
+    }
+
+    /**
+     * Find staff by crew id in staff.
+     *
+     * @param id;
+     */
+
+    public List<Staff> findAllStaffByCrewId(int id) throws SQLException, DBException {
+        List<Staff> staffList = new ArrayList<>();
+        PreparedStatement pstmt = null;
+        Connection con = null;
+        ResultSet rs = null;
+        try {
+            con = getConnection();
+            pstmt = con.prepareStatement(SQL_FIND_ALL_STAFF_BY_CREW_ID);
+            pstmt.setInt(1, id);
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                staffList.add(extractStaff(rs));
+            }
+            con.commit();
+        } catch (SQLException e) {
+            con.rollback();
+            LOG.error(Messages.ERR_CANNOT_GET_STAFF_LIST_BY_CREW_ID, e);
+            throw new DBException(Messages.ERR_CANNOT_GET_STAFF_LIST_BY_CREW_ID, e);
+        } finally {
+            close(con, pstmt, rs);
+        }
+        return staffList;
+    }
+
+    /**
+     * Find staff by crew id.
+     *
+     * @param id;
+     */
+
+    public Staff findStaffByCrewId(int id) throws DBException, SQLException {
+        Staff staff = null;
+        PreparedStatement pstmt = null;
+        Connection con = null;
+        ResultSet rs = null;
+        try {
+            con = getConnection();
+            pstmt = con.prepareStatement(SQL_FIND_ALL_STAFF_BY_CREW_ID);
+            pstmt.setInt(1, id);
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
+                staff = extractStaff(rs);
+            }
+            con.commit();
+        } catch (SQLException e) {
+            con.rollback();
+            LOG.error(Messages.ERR_CANNOT_GET_STAFF_BY_CREW_ID);
+            throw new DBException(Messages.ERR_CANNOT_GET_STAFF_BY_CREW_ID, e);
+        } finally {
+            close(con, pstmt, rs);
+        }
+        return staff;
     }
 
     /**

@@ -45,7 +45,7 @@ public class StaffSaveCommand extends Command {
                 staff.setLastName(lastName);
                 staff.setDepartamenId(Integer.parseInt(departamenId));
                 staff.setCrewId(Integer.parseInt(crewId));
-                dbManager.updateStaffById(staff);
+                dbManager.updateStaff(staff);
             } catch (SQLException e) {
                 e.printStackTrace();
             }

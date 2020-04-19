@@ -43,6 +43,13 @@ This way we define the DISPATCHER MENU.
 This way we define the settings anchor.
 ===========================================================================--%> 
 	<a href="controller?command=viewSettings">Settings</a> &nbsp;
+	<c:if test="${searchForForm != null}">
+		<form action="controller" method="post">
+			<input type="hidden" name="command" value="searchFlights" />
+			<input type="number" name="search" min="1" required/>
+			<input type="submit" value="Search flight by number"/>
+		</form>
+	</c:if>
 
 </div>
 

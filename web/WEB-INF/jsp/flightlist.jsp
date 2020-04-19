@@ -11,6 +11,36 @@
 
     <tr>
         <td class="content">
+            <div>
+                <form id="sorting_flights" action="controller" method="post">
+                    <input type="hidden" name="command" value="flightList"/>
+                    <label>
+                        <select name="sorting">
+                            <option value="name">By name</option>
+                            <option value="number">By flight number</option>
+                        </select>
+                    </label>
+                    <label>
+                        <select name="ordering">
+                            <option value="asc">By ASC</option>
+                            <option value="desc">By DESC</option>
+                        </select>
+                    </label>
+                    <input value="Sort" type="submit"/>
+                </form>
+            </div>
+            <div> НАЙТИ РЕЙС
+                <form id="flight_sampling" action="controller" method="post">
+                    <input type="hidden" name="command" value="flightList"/>
+                    <label>From</label>
+                    <input type="text" name="from" placeholder="Choose Town" />
+                    <label>To</label>
+                    <input type="text" name="to" placeholder="Choose Town" />
+                    <label>Date</label>
+                    <input type="date" name="date"/>
+                    <button type="submit">Find flight</button>
+                </form>
+            </div>
             <%-- CONTENT --%>
             <c:if test="${userRole.name == 'admin'}">
                 <button><a href="/addFlight">Create a new Flight</a></button>
@@ -56,10 +86,27 @@
                                 </form>
                             </td>
                         </c:if>
+                        <c:if test="${userRole.name == 'dispatcher'}">
+                            <td class="content center">
+                                <form id="edit_flight_status" action="controller" method="post">
+                                    <input type="hidden" name="command" value="editFlight"/>
+                                    <input type="hidden" name="id_flight" value="${flight.id}"/>
+                                    <input value="Change flight status" type="submit"/>
+                                </form>
+                            </td>
+                        </c:if>
                     </tr>
                 </c:forEach>
             </table>
+            <br/>
             <%-- CONTENT --%>
+            <button onclick="goBack()">Go Back</button>
+
+            <script>
+                function goBack() {
+                    window.history.back();
+                }
+            </script>
         </td>
     </tr>
 

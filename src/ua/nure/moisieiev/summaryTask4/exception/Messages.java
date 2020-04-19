@@ -52,6 +52,10 @@ public class Messages {
 
 	public static final String ERR_CANNOT_GET_STAFF_BY_ID = "Cannot get a staff by its id";
 
+	public static final String ERR_CANNOT_GET_STAFF_LIST_BY_CREW_ID = "Cannot get a staff list by crew id";
+
+	public static final String ERR_CANNOT_GET_STAFF_BY_CREW_ID = "Cannot get a staff by crew id";
+
 	public static final String ERR_CANNOT_GET_CREW_BY_ID = "Cannot get a crew by its id";
 
 	public static final String ERR_CANNOT_OBTAIN_USER_BY_LOGIN = "Cannot obtain a user by its login";
