@@ -67,6 +67,7 @@ public class DBManager {
     private static final String SQL_FIND_ALL_FLIGHTS = "SELECT * FROM flights";
     private static final String SQL_DELETE_FLIGHT_BY_ID = "DELETE FROM flights WHERE id = ?";
     private static final String SQL_FIND_FLIGHT_BY_ID = "SELECT * FROM flights WHERE id = ?";
+    private static final String SQL_FIND_ALL_FLIGHTS_BY_PARAM = "SELECT * FROM flights WHERE whence = ? AND whereto = ? AND date = ?";
     private static final String SQL_UPDATE_FLIGHT_BY_ID = "UPDATE flights SET flight_name = ?, whence = ?," +
             "whereto = ?, date = ?, flight_status = ?, crew_id = ? WHERE id = ?";
     private static final String SQL_CREATE_FLIGHT = "INSERT INTO flights" +
@@ -623,6 +624,33 @@ public class DBManager {
             close(con, pstmt, rs);
         }
         return staff;
+    }
+
+    public List<Flight> findAllFlightsByParameters(String from, String to, Date date) throws DBException, SQLException {
+        List<Flight> flightList = new ArrayList<>();
+        PreparedStatement statement = null;
+        ResultSet rs = null;
+        Connection con = null;
+        try {
+            int k = 1;
+            con = getConnection();
+            statement = con.prepareStatement(SQL_FIND_ALL_FLIGHTS_BY_PARAM);
+            statement.setString(k++, from);
+            statement.setString(k++, to);
+            statement.setDate(k, date);
+            rs = statement.executeQuery();
+            while (rs.next()) {
+                flightList.add(extractFlight(rs));
+            }
+            con.commit();
+        } catch (SQLException e) {
+            con.rollback();
+            LOG.error(Messages.ERR_CANNOT_GET_ALL_FLIGHTS_BY_PARAM);
+            throw new DBException(Messages.ERR_CANNOT_GET_ALL_FLIGHTS_BY_PARAM, e);
+        } finally {
+            close(con, statement, rs);
+        }
+        return flightList;
     }
 
     /**

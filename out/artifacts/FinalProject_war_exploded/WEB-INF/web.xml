@@ -78,7 +78,7 @@
         </init-param>
         <init-param>
             <param-name>common</param-name>
-            <param-value>logout noCommand viewSettings flightList staffList crewList editFlight searchFlights </param-value>
+            <param-value>logout noCommand viewSettings flightList staffList crewList editFlight searchFlights selectionFlights</param-value>
         </init-param>
         <init-param>
             <param-name>out-of-control</param-name>

@@ -5,6 +5,7 @@
 <c:set var="title" value="All Flight" scope="page"/>
 <%@ include file="/WEB-INF/jspf/head.jspf" %>
 <body>
+<c:set var="searchForForm" value="active" scope="page"/>
 <table id="main-container">
 
     <%@ include file="/WEB-INF/jspf/header.jspf" %>
@@ -31,13 +32,13 @@
             </div>
             <div> НАЙТИ РЕЙС
                 <form id="flight_sampling" action="controller" method="post">
-                    <input type="hidden" name="command" value="flightList"/>
+                    <input type="hidden" name="command" value="selectionFlights"/>
                     <label>From</label>
-                    <input type="text" name="from" placeholder="Choose Town" />
+                    <input type="text" name="from" required placeholder="Choose Town" />
                     <label>To</label>
-                    <input type="text" name="to" placeholder="Choose Town" />
+                    <input type="text" name="to" required placeholder="Choose Town" />
                     <label>Date</label>
-                    <input type="date" name="date"/>
+                    <input type="date" required name="date"/>
                     <button type="submit">Find flight</button>
                 </form>
             </div>

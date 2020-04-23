@@ -22,6 +22,8 @@ public class Messages {
 
 	public static final String ERR_CANNOT_GET_ALL_CREW = "Cannot get crew list";
 
+	public static final String ERR_CANNOT_GET_ALL_FLIGHTS_BY_PARAM = "Cannot get flight list by parameters";
+
 	public static final String ERR_CANNOT_GET_ALL_STAFF = "Cannot get staff list";
 
 	public static final String ERR_CANNOT_CREATE_FLIGHT = "Cannot create flight";

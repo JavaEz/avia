@@ -26,6 +26,7 @@ public class CommandContainer {
         commands.put("crewList", new CrewListCommand());
         commands.put("editFlight", new FlightEditCommand());
         commands.put("searchFlights", new FlightSearchCommand());
+        commands.put("selectionFlights", new FlightSelectionCommand());
         //commands.put("viewSettings", new ViewSettingsCommand());
         //commands.put("noCommand", new NoCommand());
 

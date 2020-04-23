@@ -40,8 +40,6 @@ public class FlightListCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws AppException {
         LOG.debug("Command starts");
-
-        String searchForForm = "searchForForm";
         //get flights list
         List<Flight> flightList = null;
         try {
@@ -59,7 +57,6 @@ public class FlightListCommand extends Command {
            flightList = sortFlights(flightList, sorting, ordering);
         }
         // put flight list to the request
-        request.setAttribute("searchForForm", searchForForm);
         request.getSession().setAttribute("flightList", flightList);
         LOG.trace("Set the request attribute: flightList --> " + flightList);
 
