@@ -26,7 +26,11 @@ public class Messages {
 
 	public static final String ERR_CANNOT_GET_ALL_STAFF = "Cannot get staff list";
 
+	public static final String ERR_CANNOT_GET_ALL_REQUESTS = "Cannot get request list";
+
 	public static final String ERR_CANNOT_CREATE_FLIGHT = "Cannot create flight";
+
+	public static final String ERR_CANNOT_CREATE_REQUEST = "Cannot create request";
 
 	public static final String ERR_CANNOT_CREATE_STAFF = "Cannot create staff";
 

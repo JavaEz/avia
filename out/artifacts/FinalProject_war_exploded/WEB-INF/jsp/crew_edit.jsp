@@ -97,7 +97,6 @@
                     <input type="hidden" name="command" value="saveCrew"/>
                     <input value="Send" type="submit"/>
                 </div>
-                </div>
             </form>
             <%-- CONTENT --%>
         </td>

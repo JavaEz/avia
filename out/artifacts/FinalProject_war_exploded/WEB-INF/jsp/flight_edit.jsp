@@ -62,6 +62,7 @@
                         <label for="flightStatus">Flight status:</label>
                         <input type="number" name="flightStatus" min="1" max="3" required
                                id="flightStatusForDispathcer" value="${flight.flightStatusId }"/><br/>
+<%--поменять на селекты--%>
                     </div>
                     <br/>
                     <div>

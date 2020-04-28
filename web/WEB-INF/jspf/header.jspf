@@ -25,6 +25,7 @@ This way we define the ADMIN MENU.
 			<a href="controller?command=flightList">All flight</a> &nbsp;
 			<a href="controller?command=staffList">All staff </a>  &nbsp;&nbsp;
 			<a href="controller?command=crewList">Crew list </a>	&nbsp;
+			<a href="controller?command=requestList">Request </a>  &nbsp;&nbsp;
 		</c:when>
 
 
@@ -36,6 +37,7 @@ This way we define the DISPATCHER MENU.
 			<a href="controller?command=flightList">All flight</a> &nbsp;
 			<a href="controller?command=staffList">All staff </a>  &nbsp;&nbsp;
 			<a href="controller?command=crewList">Crew list </a>  &nbsp;&nbsp;
+			<a href="controller?command=requestList">Request </a>  &nbsp;&nbsp;
 		</c:when>
 	</c:choose>
 	

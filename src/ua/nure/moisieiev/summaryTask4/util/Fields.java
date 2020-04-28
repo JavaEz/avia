@@ -30,6 +30,12 @@ public final class Fields {
 
     public static final String CREW_STATUS = "crewstatus_id";
 
+    public static final String REQUEST_PILOT_ID = "pilot_id";
+    public static final String REQUEST_NAVIGATOR_ID = "navigator_id";
+    public static final String REQUEST_SPARK_ID = "spark_id";
+    public static final String REQUEST_STEWARD_ID = "steward_id";
+    public static final String REQUEST_STATUS = "request_status";
+
 
 
 }

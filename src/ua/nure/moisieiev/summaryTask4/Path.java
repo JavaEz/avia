@@ -18,6 +18,7 @@ public final class Path {
 	public static final String PAGE_EDIT_FLIGHT ="/editFlight";
 	public static final String PAGE_LIST_STAFF = "/WEB-INF/jsp/staff_list.jsp";
 	public static final String PAGE_LIST_CREW = "/WEB-INF/jsp/crew_list.jsp";
+	public static final String PAGE_LIST_REQUEST = "/WEB-INF/jsp/request_list.jsp";
 
 	//public static final String PAGE_EDIT_STAFF = "/WEB-INF/jsp/staff_edit.jsp";
 	public static final String PAGE_EDIT_STAFF = "/editStaff";
@@ -32,6 +33,7 @@ public final class Path {
 	public static final String COMMAND_FLIGHT_LIST = "/controller?command=flightList";
 	public static final String COMMAND_STAFF_LIST = "/controller?command=staffList";
 	public static final String COMMAND_CREW_LIST = "/controller?command=crewList";
+	public static final String COMMAND_REQUEST_LIST = "/controller?command=requestList";
 
 
 

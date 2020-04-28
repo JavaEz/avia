@@ -74,11 +74,11 @@
         </init-param>
         <init-param>
             <param-name>dispatcher</param-name>
-          <param-value>listMenu deleteCrew editCrew addCrew saveCrew saveFlightStatus </param-value> <!--  // команды в которые он сможет зайти-->
+          <param-value>listMenu deleteCrew editCrew addCrew saveCrew saveFlightStatus addRequest </param-value> <!--  // команды в которые он сможет зайти-->
         </init-param>
         <init-param>
             <param-name>common</param-name>
-            <param-value>logout noCommand viewSettings flightList staffList crewList editFlight searchFlights selectionFlights</param-value>
+            <param-value>logout noCommand viewSettings flightList staffList crewList editFlight searchFlights selectionFlights requestList</param-value>
         </init-param>
         <init-param>
             <param-name>out-of-control</param-name>

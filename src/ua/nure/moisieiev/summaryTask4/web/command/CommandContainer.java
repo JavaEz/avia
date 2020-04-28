@@ -3,6 +3,8 @@ package ua.nure.moisieiev.summaryTask4.web.command;
 import org.apache.log4j.Logger;
 import ua.nure.moisieiev.summaryTask4.web.command.crewCommands.*;
 import ua.nure.moisieiev.summaryTask4.web.command.flightCommands.*;
+import ua.nure.moisieiev.summaryTask4.web.command.requestCommands.RequestAddCommand;
+import ua.nure.moisieiev.summaryTask4.web.command.requestCommands.RequestListCommand;
 import ua.nure.moisieiev.summaryTask4.web.command.staffCommands.StaffDeleteCommand;
 import ua.nure.moisieiev.summaryTask4.web.command.staffCommands.StaffEditCommand;
 import ua.nure.moisieiev.summaryTask4.web.command.staffCommands.StaffListCommand;
@@ -27,6 +29,7 @@ public class CommandContainer {
         commands.put("editFlight", new FlightEditCommand());
         commands.put("searchFlights", new FlightSearchCommand());
         commands.put("selectionFlights", new FlightSelectionCommand());
+        commands.put("requestList", new RequestListCommand());
         //commands.put("viewSettings", new ViewSettingsCommand());
         //commands.put("noCommand", new NoCommand());
 
@@ -36,6 +39,7 @@ public class CommandContainer {
         commands.put("saveCrew", new СrewSaveCommand());
         commands.put("editCrew", new CrewEditCommand());
         commands.put("saveFlightStatus", new FlightSaveFlightStatusCommand());
+        commands.put("addRequest", new RequestAddCommand());
 
 
         // admin commands

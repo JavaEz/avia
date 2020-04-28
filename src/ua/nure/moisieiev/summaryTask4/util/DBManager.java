@@ -1,10 +1,7 @@
 package ua.nure.moisieiev.summaryTask4.util;
 
 import org.apache.log4j.Logger;
-import ua.nure.moisieiev.summaryTask4.entity.Crew;
-import ua.nure.moisieiev.summaryTask4.entity.Flight;
-import ua.nure.moisieiev.summaryTask4.entity.Staff;
-import ua.nure.moisieiev.summaryTask4.entity.User;
+import ua.nure.moisieiev.summaryTask4.entity.*;
 import ua.nure.moisieiev.summaryTask4.exception.DBException;
 import ua.nure.moisieiev.summaryTask4.exception.Messages;
 
@@ -87,7 +84,10 @@ public class DBManager {
     private static final String SQL_FIND_ALL_FREE_STAFF = "SELECT * FROM staff WHERE staff.crew_id = 0";
     private static final String SQL_CREATE_CREW = "INSERT INTO crew VALUES(default, default)";
     private static final String SQL_FIND_ALL_STAFF_BY_CREW_ID = "SELECT * FROM staff WHERE staff.crew_id = ?";
-
+    private static final String SQL_FIND_ALL_REQUESTS = "SELECT * FROM request";
+    private static final String SQL_CREATE_REQUEST = "INSERT INTO request VALUES(default, ?, ?, ?, ?, default)";
+    private static final String SQL_DELETE_REQUEST = "DELETE FROM request WHERE id = ?";
+    private static final String SQL_UPDATE_REQUEST_STATUS = "UPDATE request SET request_status = ? WHERE id = ?";
 
     /**
      * Returns a user with the given login.
@@ -254,7 +254,7 @@ public class DBManager {
             pstmt.setString(k++, flight.getWhereto());
             pstmt.setDate(k++, flight.getDate());
             pstmt.setInt(k++, flight.getFlightStatusId());
-            pstmt.setInt(k++, flight.getCrewId());
+            pstmt.setInt(k, flight.getCrewId());
             pstmt.executeUpdate();
             ResultSet rs = pstmt.getGeneratedKeys();
             if (rs.next()) {
@@ -654,6 +654,69 @@ public class DBManager {
     }
 
     /**
+     * Returns all requests.
+     *
+     * @return List of request entities.
+     */
+
+    public List<Request> findAllRequests() throws DBException, SQLException {
+        List<Request> requestList = new ArrayList<>();
+        Statement stmt = null;
+        ResultSet rs = null;
+        Connection con = null;
+        try {
+            con = getConnection();
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(SQL_FIND_ALL_REQUESTS);
+            while (rs.next()) {
+                requestList.add(extractRequest(rs));
+            }
+            con.commit();
+        } catch (SQLException e) {
+            con.rollback();
+            LOG.error(Messages.ERR_CANNOT_GET_ALL_REQUESTS);
+            throw new DBException(Messages.ERR_CANNOT_GET_ALL_REQUESTS, e);
+        } finally {
+            close(con, stmt, rs);
+        }
+        return requestList;
+    }
+
+    /**
+     * Create request.
+     *
+     * @param request;
+     */
+
+    public void createRequest(Request request) throws DBException, SQLException {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        try {
+            con = getConnection();
+            pstmt = con.prepareStatement(SQL_CREATE_REQUEST, Statement.RETURN_GENERATED_KEYS);
+            int k = 1;
+            pstmt.setInt(k++, request.getIdPilot());
+            pstmt.setInt(k++, request.getIdNavigator());
+            pstmt.setInt(k++, request.getIdSpark());
+            pstmt.setInt(k, request.getIdSteward());
+            pstmt.executeUpdate();
+//            ResultSet rs = pstmt.getGeneratedKeys();
+//            if (rs.next()) {
+//                request.setId(rs.getInt(1));  можно удалить
+//            }
+            con.commit();
+        } catch (SQLException e) {
+            con.rollback();
+            LOG.error(Messages.ERR_CANNOT_CREATE_REQUEST);
+            throw new DBException(Messages.ERR_CANNOT_CREATE_REQUEST, e);
+        } finally {
+            close(con);
+            close(pstmt);
+        }
+    }
+
+
+    /**
      * Extracts a user entity from the result set.
      *
      * @param rs Result set from which a user entity will be extracted.
@@ -718,6 +781,24 @@ public class DBManager {
         crew.setId(rs.getInt(Fields.ENTITY_ID));
         crew.setCrewStatusId(rs.getInt(Fields.CREW_STATUS));
         return crew;
+    }
+
+    /**
+     * Extracts a request entity from the result set.
+     *
+     * @param rs Result set from which a Request entity will be extracted.
+     * @return Request entity
+     */
+
+    private Request extractRequest(ResultSet rs) throws SQLException {
+        Request request = new Request();
+        request.setId(rs.getInt(Fields.ENTITY_ID));
+        request.setIdPilot(rs.getInt(Fields.REQUEST_PILOT_ID));
+        request.setIdNavigator(rs.getInt(Fields.REQUEST_NAVIGATOR_ID));
+        request.setIdSpark(rs.getInt(Fields.REQUEST_SPARK_ID));
+        request.setIdSteward(rs.getInt(Fields.REQUEST_STEWARD_ID));
+        request.setRequestStatusId(rs.getInt(Fields.REQUEST_STATUS));
+        return request;
     }
 
     /**
