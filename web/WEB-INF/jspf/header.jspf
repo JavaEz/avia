@@ -40,7 +40,6 @@ This way we define the DISPATCHER MENU.
 			<a href="controller?command=requestList">Request </a>  &nbsp;&nbsp;
 		</c:when>
 	</c:choose>
-	
 <%--=========================================================================== 
 This way we define the settings anchor.
 ===========================================================================--%> 

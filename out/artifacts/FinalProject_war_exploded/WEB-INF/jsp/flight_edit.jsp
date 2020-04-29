@@ -39,11 +39,35 @@
                 </div>
                 <br/>
                 <div>
-                    <label for="flightStatus">Flight status:</label>
-                    <input type="number" name="flightStatus" min="1" max="3" required
-                           id="flightStatus" value="${flight.flightStatusId }"/><br/>
-                </div>
-                <br/>
+                    <label>
+                        <c:if test="${flight.flightStatusId == 1}">
+                            Now status is <b>Arrived</b>
+                        </c:if>
+                        <c:if test="${flight.flightStatusId == 2}">
+                            Now status is <b>Canceled</b>
+                        </c:if>
+                        <c:if test="${flight.flightStatusId == 3}">
+                            Now status is <b>Opened</b>
+                        </c:if>
+                    </label>
+<%--                    <label for="flightStatus">Flight status:</label>--%>
+<%--                    <input type="number" name="flightStatus" min="1" max="3" required--%>
+<%--                           id="flightStatus" value="${flight.flightStatusId }"/><br/>--%>
+                </div><br/>
+                    <div>
+                        <label for="flightStatus">Change to :</label>
+                        <select id="flightStatus" name="flightStatus" required>
+                            <option value="${flight.flightStatusId = 1}">
+                                Arrived
+                            </option>
+                            <option value="${flight.flightStatusId = 2}">
+                                Canceled
+                            </option>
+                            <option value="${flight.flightStatusId = 3}">
+                                Opened
+                            </option>
+                        </select>
+                    </div><br/>
                 <div>
                     <label for="crewNumber">Crew Number:</label>
                     <input type="text" name="crewNumber" required
@@ -59,11 +83,37 @@
                 </c:if>
                 <c:if test="${userRole.name == 'dispatcher'}">
                     <div>
-                        <label for="flightStatus">Flight status:</label>
-                        <input type="number" name="flightStatus" min="1" max="3" required
-                               id="flightStatusForDispathcer" value="${flight.flightStatusId }"/><br/>
-<%--поменять на селекты--%>
+                        <label>
+                            <c:if test="${flight.flightStatusId == 1}">
+                            Now status is <b>Arrived</b>
+                        </c:if>
+                            <c:if test="${flight.flightStatusId == 2}">
+                                Now status is <b>Canceled</b>
+                            </c:if>
+                            <c:if test="${flight.flightStatusId == 3}">
+                                Now status is <b>Opened</b>
+                            </c:if>
+                        </label>
+                    </div><br/>
+                    <div>
+                        <label for="flightStatus">Change to :</label>
+                        <select id="flightStatusForDispathcer" name="flightStatus" required>
+                            <option value="${flight.flightStatusId = 1}">
+                                Arrived
+                            </option>
+                            <option value="${flight.flightStatusId = 2}">
+                                Canceled
+                            </option>
+                            <option value="${flight.flightStatusId = 3}">
+                                Opened
+                            </option>
+                        </select>
                     </div>
+<%--                    <div>--%>
+<%--                        <label for="flightStatus">Flight status:</label>--%>
+<%--                        <input type="number" name="flightStatus" min="1" max="3" required--%>
+<%--                               id="flightStatusForDispathcer" value="${flight.flightStatusId }"/><br/>--%>
+<%--                    </div>--%>
                     <br/>
                     <div>
                         <input type="hidden" name="command" value="saveFlightStatus"/>

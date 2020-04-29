@@ -37,12 +37,12 @@
                            id="date"/><br/>
                 </div>
                 <br/>
-                <div>
-                    <label for="flightStatus">Flight status:</label>
-                    <input type="number" name="flightStatus" min="1" max="3" required
-                           id="flightStatus"/><br/>
-                </div>
-                <br/>
+<%--                <div>--%>
+<%--                    <label for="flightStatus">Flight status:</label>--%>
+<%--                    <input type="number" name="flightStatus" min="1" max="3" required--%>
+<%--                           id="flightStatus"/><br/>--%>
+<%--                </div>--%>
+<%--                <br/>--%>
                 <div>
                     <label for="crewNumber">Crew Number:</label>
                     <input type="text" name="crewNumber" required

@@ -4,6 +4,8 @@ import org.apache.log4j.Logger;
 import ua.nure.moisieiev.summaryTask4.web.command.crewCommands.*;
 import ua.nure.moisieiev.summaryTask4.web.command.flightCommands.*;
 import ua.nure.moisieiev.summaryTask4.web.command.requestCommands.RequestAddCommand;
+import ua.nure.moisieiev.summaryTask4.web.command.requestCommands.RequestChangeStatusCommand;
+import ua.nure.moisieiev.summaryTask4.web.command.requestCommands.RequestEditCommand;
 import ua.nure.moisieiev.summaryTask4.web.command.requestCommands.RequestListCommand;
 import ua.nure.moisieiev.summaryTask4.web.command.staffCommands.StaffDeleteCommand;
 import ua.nure.moisieiev.summaryTask4.web.command.staffCommands.StaffEditCommand;
@@ -48,6 +50,8 @@ public class CommandContainer {
         commands.put("deleteStaff", new StaffDeleteCommand());
         commands.put("editStaff", new StaffEditCommand());
         commands.put("saveStaff", new StaffSaveCommand());
+        commands.put("editRequest", new RequestEditCommand());
+        commands.put("saveRequestStatus", new RequestChangeStatusCommand());
 
         LOG.debug("Command container was successfully initialized");
         LOG.trace("Number of commands --> " + commands.size());

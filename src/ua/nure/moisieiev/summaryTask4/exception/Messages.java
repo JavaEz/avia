@@ -56,6 +56,8 @@ public class Messages {
 
 	public static final String ERR_CANNOT_GET_FLIGHT_BY_ID = "Cannot get a flight by its id";
 
+	public static final String ERR_CANNOT_GET_REQUEST_BY_ID = "Cannot get a request by its id";
+
 	public static final String ERR_CANNOT_GET_STAFF_BY_ID = "Cannot get a staff by its id";
 
 	public static final String ERR_CANNOT_GET_STAFF_LIST_BY_CREW_ID = "Cannot get a staff list by crew id";
@@ -69,6 +71,8 @@ public class Messages {
 	public static final String ERR_CANNOT_UPDATE_USER = "Cannot update a user";
 
 	public static final String ERR_CANNOT_UPDATE_FLIGHT = "Cannot update a flight";
+
+	public static final String ERR_CANNOT_UPDATE_REQUEST_STATUS = "Cannot update a request status by its id";
 
 	public static final String ERR_CANNOT_UPDATE_STAFF = "Cannot update a staff";
 

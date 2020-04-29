@@ -86,7 +86,7 @@ public class DBManager {
     private static final String SQL_FIND_ALL_STAFF_BY_CREW_ID = "SELECT * FROM staff WHERE staff.crew_id = ?";
     private static final String SQL_FIND_ALL_REQUESTS = "SELECT * FROM request";
     private static final String SQL_CREATE_REQUEST = "INSERT INTO request VALUES(default, ?, ?, ?, ?, default)";
-    private static final String SQL_DELETE_REQUEST = "DELETE FROM request WHERE id = ?";
+    private static final String SQL_FIND_REQUEST_BY_ID = "SELECT * FROM request WHERE id = ?";
     private static final String SQL_UPDATE_REQUEST_STATUS = "UPDATE request SET request_status = ? WHERE id = ?";
 
     /**
@@ -223,7 +223,7 @@ public class DBManager {
             pstmt.setDate(k++, flight.getDate());
             pstmt.setInt(k++, flight.getFlightStatusId());
             pstmt.setInt(k++, flight.getCrewId());
-            pstmt.setInt(k++, flight.getId());
+            pstmt.setInt(k, flight.getId());
             pstmt.executeUpdate();
             con.commit();
         } catch (SQLException e) {
@@ -715,6 +715,62 @@ public class DBManager {
         }
     }
 
+    /**
+     * Find flight by flight id.
+     *
+     * @param id;
+     */
+
+    public Request findRequestById(int id) throws DBException, SQLException {
+        Request request = null;
+        PreparedStatement statement = null;
+        ResultSet rs = null;
+        Connection con = null;
+        try {
+            con = getConnection();
+            statement = con.prepareStatement(SQL_FIND_REQUEST_BY_ID);
+            statement.setInt(1, id);
+            rs = statement.executeQuery();
+            if (rs.next()) {
+                request = extractRequest(rs);
+            }
+            con.commit();
+        } catch (SQLException e) {
+            con.rollback();
+            LOG.error(Messages.ERR_CANNOT_GET_REQUEST_BY_ID, e);
+            throw new DBException(Messages.ERR_CANNOT_GET_REQUEST_BY_ID, e);
+        } finally {
+            close(con, statement, rs);
+        }
+        return request;
+    }
+
+    /**
+     * Update request.
+     *
+     * @param request;
+     */
+
+    public void updateRequestStatusById(Request request) throws SQLException, DBException {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        try {
+            con = getConnection();
+            pstmt = con.prepareStatement(SQL_UPDATE_REQUEST_STATUS);
+            int k = 1;
+            pstmt.setInt(k++, request.getRequestStatusId());
+            pstmt.setInt(k, request.getId());
+            pstmt.executeUpdate();
+            con.commit();
+        } catch (SQLException e){
+            con.rollback();
+            LOG.error(Messages.ERR_CANNOT_UPDATE_REQUEST_STATUS);
+            throw new DBException(Messages.ERR_CANNOT_UPDATE_REQUEST_STATUS, e);
+        } finally {
+            close(con);
+            close(pstmt);
+        }
+    }
 
     /**
      * Extracts a user entity from the result set.

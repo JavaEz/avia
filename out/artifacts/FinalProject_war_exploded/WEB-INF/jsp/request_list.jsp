@@ -20,7 +20,6 @@
                     <td>Request status</td>
                     <c:if test="${userRole.name == 'admin'}">
                         <td class="content center">Action</td>
-                        <td class="content center">Action2</td>
                     </c:if>
                 </tr>
                 </thead>

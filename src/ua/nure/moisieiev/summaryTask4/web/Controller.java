@@ -6,7 +6,6 @@ import ua.nure.moisieiev.summaryTask4.exception.AppException;
 import ua.nure.moisieiev.summaryTask4.web.command.Command;
 import ua.nure.moisieiev.summaryTask4.web.command.CommandContainer;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
