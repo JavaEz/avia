@@ -6,7 +6,7 @@ package ua.nure.moisieiev.summaryTask4.entity;
  *
  */
 public enum FlightStatus {
-    OPENED, ARRIVED, CANCELED;
+    OPENED, ARRIVED, CANCELED, PREPARATION;
 
     public static FlightStatus getFlightStatus(Flight flight) {
         int flightStatus = flight.getFlightStatusId();

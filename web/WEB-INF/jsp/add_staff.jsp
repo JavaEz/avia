@@ -25,18 +25,32 @@
                 <br/>
                 <div>
                     <label for="departamenId">Departament</label>
-                    <input type="number" name="departamenId" min="1" max="4" required
-                           id="departamenId"/><br/>
+                    <select id="departamenId" name="departamenId" required>
+                        <option value="1">
+                            Navigator
+                        </option>
+                        <option value="2">
+                            Spark
+                        </option>
+                        <option value="3">
+                            Steward
+                        </option>
+                        <option value="4">
+                            Pilot
+                        </option>
+                    </select>
+<%--                    <input type="number" name="departamenId" min="1" max="4" required--%>
+<%--                           id="departamenId"/><br/>--%>
                 </div>
                 <br/>
                 <div>
-                    <div>
-                        <label for="crewId">crewId</label>
-                        <input type="number" name="crewId"
-                               id="crewId"/><br/>
-                    </div>
-                    <br/>
-                    <div>
+<%--                    <div>--%>
+<%--                        <label for="crewId">crewId</label>--%>
+<%--                        <input type="number" name="crewId"--%>
+<%--                               id="crewId"/><br/>--%>
+<%--                    </div>--%>
+<%--                    <br/>--%>
+<%--                    <div>--%>
                         <input type="hidden" name="command" value="saveStaff"/>
                         <input type="hidden" name="id_staff"/>
                         <input value="Send" type="submit"/>

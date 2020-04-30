@@ -49,6 +49,9 @@
                         <c:if test="${flight.flightStatusId == 3}">
                             Now status is <b>Opened</b>
                         </c:if>
+                        <c:if test="${flight.flightStatusId == 4}">
+                            Now status is <b>Preparation</b>
+                        </c:if>
                     </label>
 <%--                    <label for="flightStatus">Flight status:</label>--%>
 <%--                    <input type="number" name="flightStatus" min="1" max="3" required--%>
@@ -66,11 +69,14 @@
                             <option value="${flight.flightStatusId = 3}">
                                 Opened
                             </option>
+                            <option value="${flight.flightStatusId = 4}">
+                                Preparation
+                            </option>
                         </select>
                     </div><br/>
                 <div>
                     <label for="crewNumber">Crew Number:</label>
-                    <input type="text" name="crewNumber" required
+                    <input type="number" name="crewNumber" required
                            id="crewNumber" value="${flight.crewId }"/><br/>
 
                 </div>
@@ -93,6 +99,9 @@
                             <c:if test="${flight.flightStatusId == 3}">
                                 Now status is <b>Opened</b>
                             </c:if>
+                            <c:if test="${flight.flightStatusId == 4}">
+                                Now status is <b>Preparation</b>
+                            </c:if>
                         </label>
                     </div><br/>
                     <div>
@@ -106,6 +115,9 @@
                             </option>
                             <option value="${flight.flightStatusId = 3}">
                                 Opened
+                            </option>
+                            <option value="${flight.flightStatusId = 4}">
+                                Preparation
                             </option>
                         </select>
                     </div>

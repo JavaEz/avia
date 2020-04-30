@@ -69,7 +69,9 @@
                         <td>${flight.date}</td>
                         <td><c:if test="${flight.flightStatusId ==3}">OPENED</c:if>
                             <c:if test="${flight.flightStatusId ==1}">ARRIVED</c:if>
-                            <c:if test="${flight.flightStatusId ==2}">CANCELED</c:if></td>
+                            <c:if test="${flight.flightStatusId ==2}">CANCELED</c:if>
+                            <c:if test="${flight.flightStatusId ==4}">PREPARATION</c:if>
+                        </td>
                         <td>${flight.crewId}</td>
                         <c:if test="${userRole.name == 'admin'}">
                             <td class="content center">

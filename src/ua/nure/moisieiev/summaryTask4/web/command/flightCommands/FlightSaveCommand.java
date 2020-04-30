@@ -61,7 +61,7 @@ public class FlightSaveCommand extends Command {
                 flight1.setWhence(departure);
                 flight1.setWhereto(arrival);
                 flight1.setDate(Date.valueOf(date));
-                flight1.setFlightStatusId(3);
+                flight1.setFlightStatusId(4);
                 flight1.setCrewId(Integer.parseInt(crewNumber));
                 dbManager.createFlight(flight1); //пишем новую логику
             } catch (SQLException e) {

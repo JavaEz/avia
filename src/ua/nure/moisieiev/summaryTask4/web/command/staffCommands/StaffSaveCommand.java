@@ -55,7 +55,7 @@ public class StaffSaveCommand extends Command {
                 staff1.setFirstName(firstName);
                 staff1.setLastName(lastName);
                 staff1.setDepartamenId(Integer.parseInt(departamenId));
-                staff1.setCrewId(Integer.parseInt(crewId));
+               // staff1.setCrewId(Integer.parseInt(crewId));
                 dbManager.createStaff(staff1);
             } catch (SQLException e) {
                 LOG.error("CANNOT CREATE A NEW STAFF MEMBER");
