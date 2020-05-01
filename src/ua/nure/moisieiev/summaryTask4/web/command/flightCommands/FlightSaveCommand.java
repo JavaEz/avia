@@ -53,7 +53,7 @@ public class FlightSaveCommand extends Command {
                 flight.setFlightStatusId(Integer.parseInt(flightStatus));
                 flight.setCrewId(Integer.parseInt(crewNumber));
                 crew = dbManager.findCrewById(Integer.parseInt(crewNumber));
-                crew.setCrewStatusId(2);
+                crew.setCrewStatusId(1);
                 dbManager.updateCrew(crew);
                 dbManager.updateFlightById(flight);
             } catch (SQLException e) {

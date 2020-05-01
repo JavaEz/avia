@@ -41,7 +41,7 @@ public class FlightListCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws AppException {
         LOG.debug("Command starts");
-        //get flights list
+        //get flights crew lists
         List<Flight> flightList = null;
         List<Crew> crewList = null;
         try {
@@ -61,7 +61,7 @@ public class FlightListCommand extends Command {
         } else {
            flightList = sortFlights(flightList, sorting, ordering);
         }
-        // put flight list to the request
+        // put flight list,  crew list to the request
         request.getSession().setAttribute("flightList", flightList);
         LOG.trace("Set the request attribute: flightList --> " + flightList);
         request.getSession().setAttribute("crewList", crewList);
