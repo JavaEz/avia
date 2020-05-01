@@ -15,12 +15,12 @@
             <form action="controller" method="post">
                 <div>
                     <label for="firstName">First name:</label>
-                    <input type="text" name="firstName" required id="firstName"/><br/>
+                    <input type="text" name="firstName" required pattern="[a-zA-Z]{3,20}" id="firstName"/><br/>
                 </div>
                 <br/>
                 <div>
                     <label for="lastName">Last name:</label>
-                    <input type="text" name="lastName" required id="lastName"/><br/>
+                    <input type="text" name="lastName" required pattern="[a-zA-Z]{3,20}" id="lastName"/><br/>
                 </div>
                 <br/>
                 <div>

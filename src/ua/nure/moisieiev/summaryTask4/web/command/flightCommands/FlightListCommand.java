@@ -2,6 +2,7 @@ package ua.nure.moisieiev.summaryTask4.web.command.flightCommands;
 
 import org.apache.log4j.Logger;
 import ua.nure.moisieiev.summaryTask4.Path;
+import ua.nure.moisieiev.summaryTask4.entity.Crew;
 import ua.nure.moisieiev.summaryTask4.entity.Flight;
 import ua.nure.moisieiev.summaryTask4.exception.AppException;
 import ua.nure.moisieiev.summaryTask4.util.DBManager;
@@ -42,9 +43,13 @@ public class FlightListCommand extends Command {
         LOG.debug("Command starts");
         //get flights list
         List<Flight> flightList = null;
+        List<Crew> crewList = null;
         try {
-            flightList = DBManager.getInstance().findAllFlights();
+            DBManager dbManager = DBManager.getInstance();
+            flightList = dbManager.findAllFlights();
             LOG.trace("Found in DB: flightList --> " + flightList);
+            crewList = dbManager.findAllFreeCrew();
+            LOG.trace("Found in DB: crewList --> " + crewList);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -59,6 +64,8 @@ public class FlightListCommand extends Command {
         // put flight list to the request
         request.getSession().setAttribute("flightList", flightList);
         LOG.trace("Set the request attribute: flightList --> " + flightList);
+        request.getSession().setAttribute("crewList", crewList);
+        LOG.trace("Set the request attribute: crewList --> " + crewList);
 
         LOG.debug("Command finished");
         return Path.PAGE_LIST_FLIGHT;

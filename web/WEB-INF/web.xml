@@ -39,7 +39,9 @@
         <url-pattern>/WEB-INF/jsp/*</url-pattern>
         <servlet-name>Controller</servlet-name>
     </filter-mapping>
-
+    <!--============================================================
+           Admin filter.
+        =============================================================-->
 
     <filter>
         <display-name>AdminFilter</display-name>
@@ -59,7 +61,7 @@
     <!--============================================================
         Security filter.
         1) admin: admin commands
-        2) client: client commands
+        2) dispatcher: dispatcher commands
         3) commons: commands for all roles
         4) out-of-control: commands without access control
         Delimiter - space/tab

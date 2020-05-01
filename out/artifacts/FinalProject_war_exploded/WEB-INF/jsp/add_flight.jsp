@@ -15,19 +15,19 @@
             <form action="controller" method="post">
                 <div>
                     <laber for="flightName">Flight name:</laber>
-                    <input type="text" name="flightName" required
-                           id="flightName"/><br/>
+                    <input type="text" name="flightName" required pattern="[a-zA-Z]{3,20}"
+                           id="flightName" /><br/>
                 </div>
                 <br/>
                 <div>
                     <label for="departure">Departure:</label>
-                    <input type="text" name="departure" required
+                    <input type="text" name="departure" required pattern="[a-zA-Z]{3,20}"
                            id="departure"/><br/>
                 </div>
                 <br/>
                 <div>
                     <label for="arrival">Arrival:</label>
-                    <input type="text" name="arrival" required
+                    <input type="text" name="arrival" required pattern="[a-zA-Z]{3,20}"
                            id="arrival"/><br/>
                 </div>
                 <br/>
@@ -43,12 +43,12 @@
 <%--                           id="flightStatus"/><br/>--%>
 <%--                </div>--%>
 <%--                <br/>--%>
-                <div>
-                    <label for="crewNumber">Crew Number:</label>
-                    <input type="text" name="crewNumber" required
-                           id="crewNumber"/><br/>
+<%--                <div>--%>
+<%--                    <label for="crewNumber">Crew Number:</label>--%>
+<%--                    <input type="text" name="crewNumber" required--%>
+<%--                           id="crewNumber"/><br/>--%>
 
-                </div>
+<%--                </div>--%>
                 <br/>
                 <div>
                     <input type="hidden" name="command" value="saveFlight"/>

@@ -15,7 +15,7 @@ import java.io.IOException;
 /**
  * Main servlet controller.
  *
- * @author D.Kolesnikov
+ * @author S.Moisieiev
  *
  */
 public class Controller extends HttpServlet {
@@ -60,9 +60,9 @@ public class Controller extends HttpServlet {
 
         LOG.debug("Controller finished, now go to forward address --> " + forward);
 
-        // go to forward
+        //go to forward
         //request.getRequestDispatcher(forward).forward(request, response);
-       //response.sendRedirect(forward);
+        //response.sendRedirect(forward);
         if(actionType == ActionType.GET){
             request.getRequestDispatcher(forward).forward(request, response); // отправляет данные через гет запрос
         } else if (actionType == ActionType.POST){

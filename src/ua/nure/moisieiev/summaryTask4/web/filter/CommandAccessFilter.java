@@ -44,7 +44,7 @@ public class CommandAccessFilter implements Filter {
     private boolean accessAllowed(ServletRequest request) {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
 
-        String commandName = request.getParameter("command");
+        String commandName = request.getParameter("command");//вытягиваем команду
         if (commandName == null || commandName.isEmpty()) {
             return false;
         }
@@ -58,7 +58,7 @@ public class CommandAccessFilter implements Filter {
             return false;
         }
 
-        Role userRole = (Role)session.getAttribute("userRole");
+        Role userRole = (Role)session.getAttribute("userRole"); //из логина
         if (userRole == null) {
             return false;
         }
@@ -95,7 +95,7 @@ public class CommandAccessFilter implements Filter {
      */
     private List<String> asList(String str) {
         List<String> list = new ArrayList<String>();
-        StringTokenizer st = new StringTokenizer(str);
+        StringTokenizer st = new StringTokenizer(str); //работает по пробелам прочиитать
         while (st.hasMoreTokens()) {
             list.add(st.nextToken());
         }

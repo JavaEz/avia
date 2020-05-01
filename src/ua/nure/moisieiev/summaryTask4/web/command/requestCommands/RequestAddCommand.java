@@ -6,12 +6,9 @@ import ua.nure.moisieiev.summaryTask4.entity.Request;
 import ua.nure.moisieiev.summaryTask4.exception.AppException;
 import ua.nure.moisieiev.summaryTask4.util.DBManager;
 import ua.nure.moisieiev.summaryTask4.web.command.Command;
-import ua.nure.moisieiev.summaryTask4.web.command.crewCommands.CrewAddStaffCommand;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.sql.SQLException;
 
 public class RequestAddCommand extends Command {

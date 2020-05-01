@@ -1,5 +1,10 @@
 package ua.nure.moisieiev.summaryTask4.entity;
-
+/**
+ * Request entity.
+ *
+ * @author S.Moisieiev
+ *
+ */
 public class Request extends Entity {
     private int idPilot;
     private int idNavigator;

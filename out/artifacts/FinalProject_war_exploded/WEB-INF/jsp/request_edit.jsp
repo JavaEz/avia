@@ -16,12 +16,15 @@
                 <c:if test="${userRole.name == 'admin'}">
                     <div>
                         <label> <c:if test="${request1.requestStatusId == 3}">
+                            <c:set var="pendingSelected" value="selected"/>
                             Now status is <b>Pending</b>
                         </c:if>
                             <c:if test="${request1.requestStatusId == 1}">
+                                <c:set var="completedSelected" value="selected"/>
                                 Now status is <b>Completed</b>
                             </c:if>
                             <c:if test="${request1.requestStatusId == 2}">
+                                <c:set var="canceledSelected" value="selected"/>
                                 Now status is <b>Canceled</b>
                             </c:if>
                         </label>
@@ -29,29 +32,16 @@
                     <div>
                         <label for="requestStatus">Change to:</label>
                         <select id="requestStatus" name="id_requestStatus" required>
-<%--                            <option value="${request1.requestStatusId}">--%>
-<%--                                <c:if test="${request1.requestStatusId == 3}">--%>
-<%--                                   Now status is Pending--%>
-<%--                                </c:if>--%>
-<%--                                <c:if test="${request1.requestStatusId == 1}">--%>
-<%--                                    Now status is Completed--%>
-<%--                                </c:if>--%>
-<%--                                <c:if test="${request1.requestStatusId == 2}">--%>
-<%--                                    Now status is Canceled--%>
-<%--                                </c:if>--%>
-<%--                            </option>--%>
-                            <option value="${request1.requestStatusId = 1}">
+                            <option ${completedSelected} value="${request1.requestStatusId = 1}">
                                 Completed
                             </option>
-                            <option value="${request1.requestStatusId = 2}">
+                            <option ${canceledSelected} value="${request1.requestStatusId = 2}">
                                 Canceled
                             </option>
-                            <option value="${request1.requestStatusId = 3}">
+                            <option ${pendingSelected} value="${request1.requestStatusId = 3}">
                                 Pending
                             </option>
                         </select>
-<%--                        <input type="number" name="requestStatus" min="1" max="3" required--%>
-<%--                               id="requestStatus" value="${request1.requestStatusId }"/><br/>--%>
                     </div>
                     <br/>
                     <div>

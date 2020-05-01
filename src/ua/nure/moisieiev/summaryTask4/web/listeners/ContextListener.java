@@ -49,7 +49,6 @@ public class ContextListener implements ServletContextListener {
     /**
      * Initializes CommandContainer.
      *
-     * @param servletContext
      */
     private void initCommandContainer() {
 

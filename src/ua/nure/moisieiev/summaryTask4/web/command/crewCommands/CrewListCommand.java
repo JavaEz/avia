@@ -7,7 +7,6 @@ import ua.nure.moisieiev.summaryTask4.entity.Staff;
 import ua.nure.moisieiev.summaryTask4.exception.AppException;
 import ua.nure.moisieiev.summaryTask4.util.DBManager;
 import ua.nure.moisieiev.summaryTask4.web.command.Command;
-import ua.nure.moisieiev.summaryTask4.web.command.staffCommands.StaffListCommand;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

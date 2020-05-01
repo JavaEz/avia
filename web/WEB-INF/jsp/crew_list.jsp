@@ -39,10 +39,11 @@
                     <tr>
                         <td>${crew.id}</td>
                         <td><c:if test="${crew.id != 0}">
+                            <c:if test="${crew.crewStatusId == 3}">Free for flight</c:if>
                             <c:if test="${crew.crewStatusId == 2}">Not Ready</c:if>
                             <c:if test="${crew.crewStatusId == 1}">Ready</c:if>
                         </c:if>
-                            <c:if test="${crew.id == 0}">Free person</c:if></td>
+                            <c:if test="${crew.id == 0}">Free person(without crew)</c:if></td>
                         <td><c:forEach var="staff" items="${staffList}">
                             <c:if test="${staff.crewId == crew.id}">
                                 <c:if test="${staff.departamenId == 4}">

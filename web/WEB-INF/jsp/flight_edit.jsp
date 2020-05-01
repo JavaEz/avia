@@ -16,19 +16,19 @@
                 <c:if test="${userRole.name == 'admin'}">
                 <div>
                     <label for="flightName">Flight name:</label>
-                    <input type="text" name="flightName" required
+                    <input type="text" name="flightName" required pattern="[a-zA-Z]{3,20}"
                            id="flightName" value="${flight.flightName }"/><br/>
                 </div>
                 <br/>
                 <div>
                     <label for="departure">Departure:</label>
-                    <input type="text" name="departure" required
+                    <input type="text" name="departure" required pattern="[a-zA-Z]{3,20}"
                            id="departure" value="${flight.whence }"/><br/>
                 </div>
                 <br/>
                 <div>
                     <label for="arrival">Arrival:</label>
-                    <input type="text" name="arrival" required
+                    <input type="text" name="arrival" required pattern="[a-zA-Z]{3,20}"
                            id="arrival" value="${flight.whereto }"/><br/>
                 </div>
                 <br/>
@@ -38,47 +38,46 @@
                            id="date" value="${flight.date }"/><br/>
                 </div>
                 <br/>
-                <div>
-                    <label>
-                        <c:if test="${flight.flightStatusId == 1}">
-                            Now status is <b>Arrived</b>
-                        </c:if>
-                        <c:if test="${flight.flightStatusId == 2}">
-                            Now status is <b>Canceled</b>
-                        </c:if>
-                        <c:if test="${flight.flightStatusId == 3}">
-                            Now status is <b>Opened</b>
-                        </c:if>
-                        <c:if test="${flight.flightStatusId == 4}">
-                            Now status is <b>Preparation</b>
-                        </c:if>
-                    </label>
-<%--                    <label for="flightStatus">Flight status:</label>--%>
-<%--                    <input type="number" name="flightStatus" min="1" max="3" required--%>
-<%--                           id="flightStatus" value="${flight.flightStatusId }"/><br/>--%>
-                </div><br/>
+                    <c:if test="${flight.flightStatusId == 1}">
+                        <c:set var="arrivedSelected" value="selected"/>
+                    </c:if>
+                    <c:if test="${flight.flightStatusId == 2}">
+                        <c:set var="canceledSelected" value="selected"/>
+                    </c:if>
+                    <c:if test="${flight.flightStatusId == 3}">
+                        <c:set var="openedSelected" value="selected"/>
+                    </c:if>
+                    <c:if test="${flight.flightStatusId == 4}">
+                        <c:set var="preparationSelected" value="selected"/>
+                    </c:if>
                     <div>
                         <label for="flightStatus">Change to :</label>
                         <select id="flightStatus" name="flightStatus" required>
-                            <option value="${flight.flightStatusId = 1}">
+                            <option ${arrivedSelected} value="${flight.flightStatusId = 1}">
                                 Arrived
                             </option>
-                            <option value="${flight.flightStatusId = 2}">
+                            <option ${canceledSelected} value="${flight.flightStatusId = 2}">
                                 Canceled
                             </option>
-                            <option value="${flight.flightStatusId = 3}">
+                            <option ${openedSelected} value="${flight.flightStatusId = 3}">
                                 Opened
                             </option>
-                            <option value="${flight.flightStatusId = 4}">
+                            <option ${preparationSelected} value="${flight.flightStatusId = 4}">
                                 Preparation
                             </option>
                         </select>
                     </div><br/>
                 <div>
                     <label for="crewNumber">Crew Number:</label>
-                    <input type="number" name="crewNumber" required
-                           id="crewNumber" value="${flight.crewId }"/><br/>
-
+                        <select name="crewNumber" required id="crewNumber">
+                            <c:forEach var="crew" items="${crewList}">
+                                <option value="${crew.id}">
+                                        ${crew.id}
+                                </option>
+                            </c:forEach>
+                        </select>
+<%--                    <input type="number" name="crewNumber" required--%>
+<%--                           id="crewNumber" value="${flight.crewId }"/><br/>--%>
                 </div>
                 <br/>
                 <div>
@@ -91,15 +90,19 @@
                     <div>
                         <label>
                             <c:if test="${flight.flightStatusId == 1}">
+                                <c:set var="arrivedSelected" value="selected"/>
                             Now status is <b>Arrived</b>
                         </c:if>
                             <c:if test="${flight.flightStatusId == 2}">
+                                <c:set var="canceledSelected" value="selected"/>
                                 Now status is <b>Canceled</b>
                             </c:if>
                             <c:if test="${flight.flightStatusId == 3}">
+                                <c:set var="openedSelected" value="selected"/>
                                 Now status is <b>Opened</b>
                             </c:if>
                             <c:if test="${flight.flightStatusId == 4}">
+                                <c:set var="preparationSelected" value="selected"/>
                                 Now status is <b>Preparation</b>
                             </c:if>
                         </label>
@@ -107,16 +110,16 @@
                     <div>
                         <label for="flightStatus">Change to :</label>
                         <select id="flightStatusForDispathcer" name="flightStatus" required>
-                            <option value="${flight.flightStatusId = 1}">
+                            <option ${arrivedSelected} value="${flight.flightStatusId = 1}">
                                 Arrived
                             </option>
-                            <option value="${flight.flightStatusId = 2}">
+                            <option ${canceledSelected} value="${flight.flightStatusId = 2}">
                                 Canceled
                             </option>
-                            <option value="${flight.flightStatusId = 3}">
+                            <option ${openedSelected} value="${flight.flightStatusId = 3}">
                                 Opened
                             </option>
-                            <option value="${flight.flightStatusId = 4}">
+                            <option ${preparationSelected} value="${flight.flightStatusId = 4}">
                                 Preparation
                             </option>
                         </select>

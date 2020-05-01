@@ -76,6 +76,8 @@ public class Messages {
 
 	public static final String ERR_CANNOT_UPDATE_STAFF = "Cannot update a staff";
 
+	public static final String ERR_CANNOT_UPDATE_CREW = "Cannot update a crew";
+
 	public static final String ERR_CANNOT_CLOSE_CONNECTION = "Cannot close a connection";
 
 	public static final String ERR_CANNOT_CLOSE_RESULTSET = "Cannot close a result set";

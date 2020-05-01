@@ -34,9 +34,9 @@
                 <form id="flight_sampling" action="controller" method="post">
                     <input type="hidden" name="command" value="selectionFlights"/>
                     <label>From</label>
-                    <input type="text" name="from" required placeholder="Choose Town" />
+                    <input type="text" name="from" required pattern="[a-zA-Z]{3,20}" placeholder="Choose Town" />
                     <label>To</label>
-                    <input type="text" name="to" required placeholder="Choose Town" />
+                    <input type="text" name="to" required pattern="[a-zA-Z]{3,20}" placeholder="Choose Town" />
                     <label>Date</label>
                     <input type="date" required name="date"/>
                     <button type="submit">Find flight</button>
@@ -72,7 +72,8 @@
                             <c:if test="${flight.flightStatusId ==2}">CANCELED</c:if>
                             <c:if test="${flight.flightStatusId ==4}">PREPARATION</c:if>
                         </td>
-                        <td>${flight.crewId}</td>
+                        <td><c:if test="${flight.crewId == 0}">WITHOUT TEAM</c:if>
+                            <c:if test="${flight.crewId != 0}">${flight.crewId}</c:if></td>
                         <c:if test="${userRole.name == 'admin'}">
                             <td class="content center">
                                 <form id="edit_flight" action="controller" method="post">

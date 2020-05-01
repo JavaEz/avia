@@ -2,6 +2,7 @@ package ua.nure.moisieiev.summaryTask4.web.command.flightCommands;
 
 import org.apache.log4j.Logger;
 import ua.nure.moisieiev.summaryTask4.Path;
+import ua.nure.moisieiev.summaryTask4.entity.Crew;
 import ua.nure.moisieiev.summaryTask4.entity.Flight;
 import ua.nure.moisieiev.summaryTask4.exception.DBException;
 import ua.nure.moisieiev.summaryTask4.util.DBManager;
@@ -41,6 +42,7 @@ public class FlightSaveCommand extends Command {
             LOG.error("MISTAKE! ID not a number");
         }
         Flight flight;
+        Crew crew;
         if (id != null) {
             try {
                 flight = dbManager.findFlightById(id);
@@ -50,6 +52,9 @@ public class FlightSaveCommand extends Command {
                 flight.setDate(Date.valueOf(date));
                 flight.setFlightStatusId(Integer.parseInt(flightStatus));
                 flight.setCrewId(Integer.parseInt(crewNumber));
+                crew = dbManager.findCrewById(Integer.parseInt(crewNumber));
+                crew.setCrewStatusId(2);
+                dbManager.updateCrew(crew);
                 dbManager.updateFlightById(flight);
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -62,7 +67,7 @@ public class FlightSaveCommand extends Command {
                 flight1.setWhereto(arrival);
                 flight1.setDate(Date.valueOf(date));
                 flight1.setFlightStatusId(4);
-                flight1.setCrewId(Integer.parseInt(crewNumber));
+                //flight1.setCrewId(Integer.parseInt(crewNumber));
                 dbManager.createFlight(flight1); //пишем новую логику
             } catch (SQLException e) {
                 LOG.error("CANNOT CREATE A NEW FLIGHT");

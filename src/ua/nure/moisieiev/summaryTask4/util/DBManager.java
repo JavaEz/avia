@@ -88,6 +88,8 @@ public class DBManager {
     private static final String SQL_CREATE_REQUEST = "INSERT INTO request VALUES(default, ?, ?, ?, ?, default)";
     private static final String SQL_FIND_REQUEST_BY_ID = "SELECT * FROM request WHERE id = ?";
     private static final String SQL_UPDATE_REQUEST_STATUS = "UPDATE request SET request_status = ? WHERE id = ?";
+    private static final String SQL_FIND_ALL_FREE_CREW = "SELECT * FROM crew WHERE crew.crewstatus_id = 3";
+    private static final String SQL_UPDATE_CREW_BY_ID = "UPDATE crew SET crewstatus_id = ? WHERE id = ?";
 
     /**
      * Returns a user with the given login.
@@ -372,7 +374,7 @@ public class DBManager {
             pstmt.setString(k++, staff.getLastName());
             pstmt.setInt(k++, staff.getDepartamenId());
             pstmt.setInt(k++, staff.getCrewId());
-            pstmt.setInt(k++, staff.getId());
+            pstmt.setInt(k, staff.getId());
             pstmt.executeUpdate();
             con.commit();
         } catch (SQLException e) {
@@ -567,6 +569,33 @@ public class DBManager {
     }
 
     /**
+     * Update crew.
+     *
+     * @param crew;
+     */
+
+    public void updateCrew(Crew crew) throws SQLException, DBException {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        try{
+            con = getConnection();
+            pstmt = con.prepareStatement(SQL_UPDATE_CREW_BY_ID);
+            int k = 1;
+            pstmt.setInt(k++, crew.getCrewStatusId());
+            pstmt.setInt(k, crew.getId());
+            pstmt.executeUpdate();
+            con.commit();
+        } catch (SQLException e){
+            con.rollback();
+            LOG.error(Messages.ERR_CANNOT_UPDATE_CREW);
+            throw new DBException(Messages.ERR_CANNOT_UPDATE_CREW, e);
+        } finally {
+            close(con);
+            close(pstmt);
+        }
+    }
+
+    /**
      * Find staff by crew id in staff.
      *
      * @param id;
@@ -596,35 +625,6 @@ public class DBManager {
         return staffList;
     }
 
-    /**
-     * Find staff by crew id.
-     *
-     * @param id;
-     */
-
-    public Staff findStaffByCrewId(int id) throws DBException, SQLException {
-        Staff staff = null;
-        PreparedStatement pstmt = null;
-        Connection con = null;
-        ResultSet rs = null;
-        try {
-            con = getConnection();
-            pstmt = con.prepareStatement(SQL_FIND_ALL_STAFF_BY_CREW_ID);
-            pstmt.setInt(1, id);
-            rs = pstmt.executeQuery();
-            if (rs.next()) {
-                staff = extractStaff(rs);
-            }
-            con.commit();
-        } catch (SQLException e) {
-            con.rollback();
-            LOG.error(Messages.ERR_CANNOT_GET_STAFF_BY_CREW_ID);
-            throw new DBException(Messages.ERR_CANNOT_GET_STAFF_BY_CREW_ID, e);
-        } finally {
-            close(con, pstmt, rs);
-        }
-        return staff;
-    }
 
     public List<Flight> findAllFlightsByParameters(String from, String to, Date date) throws DBException, SQLException {
         List<Flight> flightList = new ArrayList<>();
@@ -770,6 +770,29 @@ public class DBManager {
             close(con);
             close(pstmt);
         }
+    }
+
+    public List<Crew> findAllFreeCrew() throws DBException, SQLException {
+        List<Crew> crewList = new ArrayList<>();
+        Statement stmt = null;
+        ResultSet rs = null;
+        Connection con = null;
+        try{
+            con = getConnection();
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(SQL_FIND_ALL_FREE_CREW);
+            while (rs.next()){
+                crewList.add(extractCrew(rs));
+            }
+            con.commit();
+        }catch (SQLException e){
+            con.rollback();
+            LOG.error("Cannot find free crew", e);
+            throw new DBException("Cannot find free crew", e);
+        } finally {
+            close(con, stmt, rs);
+        }
+        return crewList;
     }
 
     /**

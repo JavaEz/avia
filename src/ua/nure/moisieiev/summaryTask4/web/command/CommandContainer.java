@@ -25,6 +25,7 @@ public class CommandContainer {
         // common commands
         commands.put("login", new LoginCommand());
         commands.put("logout", new LogoutCommand());
+        commands.put("noCommand", new NoCommand());
         commands.put("flightList", new FlightListCommand());
         commands.put("staffList", new StaffListCommand());
         commands.put("crewList", new CrewListCommand());

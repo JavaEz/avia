@@ -2,7 +2,6 @@ package ua.nure.moisieiev.summaryTask4.web.command.crewCommands;
 
 import org.apache.log4j.Logger;
 import ua.nure.moisieiev.summaryTask4.Path;
-import ua.nure.moisieiev.summaryTask4.entity.Staff;
 import ua.nure.moisieiev.summaryTask4.exception.AppException;
 import ua.nure.moisieiev.summaryTask4.util.DBManager;
 import ua.nure.moisieiev.summaryTask4.web.command.Command;
