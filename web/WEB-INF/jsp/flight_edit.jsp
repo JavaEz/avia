@@ -75,13 +75,13 @@
                                     ${flight.crewId }
                             </option>
                             </c:if>
-                            <c:if test="${not empty crewList}">
                             <c:forEach var="crew" items="${crewList}">
+                                <c:if test="${crew.id != 0}">
                                 <option value="${crew.id}">
                                         ${crew.id}
                                 </option>
+                                </c:if>
                             </c:forEach>
-                            </c:if>
                                 <option>
                                     Without team
                                 </option>
