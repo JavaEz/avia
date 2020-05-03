@@ -43,17 +43,28 @@ public class FlightSaveCommand extends Command {
         }
         Flight flight;
         Crew crew;
+        Crew crew2;
         if (id != null) {
             try {
                 flight = dbManager.findFlightById(id);
+                int number = flight.getCrewId();
                 flight.setFlightName(flightName);
                 flight.setWhence(departure);
                 flight.setWhereto(arrival);
                 flight.setDate(Date.valueOf(date));
                 flight.setFlightStatusId(Integer.parseInt(flightStatus));
-                flight.setCrewId(Integer.parseInt(crewNumber));
-                crew = dbManager.findCrewById(Integer.parseInt(crewNumber));
-                crew.setCrewStatusId(1);
+                if ("Without team".equals(crewNumber)){
+                    flight.setCrewId(0);
+                    crew = dbManager.findCrewById(number);
+                    crew.setCrewStatusId(3);
+                } else {
+                    flight.setCrewId(Integer.parseInt(crewNumber));
+                    crew = dbManager.findCrewById(Integer.parseInt(crewNumber));
+                    crew2 = dbManager.findCrewById(number);
+                    crew.setCrewStatusId(1);
+                    crew2.setCrewStatusId(3);
+                    dbManager.updateCrew(crew2);
+                }
                 dbManager.updateCrew(crew);
                 dbManager.updateFlightById(flight);
             } catch (SQLException e) {

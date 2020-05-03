@@ -39,14 +39,14 @@ public class FlightSearchCommand extends Command {
            } catch (SQLException e) {
                e.printStackTrace();
            }
-       } else {
-           throw new AppException(Messages.ERR_CANNOT_GET_FLIGHT_BY_ID);
+//       } else {
+//           throw new AppException(Messages.ERR_CANNOT_GET_FLIGHT_BY_ID);
        }
 
        if(flight != null){
            flightList.add(flight);
-       } else {
-           throw new AppException(Messages.ERR_CANNOT_GET_FLIGHT_BY_ID);
+//       } else {
+//           throw new AppException(Messages.ERR_CANNOT_GET_FLIGHT_BY_ID);
        }
 
         request.getSession().setAttribute("flightList", flightList);

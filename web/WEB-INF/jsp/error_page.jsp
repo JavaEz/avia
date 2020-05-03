@@ -19,7 +19,7 @@
 		<tr >
 			<td class="content">
 			<%-- CONTENT --%>
-				
+
 				<h2 class="error">
 					The following error occurred
 				</h2>
@@ -35,6 +35,10 @@
 
 				<c:if test="${not empty message}">
 					<h3>${message}</h3>
+				</c:if>
+
+				<c:if test="${not empty search}">
+					This ${search} flight not found!
 				</c:if>
 				
 				<c:if test="${not empty exception}">

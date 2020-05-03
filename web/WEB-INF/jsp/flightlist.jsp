@@ -46,7 +46,6 @@
             <c:if test="${userRole.name == 'admin'}">
                 <button><a href="/addFlight">Create a new Flight</a></button>
             </c:if>
-
             <table id="list_flights_table">
                 <thead>
                 <tr>
@@ -59,6 +58,9 @@
                     <td>№ Crew</td>
                 </tr>
                 </thead>
+                <c:if test="${flightList.size() == 0}">
+                    <h1><b>Flight not find!</b></h1>
+                </c:if>
 
                 <c:forEach var="flight" items="${flightList}">
                     <tr>
@@ -104,13 +106,7 @@
             </table>
             <br/>
             <%-- CONTENT --%>
-            <button onclick="goBack()">Go Back</button>
-
-            <script>
-                function goBack() {
-                    window.history.back();
-                }
-            </script>
+            <button><a href="/controller?command=flightList">Back</a></button>
         </td>
     </tr>
 

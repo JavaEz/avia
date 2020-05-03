@@ -403,7 +403,7 @@ public class DBManager {
             pstmt.setString(k++, staff.getFirstName());
             pstmt.setString(k++, staff.getLastName());
             pstmt.setInt(k++, staff.getDepartamenId());
-            pstmt.setInt(k++, staff.getCrewId());
+            pstmt.setInt(k, staff.getCrewId());
             pstmt.executeUpdate();
             con.commit();
         } catch (SQLException e) {

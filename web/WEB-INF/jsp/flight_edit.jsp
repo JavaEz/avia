@@ -70,11 +70,21 @@
                 <div>
                     <label for="crewNumber">Crew Number:</label>
                         <select name="crewNumber" required id="crewNumber">
+                            <c:if test="${flight.crewId != 0}">
+                            <option>
+                                    ${flight.crewId }
+                            </option>
+                            </c:if>
+                            <c:if test="${not empty crewList}">
                             <c:forEach var="crew" items="${crewList}">
                                 <option value="${crew.id}">
                                         ${crew.id}
                                 </option>
                             </c:forEach>
+                            </c:if>
+                                <option>
+                                    Without team
+                                </option>
                         </select>
 <%--                    <input type="number" name="crewNumber" required--%>
 <%--                           id="crewNumber" value="${flight.crewId }"/><br/>--%>

@@ -45,11 +45,11 @@ after you submit current form.
 
 					<fieldset >
 						<legend>Login</legend>
-						<input name="login"/><br/>
+						<input name="login" required pattern="[a-zA-Z]{3,20}"/><br/>
 					</fieldset><br/>
 					<fieldset>
 						<legend>Password</legend>
-						<input type="password" name="password"/>
+						<input type="password" name="password" required pattern="[a-zA-Z]{3,20}"/>
 					</fieldset><br/>
 					
 					<input type="submit" value="Login">

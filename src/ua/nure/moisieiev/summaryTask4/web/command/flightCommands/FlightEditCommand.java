@@ -37,6 +37,7 @@ public class FlightEditCommand extends Command {
             }
             request.getSession().setAttribute("flight", flight);
             LOG.trace("Set the request attribute: flightList --> " + flight);
+            //сетать номер в сессию
         }
 
         LOG.debug("Command finished");
