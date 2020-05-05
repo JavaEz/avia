@@ -26,6 +26,10 @@ public class FlightSelectionCommand extends Command {
 
         List<Flight> flightList = new ArrayList<>();
         String from = request.getParameter("from");
+        from = from.toLowerCase();
+        StringBuilder stringBuilder = new StringBuilder(from);
+        stringBuilder.setCharAt(0, from.substring(0,1).toUpperCase().charAt(0));
+        from = stringBuilder.toString();
         LOG.trace("Request parameter: from --> " + from);
         String to = request.getParameter("to");
         LOG.trace("Request parameter: to --> " + to);
@@ -33,7 +37,7 @@ public class FlightSelectionCommand extends Command {
         LOG.trace("Request parameter: date --> " + date);
 
 
-        if (date != null || from != null || to != null) {
+        if (date != null && from != null && to != null) { // сделать легитивную проверку СДЕЛАЙ СМЫСЛ
             try {
                 flightList = DBManager.getInstance().findAllFlightsByParameters(from, to, date);
                 LOG.trace("Find flight by parameters" + from + to + date);

@@ -1,7 +1,6 @@
-<%@ page pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/jspf/directive/page.jspf" %>
 <%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
-<c:if test="${requestScope.locale != null}">
+<c:if test="${sessionScope.locale != null}">
     <fmt:setLocale value="${param.locale}" scope="session"/>
     <fmt:setBundle basename="resources"/>
     <c:set var="currentLocale" value="${param.locale}" scope="session"/>
@@ -12,23 +11,24 @@
 <body>
 <table id="main-container">
 
-<%@ include file="/WEB-INF/jspf/header.jspf" %>
+    <%@ include file="/WEB-INF/jspf/header.jspf" %>
 
     <tr>
         <td class="content center">
             <%-- CONTENT --%>
             <form action="controller" method="post">
                 <input type="hidden" name="command" value="viewSettings"/>
-                <label for="language">Language</label>
-                <select id="language" name="locale">
-                    <c:forEach items="${applicationScope.locales}" var="locale">
-                        <c:set var="selected" value="${locale.key == currentLocale ? 'selected' : '' }"/>
-                        <option value="${locale.key}" ${selected}>${locale.value}</option>
-                    </c:forEach>
-    <option value="English"> English</option>
-    <option value="Russian"> Russian</option>
+                <label for="language"><fmt:message key="jsp.language"/></label>
+                <select name="locale" id="language">
+                    <c:forEach items="${applicationScope.locales}" var="locale"> 
+                        <c:set var="selected" value="${locale.key == currentLocale ? 'selected' : '' }"/> 
+                        <option value="${locale.value}" ${selected}><fmt:message key="${locale.value}"/></option>
+                          </c:forEach>
+<%--    <option value="Russian">Rus</option>--%>
+<%--    <option value="English">Eng</option>--%>
                 </select>
-                <input type="submit" value="Save"/>
+
+                <input type="submit" value="<fmt:message key="jsp.send"/>"/>
             </form>
             <%-- CONTENT --%>
         </td>

@@ -2,8 +2,10 @@
 <%@ include file="/WEB-INF/jspf/directive/page.jspf" %>
 <%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
 <html>
-<c:set var="title" value="All Flight" scope="page"/>
+<head>
+<title>AllFlights</title>
 <%@ include file="/WEB-INF/jspf/head.jspf" %>
+</head>
 <body>
 <c:set var="searchForForm" value="active" scope="page"/>
 <table id="main-container">
@@ -44,7 +46,7 @@
             </div>
             <%-- CONTENT --%>
             <c:if test="${userRole.name == 'admin'}">
-                <button><a href="/addFlight"><fmt:message key="jsp.create.a.new.flight"/></a></button>
+                <button type="button" class="btn btn-secondary"><a class="btn" href="/addFlight"><fmt:message key="jsp.create.a.new.flight"/></a></button>
             </c:if>
             <table id="list_flights_table">
                 <thead>

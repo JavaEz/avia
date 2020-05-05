@@ -2,6 +2,7 @@
 CSS for all JSP pages
 ***************************************************************/
 body {
+	background-color: aquamarine;
 	margin: 0;
 }
 
@@ -16,7 +17,7 @@ td {
 
 
 #header, #footer, .content {
-	border: 0px solid;	
+	border: 0px solid;
 }
 
 /***************************************************************
@@ -61,7 +62,7 @@ Content styles (TD tag in the main middle row)
 ***************************************************************/
 .content {
 	height: 100%;
-	background: #BBBBFF;
+	/*background: #BBBBFF;*/
 	padding-left: 10px;
 	padding-right: 10px;
 	padding-top: 10px;
@@ -94,7 +95,7 @@ Miscellaneous
 }
 
 .noborder {
-	border: 2px solid red;	
+	border: 2px solid red;
 }
 
 /***************************************************************

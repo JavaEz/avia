@@ -43,7 +43,7 @@ This way we define the DISPATCHER MENU.
 <%--=========================================================================== 
 This way we define the settings anchor.
 ===========================================================================--%> 
-	<a href="/settings"><fmt:message key="jsp.header.settings"/></a> &nbsp;
+	<a href="${pageContext.request.contextPath}/settings"><fmt:message key="jsp.header.settings"/></a> &nbsp;
 	<c:if test="${not empty searchForForm}">
 		<form action="controller" method="post">
 			<input type="hidden" name="command" value="searchFlights" />

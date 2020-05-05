@@ -7,6 +7,9 @@ import org.apache.log4j.PropertyConfigurator;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
 
 public class ContextListener implements ServletContextListener {
 
@@ -24,7 +27,7 @@ public class ContextListener implements ServletContextListener {
         ServletContext servletContext = event.getServletContext();
         initLog4J(servletContext);
         initCommandContainer();
-
+        localesInit(servletContext);
         log("Servlet context initialization finished");
     }
 
@@ -44,6 +47,22 @@ public class ContextListener implements ServletContextListener {
             ex.printStackTrace();
         }
         log("Log4J initialization finished");
+    }
+
+    private void localesInit(ServletContext servletContext) {
+        String localesFileName = servletContext.getInitParameter("locales");
+
+        String localesFileRealPath = servletContext.getRealPath(localesFileName);
+
+        Properties locales = new Properties();
+        try {
+            locales.load(new FileInputStream(localesFileRealPath));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        servletContext.setAttribute("locales", locales);
+        locales.list(System.out);
     }
 
     /**

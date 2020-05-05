@@ -2,7 +2,9 @@ package ua.nure.moisieiev.summaryTask4.web.command;
 
 import org.apache.log4j.Logger;
 import ua.nure.moisieiev.summaryTask4.Path;
+import ua.nure.moisieiev.summaryTask4.entity.User;
 import ua.nure.moisieiev.summaryTask4.exception.AppException;
+import ua.nure.moisieiev.summaryTask4.util.DBManager;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -22,20 +24,23 @@ public class ViewSettingsCommand extends Command{
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
         LOG.debug("Command starts");
+
+        User user = (User) request.getSession().getAttribute("user");
+        LOG.trace("Get user from session: " + user);
         String language = request.getParameter("locale");
-        LOG.trace("Get parameters -> locale");
+        LOG.trace("Get parameters -> locale " + language);
 
         Locale loc;
         switch (language) {
             default:
             case ENGLISH:
                 loc = new Locale("en");
-                request.setAttribute("locale", "en");
+                request.getSession().setAttribute("locale", "en");
                 LOG.debug("Set locale " + ENGLISH);
                 break;
             case RUSSIAN:
                 loc = new Locale("ru");
-                request.setAttribute("locale", "ru");
+                request.getSession().setAttribute("locale", "ru");
                 LOG.debug("Set locale " + RUSSIAN);
                 break;
         }

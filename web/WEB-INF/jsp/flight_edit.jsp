@@ -2,8 +2,10 @@
 <%@ include file="/WEB-INF/jspf/directive/page.jspf" %>
 <%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
 <html>
-<c:set var="title" value="Edit Flight" scope="page"/>
-<%@ include file="/WEB-INF/jspf/head.jspf" %>
+<head>
+    <title>AllFlights</title>
+    <%@ include file="/WEB-INF/jspf/head.jspf" %>
+</head>
 <body>
 <table id="main-container">
 
