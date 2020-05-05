@@ -15,11 +15,11 @@
             <table id="list_staff_table">
                 <thead>
                 <tr>
-                    <td>Request ID</td>
-                    <td>Problem</td>
-                    <td>Request status</td>
+                    <td><fmt:message key="jsp.request.id"/></td>
+                    <td><fmt:message key="jsp.problem"/></td>
+                    <td><fmt:message key="jsp.request.status"/></td>
                     <c:if test="${userRole.name == 'admin'}">
-                        <td class="content center">Action</td>
+                        <td class="content center"><fmt:message key="jsp.action"/></td>
                     </c:if>
                 </tr>
                 </thead>
@@ -27,19 +27,19 @@
                 <c:forEach var="request" items="${requestList}">
                     <tr>
                         <td>${request.id}</td>
-                        <td><c:if test="${request.idPilot == 0}">Missing Pilot</c:if>
-                            <c:if test="${request.idNavigator == 0}">Missing Navigator</c:if>
-                            <c:if test="${request.idSpark == 0}">Missing Spark</c:if>
-                            <c:if test="${request.idSteward == 0}"> Missing Steward</c:if></td>
-                        <td><c:if test="${request.requestStatusId ==3}">PENDING</c:if>
-                            <c:if test="${request.requestStatusId ==1}">COMPLETED</c:if>
-                            <c:if test="${request.requestStatusId ==2}">CANCELED</c:if></td>
+                        <td><c:if test="${request.idPilot == 0}"><fmt:message key="jsp.missing.pilot"/></c:if>
+                            <c:if test="${request.idNavigator == 0}"><fmt:message key="jsp.missing.navigator"/></c:if>
+                            <c:if test="${request.idSpark == 0}"><fmt:message key="jsp.missing.operator.radio"/></c:if>
+                            <c:if test="${request.idSteward == 0}"><fmt:message key="jsp.missing.steward"/></c:if></td>
+                        <td><c:if test="${request.requestStatusId ==3}"><fmt:message key="jsp.pending"/></c:if>
+                            <c:if test="${request.requestStatusId ==1}"><fmt:message key="jsp.completed"/></c:if>
+                            <c:if test="${request.requestStatusId ==2}"><fmt:message key="jsp.canceled"/></c:if></td>
                         <c:if test="${userRole.name == 'admin'}">
                             <td class="content center">
                                 <form id="edit_request" action="controller" method="post">
                                     <input type="hidden" name="command" value="editRequest"/>
                                     <input type="hidden" name="id_request" value="${request.id}"/>
-                                    <input type="submit" value="Edit request status">
+                                    <input type="submit" value="<fmt:message key="jsp.edit.request.status"/>">
                                 </form>
                             </td>
                         </c:if>

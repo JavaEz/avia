@@ -17,29 +17,29 @@
                     <div>
                         <label> <c:if test="${request1.requestStatusId == 3}">
                             <c:set var="pendingSelected" value="selected"/>
-                            Now status is <b>Pending</b>
+                            <fmt:message key="jsp.now.status.is"/> <b><fmt:message key="jsp.pending"/></b>
                         </c:if>
                             <c:if test="${request1.requestStatusId == 1}">
                                 <c:set var="completedSelected" value="selected"/>
-                                Now status is <b>Completed</b>
+                                <fmt:message key="jsp.now.status.is"/><b><fmt:message key="jsp.completed"/></b>
                             </c:if>
                             <c:if test="${request1.requestStatusId == 2}">
                                 <c:set var="canceledSelected" value="selected"/>
-                                Now status is <b>Canceled</b>
+                                <fmt:message key="jsp.now.status.is"/> <b><fmt:message key="jsp.canceled"/></b>
                             </c:if>
                         </label>
                     </div><br/>
                     <div>
-                        <label for="requestStatus">Change to:</label>
+                        <label for="requestStatus"><fmt:message key="jsp.change.to"/>:</label>
                         <select id="requestStatus" name="id_requestStatus" required>
                             <option ${completedSelected} value="${request1.requestStatusId = 1}">
-                                Completed
+                                <fmt:message key="jsp.completed"/>
                             </option>
                             <option ${canceledSelected} value="${request1.requestStatusId = 2}">
-                                Canceled
+                                <fmt:message key="jsp.canceled"/>
                             </option>
                             <option ${pendingSelected} value="${request1.requestStatusId = 3}">
-                                Pending
+                                <fmt:message key="jsp.pending"/>
                             </option>
                         </select>
                     </div>
@@ -47,7 +47,7 @@
                     <div>
                         <input type="hidden" name="command" value="saveRequestStatus"/>
                         <input type="hidden" name="id_request" value="${request1.id}"/>
-                        <input value="Send" type="submit"/>
+                        <input value="<fmt:message key="jsp.send"/>" type="submit"/>
                     </div>
                 </c:if>
             </form>

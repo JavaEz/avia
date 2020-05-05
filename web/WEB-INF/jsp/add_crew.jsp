@@ -14,7 +14,7 @@
             <%-- CONTENT --%>
             <form action="controller" method="post">
                 <div>
-                    <label for="pilot">Pilot:</label>
+                    <label for="pilot"><fmt:message key="jsp.pilot"/></label>
                     <select id="pilot" name="id_pilot">
                         <c:set var="i" value="0"/>
                         <c:forEach var="staff" items="${staffListForCrew}">
@@ -32,7 +32,7 @@
                 </div>
                 <br/>
                 <div>
-                    <label for="navigator">Navigator:</label>
+                    <label for="navigator"><fmt:message key="jsp.navigator"/></label>
                     <select id="navigator" name="id_navigator">
                         <c:set var="k" value="0"/>
                         <c:forEach var="staff" items="${staffListForCrew}">
@@ -50,7 +50,7 @@
                 </div>
                 <br/>
                 <div>
-                    <label for="spark">Operator radio:</label>
+                    <label for="spark"><fmt:message key="jsp.operator.radio"/></label>
                     <select id="spark" name="id_spark">
                         <c:set var="j" value="0"/>
                         <c:forEach var="staff" items="${staffListForCrew}">
@@ -68,7 +68,7 @@
                 </div>
                 <br/>
                 <div>
-                    <label for="steward">Steward/Stewardess:</label>
+                    <label for="steward"><fmt:message key="jsp.steward"/></label>
                     <select id="steward" name="id_steward">
                         <c:set var="g" value="0"/>
                         <c:forEach var="staff" items="${staffListForCrew}">
@@ -88,13 +88,13 @@
                 <div>
                     <c:if test="${empty missed}">
                         <input type="hidden" name="command" value="saveCrew"/>
-                        <input value="Send" type="submit"/>
+                        <input value="<fmt:message key="jsp.send"/>" type="submit"/>
                     </c:if>
                 </div>
                 <div>
                     <c:if test="${not empty missed}">
                         <input type="hidden" name="command" value="addRequest"/>
-                        <input value="Request" type="submit"/>
+                        <input value="<fmt:message key="jsp.request"/>" type="submit"/>
                     </c:if>
                 </div>
             </form>

@@ -15,22 +15,22 @@
             <c:if test="${userRole.name == 'dispatcher'}">
                 <form id="edit_staff" action="controller" method="post">
                     <input type="hidden" name="command" value="addCrew"/>
-                    <input type="submit" value="Create a new Crew">
+                    <input type="submit" value="<fmt:message key="jsp.create.a.new.crew"/>">
                 </form>
             </c:if>
 
             <table id="list_staff_table">
                 <thead>
                 <tr>
-                    <td>Crew ID</td>
-                    <td>Crew Status</td>
-                    <td>Pilots</td>
-                    <td>Navigators</td>
-                    <td>Operators radio</td>
-                    <td>Steward/Stewardess</td>
+                    <td><fmt:message key="jsp.crew.number"/></td>
+                    <td><fmt:message key="jsp.crew.status"/></td>
+                    <td><fmt:message key="jsp.pilots"/></td>
+                    <td><fmt:message key="jsp.navigators"/></td>
+                    <td><fmt:message key="jsp.operators.radio"/></td>
+                    <td><fmt:message key="jsp.stewards"/></td>
                     <c:if test="${userRole.name == 'dispatcher'}">
-                        <td class="content center">Action</td>
-                        <td class="content center">Action2</td>
+                        <td class="content center"><fmt:message key="jsp.action"/></td>
+                        <td class="content center"><fmt:message key="jsp.action"/>2</td>
                     </c:if>
                 </tr>
                 </thead>
@@ -39,17 +39,16 @@
                     <tr>
                         <td>${crew.id}</td>
                         <td><c:if test="${crew.id != 0}">
-                            <c:if test="${crew.crewStatusId == 3}">Free for flight</c:if>
-<%--                            <c:if test="${crew.crewStatusId == 2}">Not Ready</c:if>--%>
+                            <c:if test="${crew.crewStatusId == 3}"><fmt:message key="jsp.free.for.flight"/></c:if>
                             <c:if test="${crew.crewStatusId == 1}">
                                 <c:forEach var="flight" items="${flightList}">
                                     <c:if test="${flight.crewId == crew.id}">
-                                        Ready in flight: ${flight.flightName}
+                                        <fmt:message key="jsp.ready.in.flight"/> ${flight.flightName}
                                     </c:if>
                                 </c:forEach>
                             </c:if>
                         </c:if>
-                            <c:if test="${crew.id == 0}">Free person(without crew)</c:if></td>
+                            <c:if test="${crew.id == 0}"><fmt:message key="jsp.free.person"/></c:if></td>
                         <td><c:forEach var="staff" items="${staffList}">
                             <c:if test="${staff.crewId == crew.id}">
                                 <c:if test="${staff.departamenId == 4}">
@@ -85,14 +84,14 @@
                                     <form id="edit_crew" action="controller" method="post">
                                         <input type="hidden" name="command" value="editCrew"/>
                                         <input type="hidden" name="id_crew" value="${crew.id}"/>
-                                        <input type="submit" value="Edit">
+                                        <input type="submit" value="<fmt:message key="jsp.edit"/>">
                                     </form>
                                 </td>
                                 <td class="content center">
                                     <form id="delete_crew" action="controller" method="post">
                                         <input type="hidden" name="command" value="deleteCrew"/>
                                         <input type="hidden" name="id_crew" value="${crew.id}"/>
-                                        <input type="submit" value="Delete">
+                                        <input type="submit" value="<fmt:message key="jsp.delete"/>">
                                     </form>
                                 </td>
                             </c:if>

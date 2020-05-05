@@ -17,49 +17,49 @@
                     <input type="hidden" name="command" value="flightList"/>
                     <label>
                         <select name="sorting">
-                            <option value="name">By name</option>
-                            <option value="number">By flight number</option>
+                            <option value="name"><fmt:message key='jsp.by.name'/></option>
+                            <option value="number"><fmt:message key='jsp.by.flight.number'/></option>
                         </select>
                     </label>
                     <label>
                         <select name="ordering">
-                            <option value="asc">By ASC</option>
-                            <option value="desc">By DESC</option>
+                            <option value="asc"><fmt:message key='jsp.by.asc'/></option>
+                            <option value="desc"><fmt:message key="jsp.by.desc"/></option>
                         </select>
                     </label>
-                    <input value="Sort" type="submit"/>
+                    <input value="<fmt:message key="jsp.sort"/>" type="submit"/>
                 </form>
             </div>
-            <div> НАЙТИ РЕЙС
+            <div> <fmt:message key="jsp.find.flight"/>
                 <form id="flight_sampling" action="controller" method="post">
                     <input type="hidden" name="command" value="selectionFlights"/>
-                    <label>From</label>
-                    <input type="text" name="from" required pattern="[a-zA-Z]{3,20}" placeholder="Choose Town" />
-                    <label>To</label>
-                    <input type="text" name="to" required pattern="[a-zA-Z]{3,20}" placeholder="Choose Town" />
-                    <label>Date</label>
+                    <label><fmt:message key="jsp.from"/></label>
+                    <input type="text" name="from" required pattern="[a-zA-Z]{3,20}" placeholder="<fmt:message key="jsp.choose.town"/>" />
+                    <label><fmt:message key="jsp.to"/></label>
+                    <input type="text" name="to" required pattern="[a-zA-Z]{3,20}" placeholder="<fmt:message key="jsp.choose.town"/>" />
+                    <label><fmt:message key="jsp.date"/></label>
                     <input type="date" required name="date"/>
-                    <button type="submit">Find flight</button>
+                    <button type="submit"><fmt:message key="jsp.find.flight"/></button>
                 </form>
             </div>
             <%-- CONTENT --%>
             <c:if test="${userRole.name == 'admin'}">
-                <button><a href="/addFlight">Create a new Flight</a></button>
+                <button><a href="/addFlight"><fmt:message key="jsp.create.a.new.flight"/></a></button>
             </c:if>
             <table id="list_flights_table">
                 <thead>
                 <tr>
-                    <td>ID</td>
-                    <td>Name</td>
-                    <td>Departure</td>
-                    <td>Destination</td>
-                    <td>Date</td>
-                    <td>Status</td>
-                    <td>№ Crew</td>
+                    <td><fmt:message key='jsp.id'/></td>
+                    <td><fmt:message key="jsp.name"/></td>
+                    <td><fmt:message key="jsp.departure"/></td>
+                    <td><fmt:message key="jsp.destination"/></td>
+                    <td><fmt:message key="jsp.date"/></td>
+                    <td><fmt:message key="jsp.flight.status"/></td>
+                    <td><fmt:message key="jsp.crew.number"/></td>
                 </tr>
                 </thead>
                 <c:if test="${flightList.size() == 0}">
-                    <h1><b>Flight not find!</b></h1>
+                    <h1><b><fmt:message key="jsp.flight.not.found"/></b></h1>
                 </c:if>
 
                 <c:forEach var="flight" items="${flightList}">
@@ -69,26 +69,26 @@
                         <td>${flight.whence}</td>
                         <td>${flight.whereto}</td>
                         <td>${flight.date}</td>
-                        <td><c:if test="${flight.flightStatusId ==3}">OPENED</c:if>
-                            <c:if test="${flight.flightStatusId ==1}">ARRIVED</c:if>
-                            <c:if test="${flight.flightStatusId ==2}">CANCELED</c:if>
-                            <c:if test="${flight.flightStatusId ==4}">PREPARATION</c:if>
+                        <td><c:if test="${flight.flightStatusId ==3}"><fmt:message key="jsp.opened"/></c:if>
+                            <c:if test="${flight.flightStatusId ==1}"><fmt:message key="jsp.arrived"/></c:if>
+                            <c:if test="${flight.flightStatusId ==2}"><fmt:message key="jsp.canceled"/></c:if>
+                            <c:if test="${flight.flightStatusId ==4}"><fmt:message key="jsp.preparation"/></c:if>
                         </td>
-                        <td><c:if test="${flight.crewId == 0}">WITHOUT TEAM</c:if>
+                        <td><c:if test="${flight.crewId == 0}"><fmt:message key="jsp.without.team"/></c:if>
                             <c:if test="${flight.crewId != 0}">${flight.crewId}</c:if></td>
                         <c:if test="${userRole.name == 'admin'}">
                             <td class="content center">
                                 <form id="edit_flight" action="controller" method="post">
                                     <input type="hidden" name="command" value="editFlight"/>
                                     <input type="hidden" name="id_flight" value="${flight.id}"/>
-                                    <input value="Edit" type="submit"/>
+                                    <input value="<fmt:message key="jsp.edit"/>" type="submit"/>
                                 </form>
                             </td>
                             <td class="content center">
                                 <form id="delete_flight" action="controller" method="post">
                                     <input type="hidden" name="command" value="deleteFlight"/>
                                     <input type="hidden" name="id_flight" value="${flight.id}"/>
-                                    <input value="Delete" type="submit"/>
+                                    <input value="<fmt:message key="jsp.delete"/>" type="submit"/>
                                 </form>
                             </td>
                         </c:if>
@@ -97,7 +97,7 @@
                                 <form id="edit_flight_status" action="controller" method="post">
                                     <input type="hidden" name="command" value="editFlight"/>
                                     <input type="hidden" name="id_flight" value="${flight.id}"/>
-                                    <input value="Change flight status" type="submit"/>
+                                    <input value="<fmt:message key="jsp.change.flight.status"/>" type="submit"/>
                                 </form>
                             </td>
                         </c:if>
@@ -106,7 +106,7 @@
             </table>
             <br/>
             <%-- CONTENT --%>
-            <button><a href="/controller?command=flightList">Back</a></button>
+            <button><a href="/controller?command=flightList"><fmt:message key="jsp.back"/></a></button>
         </td>
     </tr>
 

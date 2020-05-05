@@ -44,15 +44,15 @@ after you submit current form.
 					<input type="hidden" name="command" value="login"/>
 
 					<fieldset >
-						<legend>Login</legend>
+						<legend><fmt:message key="jsp.login"/></legend>
 						<input name="login" required pattern="[a-zA-Z]{3,20}"/><br/>
 					</fieldset><br/>
 					<fieldset>
-						<legend>Password</legend>
+						<legend><fmt:message key="jsp.password"/></legend>
 						<input type="password" name="password" required pattern="[a-zA-Z]{3,20}"/>
 					</fieldset><br/>
 					
-					<input type="submit" value="Login">
+					<input type="submit" value="<fmt:message key="jsp.header.login"/>">
 				</form>
 				
 			<%-- CONTENT --%>

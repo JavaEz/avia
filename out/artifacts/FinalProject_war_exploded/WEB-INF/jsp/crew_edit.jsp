@@ -14,7 +14,7 @@
             <%-- CONTENT --%>
             <form action="controller" method="post">
                 <div>
-                    <label for="pilot">Pilot:</label>
+                    <label for="pilot"><fmt:message key="jsp.pilot"/>:</label>
                     <select id="pilot" name="id_pilot" required>
                         <c:forEach var="staff" items="${staffListForEdit}">
                         <c:if test="${staff.departamenId == 4}">
@@ -34,7 +34,7 @@
                 </div>
                 <br/>
                 <div>
-                    <label for="navigator">Navigator:</label>
+                    <label for="navigator"><fmt:message key="jsp.navigator"/>:</label>
                     <select id="navigator" name="id_navigator" required>
                         <c:forEach var="staff" items="${staffListForEdit}">
                             <c:if test="${staff.departamenId == 1}">
@@ -54,7 +54,7 @@
                 </div>
                 <br/>
                 <div>
-                    <label for="spark">Operator radio:</label>
+                    <label for="spark"><fmt:message key="jsp.operator.radio"/>:</label>
                     <select id="spark" name="id_spark" required>
                         <c:forEach var="staff" items="${staffListForEdit}">
                             <c:if test="${staff.departamenId == 2}">
@@ -74,7 +74,7 @@
                 </div>
                 <br/>
                 <div>
-                    <label for="steward">Steward/Stewardess:</label>
+                    <label for="steward"><fmt:message key="jsp.steward"/>:</label>
                     <select id="steward" name="id_steward" required>
                         <c:forEach var="staff" items="${staffListForEdit}">
                             <c:if test="${staff.departamenId == 3}">
@@ -95,7 +95,7 @@
                 <br/>
                 <div>
                     <input type="hidden" name="command" value="saveCrew"/>
-                    <input value="Send" type="submit"/>
+                    <input value="<fmt:message key="jsp.send"/>" type="submit"/>
                 </div>
             </form>
             <%-- CONTENT --%>

@@ -14,13 +14,13 @@
             <%-- CONTENT --%>
             <form action="controller" method="post">
                 <div>
-                    <label for="firstName">First name:</label>
+                    <label for="firstName"><fmt:message key="jsp.first.name"/>:</label>
                     <input type="text" name="firstName" id="firstName" required pattern="[a-zA-Z]{3,20}"
                            value="${staff.firstName}"/><br/>
                 </div>
                 <br/>
                 <div>
-                    <label for="lastName">First name:</label>
+                    <label for="lastName"><fmt:message key="jsp.last.name"/>:</label>
                     <input type="text" name="lastName" id="lastName" required pattern="[a-zA-Z]{3,20}"
                            value="${staff.lastName}"/><br/>
                 </div>
@@ -38,19 +38,19 @@
                     <c:if test="${staff.departamenId == 4}">
                         <c:set var="pilotSelected" value="selected"/>
                     </c:if>
-                    <label for="departamenId">Departament</label>
+                    <label for="departamenId"><fmt:message key="jsp.department"/></label>
                     <select id="departamenId" name="departamenId" required>
                         <option ${navigatorSelected} value="${staff.departamenId = 1}">
-                            Navigator
+                            <fmt:message key="jsp.navigator"/>
                         </option>
                         <option ${sparkSelected} value="${staff.departamenId = 2}">
-                            Spark
+                            <fmt:message key="jsp.operator.radio"/>
                         </option>
                         <option ${stewardSelected} value="${staff.departamenId = 3}">
-                            Steward
+                            <fmt:message key="jsp.steward"/>
                         </option>
                         <option ${pilotSelected} value="${staff.departamenId = 4}">
-                            Pilot
+                            <fmt:message key="jsp.pilot"/>
                         </option>
                     </select>
 <%--                    <label for="departamenId">Departament</label>--%>
@@ -67,7 +67,7 @@
                     <div>
                         <input type="hidden" name="command" value="saveStaff"/>
                         <input type="hidden" name="id_staff" value="${staff.id}"/>
-                        <input value="Send" type="submit"/>
+                        <input value="<fmt:message key="jsp.send"/>" type="submit"/>
                     </div>
             </form>
             <%-- CONTENT --%>

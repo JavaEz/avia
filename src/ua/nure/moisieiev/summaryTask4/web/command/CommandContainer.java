@@ -33,8 +33,8 @@ public class CommandContainer {
         commands.put("searchFlights", new FlightSearchCommand());
         commands.put("selectionFlights", new FlightSelectionCommand());
         commands.put("requestList", new RequestListCommand());
-        //commands.put("viewSettings", new ViewSettingsCommand());
-        //commands.put("noCommand", new NoCommand());
+        commands.put("viewSettings", new ViewSettingsCommand());
+
 
         // dispatcher commands
         commands.put("deleteCrew", new CrewDeleteCommand());

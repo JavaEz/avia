@@ -13,16 +13,16 @@
         <td class="content">
             <%-- CONTENT --%>
             <c:if test="${userRole.name == 'admin'}">
-                <button><a href="/addStaff">Add new member to Staff</a></button>
+                <button><a href="/addStaff"><fmt:message key="jsp.add.new.member.to.staff"/></a></button>
             </c:if>
 
             <table id="list_staff_table">
                 <thead>
                 <tr>
-                    <td>ID</td>
-                    <td>First Name</td>
-                    <td>Last Name</td>
-                    <td>Department</td>
+                    <td><fmt:message key="jsp.id"/></td>
+                    <td><fmt:message key="jsp.first.name"/></td>
+                    <td><fmt:message key="jsp.last.name"/></td>
+                    <td><fmt:message key="jsp.department"/></td>
                 </tr>
                 </thead>
 
@@ -31,25 +31,25 @@
                         <td>${staff.id}</td>
                         <td>${staff.firstName}</td>
                         <td>${staff.lastName}</td>
-                        <td><c:if test="${staff.departamenId == 4}">PILOT</c:if>
-                            <c:if test="${staff.departamenId == 1}">NAVIGATOR</c:if>
-                            <c:if test="${staff.departamenId == 2}">SPARK</c:if>
-                            <c:if test="${staff.departamenId == 3}">STEWARD</c:if></td>
-                        <td><c:if test="${staff.crewId == 0}">FREE</c:if>
-                            <c:if test="${staff.crewId != 0}">IN CREW(BUSY) - Crew №:${staff.crewId}</c:if></td>
+                        <td><c:if test="${staff.departamenId == 4}"><fmt:message key="jsp.pilot"/></c:if>
+                            <c:if test="${staff.departamenId == 1}"><fmt:message key="jsp.navigator"/></c:if>
+                            <c:if test="${staff.departamenId == 2}"><fmt:message key="jsp.operator.radio"/></c:if>
+                            <c:if test="${staff.departamenId == 3}"><fmt:message key="jsp.steward"/></c:if></td>
+                        <td><c:if test="${staff.crewId == 0}"><fmt:message key="jsp.free"/></c:if>
+                            <c:if test="${staff.crewId != 0}"><fmt:message key="jsp.in.crew.busy"/>${staff.crewId}</c:if></td>
                         <c:if test="${userRole.name == 'admin'}">
                             <td class="content center">
                                 <form id="edit_staff" action="controller" method="post">
                                     <input type="hidden" name="command" value="editStaff"/>
                                     <input type="hidden" name="id_staff" value="${staff.id}"/>
-                                    <input type="submit" value="Edit">
+                                    <input type="submit" value="<fmt:message key="jsp.edit"/>">
                                 </form>
                             </td>
                             <td class="content center">
                                 <form id="delete_staff" action="controller" method="post">
                                     <input type="hidden" name="command" value="deleteStaff"/>
                                     <input type="hidden" name="id_staff" value="${staff.id}"/>
-                                    <input type="submit" value="Delete">
+                                    <input type="submit" value="<fmt:message key="jsp.delete"/>">
                                 </form>
                             </td>
                         </c:if>

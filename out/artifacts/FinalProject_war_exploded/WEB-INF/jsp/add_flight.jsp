@@ -14,45 +14,33 @@
             <%-- CONTENT --%>
             <form action="controller" method="post">
                 <div>
-                    <laber for="flightName">Flight name:</laber>
+                    <laber for="flightName"><fmt:message key="jsp.name"/>:</laber>
                     <input type="text" name="flightName" required pattern="[a-zA-Z]{3,20}"
                            id="flightName" /><br/>
                 </div>
                 <br/>
                 <div>
-                    <label for="departure">Departure:</label>
+                    <label for="departure"><fmt:message key="jsp.departure"/>:</label>
                     <input type="text" name="departure" required pattern="[a-zA-Z]{3,20}"
                            id="departure"/><br/>
                 </div>
                 <br/>
                 <div>
-                    <label for="arrival">Arrival:</label>
+                    <label for="arrival"><fmt:message key="jsp.destination"/>:</label>
                     <input type="text" name="arrival" required pattern="[a-zA-Z]{3,20}"
                            id="arrival"/><br/>
                 </div>
                 <br/>
                 <div>
-                    <label for="date">Date of Departure:</label>
+                    <label for="date"><fmt:message key="jsp.date.of.departure"/></label>
                     <input type="date" name="date" required
                            id="date"/><br/>
                 </div>
                 <br/>
-<%--                <div>--%>
-<%--                    <label for="flightStatus">Flight status:</label>--%>
-<%--                    <input type="number" name="flightStatus" min="1" max="3" required--%>
-<%--                           id="flightStatus"/><br/>--%>
-<%--                </div>--%>
-<%--                <br/>--%>
-<%--                <div>--%>
-<%--                    <label for="crewNumber">Crew Number:</label>--%>
-<%--                    <input type="text" name="crewNumber" required--%>
-<%--                           id="crewNumber"/><br/>--%>
-
-<%--                </div>--%>
                 <br/>
                 <div>
                     <input type="hidden" name="command" value="saveFlight"/>
-                    <input value="Send" type="submit"/>
+                    <input value="<fmt:message key="jsp.send"/>" type="submit"/>
                 </div>
             </form>
             <%-- CONTENT --%>

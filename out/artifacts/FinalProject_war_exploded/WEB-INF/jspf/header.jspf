@@ -22,10 +22,10 @@ This is the user menu.
 This way we define the ADMIN MENU. 
 ===========================================================================--%> 
 		<c:when test="${userRole.name == 'admin' }">
-			<a href="controller?command=flightList">All flight</a> &nbsp;
-			<a href="controller?command=staffList">All staff </a>  &nbsp;&nbsp;
-			<a href="controller?command=crewList">Crew list </a>	&nbsp;
-			<a href="controller?command=requestList">Request </a>  &nbsp;&nbsp;
+			<a href="controller?command=flightList"><fmt:message key="jsp.header.all_flights"/></a> &nbsp;
+			<a href="controller?command=staffList"><fmt:message key="jsp.header.all.staff"/> </a>  &nbsp;&nbsp;
+			<a href="controller?command=crewList"><fmt:message key="jsp.header.crew.list"/> </a>	&nbsp;
+			<a href="controller?command=requestList"><fmt:message key="jsp.header.request"/> </a>  &nbsp;&nbsp;
 		</c:when>
 
 
@@ -34,21 +34,21 @@ This way we define the ADMIN MENU.
 This way we define the DISPATCHER MENU.
 ===========================================================================--%>
 		<c:when test="${userRole.name == 'dispatcher'}">
-			<a href="controller?command=flightList">All flight</a> &nbsp;
-			<a href="controller?command=staffList">All staff </a>  &nbsp;&nbsp;
-			<a href="controller?command=crewList">Crew list </a>  &nbsp;&nbsp;
-			<a href="controller?command=requestList">Request </a>  &nbsp;&nbsp;
+			<a href="controller?command=flightList"><fmt:message key="jsp.header.all_flights"/></a> &nbsp;
+			<a href="controller?command=staffList"><fmt:message key="jsp.header.all.staff"/> </a>  &nbsp;&nbsp;
+			<a href="controller?command=crewList"><fmt:message key="jsp.header.crew.list"/> </a>  &nbsp;&nbsp;
+			<a href="controller?command=requestList"><fmt:message key="jsp.header.request"/> </a>  &nbsp;&nbsp;
 		</c:when>
 	</c:choose>
 <%--=========================================================================== 
 This way we define the settings anchor.
 ===========================================================================--%> 
-	<a href="controller?command=viewSettings">Settings</a> &nbsp;
+	<a href="/settings"><fmt:message key="jsp.header.settings"/></a> &nbsp;
 	<c:if test="${not empty searchForForm}">
 		<form action="controller" method="post">
 			<input type="hidden" name="command" value="searchFlights" />
 			<input type="number" name="search" min="1" required/>
-			<input type="submit" value="Search flight by number"/>
+			<input type="submit" value="<fmt:message key="jsp.header.search.flight.by.number"/>"/>
 		</form>
 	</c:if>
 
@@ -75,7 +75,7 @@ Type user role name if the user object is presented in the current session.
 Type link to logout  
 ===========================================================================--%> 
 	<a href="controller?command=logout">
-		Logout
+		<fmt:message key="jsp.header.logout"/>
 	</a> 	
 
 </div>

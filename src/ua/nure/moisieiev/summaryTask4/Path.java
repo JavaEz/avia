@@ -26,7 +26,7 @@ public final class Path {
 	public static final String PAGE_EDIT_CREW = "/editCrew";
 	//public static final String ADD_FLIGHT ="/addFlight";
 	public static final String PAGE_ADD_CREW = "/addCrew";
-	public static final String PAGE_SETTINGS = "/WEB-INF/jsp/settings.jsp";
+	public static final String PAGE_SETTINGS = "/settings";
 
 
 	// commands

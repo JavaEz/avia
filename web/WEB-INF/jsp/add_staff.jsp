@@ -14,46 +14,37 @@
             <%-- CONTENT --%>
             <form action="controller" method="post">
                 <div>
-                    <label for="firstName">First name:</label>
+                    <label for="firstName"><fmt:message key="jsp.first.name"/>:</label>
                     <input type="text" name="firstName" required pattern="[a-zA-Z]{3,20}" id="firstName"/><br/>
                 </div>
                 <br/>
                 <div>
-                    <label for="lastName">Last name:</label>
+                    <label for="lastName"><fmt:message key="jsp.last.name"/>:</label>
                     <input type="text" name="lastName" required pattern="[a-zA-Z]{3,20}" id="lastName"/><br/>
                 </div>
                 <br/>
                 <div>
-                    <label for="departamenId">Departament</label>
+                    <label for="departamenId"><fmt:message key="jsp.department"/></label>
                     <select id="departamenId" name="departamenId" required>
                         <option value="1">
-                            Navigator
+                            <fmt:message key="jsp.navigator"/>
                         </option>
                         <option value="2">
-                            Spark
+                            <fmt:message key="jsp.operator.radio"/>
                         </option>
                         <option value="3">
-                            Steward
+                            <fmt:message key="jsp.steward"/>
                         </option>
                         <option value="4">
-                            Pilot
+                            <fmt:message key="jsp.pilot"/>
                         </option>
                     </select>
-<%--                    <input type="number" name="departamenId" min="1" max="4" required--%>
-<%--                           id="departamenId"/><br/>--%>
                 </div>
                 <br/>
                 <div>
-<%--                    <div>--%>
-<%--                        <label for="crewId">crewId</label>--%>
-<%--                        <input type="number" name="crewId"--%>
-<%--                               id="crewId"/><br/>--%>
-<%--                    </div>--%>
-<%--                    <br/>--%>
-<%--                    <div>--%>
                         <input type="hidden" name="command" value="saveStaff"/>
                         <input type="hidden" name="id_staff"/>
-                        <input value="Send" type="submit"/>
+                        <input value="<fmt:message key="jsp.send"/>" type="submit"/>
                     </div>
                 </div>
             </form>
