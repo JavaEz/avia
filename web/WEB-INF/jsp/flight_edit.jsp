@@ -3,7 +3,7 @@
 <%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
 <html>
 <head>
-    <title>AllFlights</title>
+    <title><fmt:message key="jsp.flight.edit"/></title>
     <%@ include file="/WEB-INF/jspf/head.jspf" %>
 </head>
 <body>
@@ -85,7 +85,7 @@
                                 </c:if>
                             </c:forEach>
                                 <option>
-                                    <fmt:message key="jsp.without.team"/>Without team
+                                    <fmt:message key="jsp.without.team"/>
                                 </option>
                         </select>
 <%--                    <input type="number" name="crewNumber" required--%>

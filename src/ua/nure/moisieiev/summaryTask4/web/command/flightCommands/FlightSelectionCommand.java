@@ -5,6 +5,7 @@ import ua.nure.moisieiev.summaryTask4.Path;
 import ua.nure.moisieiev.summaryTask4.entity.Flight;
 import ua.nure.moisieiev.summaryTask4.exception.AppException;
 import ua.nure.moisieiev.summaryTask4.util.DBManager;
+import ua.nure.moisieiev.summaryTask4.util.SearchHelper;
 import ua.nure.moisieiev.summaryTask4.web.command.Command;
 
 import javax.servlet.ServletException;
@@ -25,28 +26,26 @@ public class FlightSelectionCommand extends Command {
         LOG.debug("Command starts");
 
         List<Flight> flightList = new ArrayList<>();
+
         String from = request.getParameter("from");
-        from = from.toLowerCase();
-        StringBuilder stringBuilder = new StringBuilder(from);
-        stringBuilder.setCharAt(0, from.substring(0,1).toUpperCase().charAt(0));
-        from = stringBuilder.toString();
         LOG.trace("Request parameter: from --> " + from);
         String to = request.getParameter("to");
         LOG.trace("Request parameter: to --> " + to);
         Date date = Date.valueOf(request.getParameter("date"));
         LOG.trace("Request parameter: date --> " + date);
-
-
-        if (date != null && from != null && to != null) { // сделать легитивную проверку СДЕЛАЙ СМЫСЛ
+        if (date != null && from != null && to != null) {
+            from = SearchHelper.writeStringToDB(from);
+            to = SearchHelper.writeStringToDB(to);
+        }else {
+            LOG.error("Cannot Find all Flight by Parameters");
+        }
             try {
                 flightList = DBManager.getInstance().findAllFlightsByParameters(from, to, date);
                 LOG.trace("Find flight by parameters" + from + to + date);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-        } else {
-            LOG.error("Cannot Find all Flight by Parameters");
-        }
+
         request.getSession().setAttribute("flightList", flightList);
         LOG.debug("Command finished");
         return Path.PAGE_LIST_FLIGHT;

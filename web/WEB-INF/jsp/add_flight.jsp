@@ -2,8 +2,10 @@
 <%@ include file="/WEB-INF/jspf/directive/page.jspf" %>
 <%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
 <html>
-<c:set var="title" value="Create a new Flight" scope="page"/>
-<%@ include file="/WEB-INF/jspf/head.jspf" %>
+<head>
+    <title><fmt:message key="jsp.add.flight"/></title>
+    <%@ include file="/WEB-INF/jspf/head.jspf" %>
+</head>
 <body>
 <table id="main-container">
 
@@ -36,7 +38,6 @@
                     <input type="date" name="date" required
                            id="date"/><br/>
                 </div>
-                <br/>
                 <br/>
                 <div>
                     <input type="hidden" name="command" value="saveFlight"/>

@@ -6,8 +6,10 @@
     <c:set var="currentLocale" value="${param.locale}" scope="session"/>
 </c:if>
 <html>
-<c:set var="title" value="Settings" scope="page"/>
-<%@ include file="/WEB-INF/jspf/head.jspf" %>
+<head>
+    <title><fmt:message key="jsp.header.settings"/></title>
+    <%@ include file="/WEB-INF/jspf/head.jspf" %>
+</head>
 <body>
 <table id="main-container">
 
@@ -31,6 +33,7 @@
                 <input type="submit" value="<fmt:message key="jsp.send"/>"/>
             </form>
             <%-- CONTENT --%>
+                <button><a href="/controller?command=flightList"><fmt:message key="jsp.back"/></a></button>
         </td>
     </tr>
 

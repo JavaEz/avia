@@ -2,8 +2,10 @@
 <%@ include file="/WEB-INF/jspf/directive/page.jspf" %>
 <%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
 <html>
-<c:set var="title" value="Edit Request Status" scope="page"/>
-<%@ include file="/WEB-INF/jspf/head.jspf" %>
+<head>
+    <title><fmt:message key="jsp.request.edit"/></title>
+    <%@ include file="/WEB-INF/jspf/head.jspf" %>
+</head>
 <body>
 <table id="main-container">
 

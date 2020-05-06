@@ -2,7 +2,7 @@
 CSS for all JSP pages
 ***************************************************************/
 body {
-	background-color: aquamarine;
+	background-color: #acfffd;
 	margin: 0;
 }
 
@@ -32,7 +32,7 @@ Style of the main table
 Header style (TD tag in the first top row)
 ***************************************************************/
 #header {
-	background: #AAAAFF;
+	background: #7be7ff;
 	padding: 0px;
 }
 
@@ -40,7 +40,7 @@ Header style (TD tag in the first top row)
 Style for the left located head menu (DIV tag at left)
 ***************************************************************/
 #leftHeader {
-	background: #AAAAFF;
+	background: #7be7ff;
 	float: left;
 	margin-left: 10px;
 	padding: 2px;
@@ -50,7 +50,7 @@ Style for the left located head menu (DIV tag at left)
 Style for the right located head menu (DIV tag at right)
 ***************************************************************/
 #rightHeader {
-	background: #AAAAFF;
+	background: #7be7ff;
 	float: right;
 	text-align: right;
 	margin-right: 10px;
@@ -75,7 +75,7 @@ Footer style (TD tag in the last bottom row)
 ***************************************************************/
 #footer {
 	text-align: center;
-	background: #AAAAFF;
+	background: #7be7ff;9;
 }
 
 /***************************************************************
@@ -177,3 +177,24 @@ Make order form (list_menu.jsp)
 #create_staff {
 	margin-top: 10px;
 }
+
+#search_form {
+	text-align: center;
+	justify-content: center;
+}
+
+.coverForm {
+	width: 50%;
+	height: 50%;
+	top: 0;
+	left: 0;
+	display: flex;
+	align-items: center;
+	align-content: center;
+	justify-content: center;
+	overflow: auto;
+}
+
+/*.container {*/
+/*	display: inline-block;*/
+/*}*/

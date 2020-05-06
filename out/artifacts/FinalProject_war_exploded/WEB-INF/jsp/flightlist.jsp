@@ -3,7 +3,7 @@
 <%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
 <html>
 <head>
-<title>AllFlights</title>
+<title><fmt:message key="jsp.header.all_flights"/></title>
 <%@ include file="/WEB-INF/jspf/head.jspf" %>
 </head>
 <body>
@@ -46,7 +46,7 @@
             </div>
             <%-- CONTENT --%>
             <c:if test="${userRole.name == 'admin'}">
-                <button type="button" class="btn btn-secondary"><a class="btn" href="/addFlight"><fmt:message key="jsp.create.a.new.flight"/></a></button>
+                <button type="button" class="btn btn-info"><a class="btn" href="/addFlight"><fmt:message key="jsp.create.a.new.flight"/></a></button>
             </c:if>
             <table id="list_flights_table">
                 <thead>

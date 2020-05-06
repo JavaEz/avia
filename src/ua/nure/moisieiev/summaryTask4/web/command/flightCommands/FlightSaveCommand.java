@@ -6,6 +6,7 @@ import ua.nure.moisieiev.summaryTask4.entity.Crew;
 import ua.nure.moisieiev.summaryTask4.entity.Flight;
 import ua.nure.moisieiev.summaryTask4.exception.DBException;
 import ua.nure.moisieiev.summaryTask4.util.DBManager;
+import ua.nure.moisieiev.summaryTask4.util.SearchHelper;
 import ua.nure.moisieiev.summaryTask4.web.command.Command;
 
 import javax.servlet.http.HttpServletRequest;
@@ -33,6 +34,14 @@ public class FlightSaveCommand extends Command {
         String crewNumber = request.getParameter("crewNumber");
         LOG.trace("Request parameter: crewNumber --> " + crewNumber);
 
+        if(flightName!= null && departure!= null && arrival!= null){
+            flightName = SearchHelper.writeStringToDB(flightName);
+            departure = SearchHelper.writeStringToDB(departure);
+            arrival = SearchHelper.writeStringToDB(arrival);
+        } else {
+            LOG.error("Empty field detected!");
+        }
+
         DBManager dbManager = DBManager.getInstance();
 
         Integer id = null;
@@ -53,7 +62,7 @@ public class FlightSaveCommand extends Command {
                 flight.setWhereto(arrival);
                 flight.setDate(Date.valueOf(date));
                 flight.setFlightStatusId(Integer.parseInt(flightStatus));
-                if ("Without team".equals(crewNumber)){
+                if ("WITHOUT TEAM".equals(crewNumber)){
                     flight.setCrewId(0);
                     crew = dbManager.findCrewById(number);
                     crew.setCrewStatusId(3);
