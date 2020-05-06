@@ -56,6 +56,8 @@ public class Messages {
 
 	public static final String ERR_CANNOT_GET_FLIGHT_BY_ID = "Cannot get a flight by its id";
 
+	public static final String ERR_CANNOT_GET_FLIGHT_BY_CREW_ID = "Cannot get a flight by its crew id";
+
 	public static final String ERR_CANNOT_GET_REQUEST_BY_ID = "Cannot get a request by its id";
 
 	public static final String ERR_CANNOT_GET_STAFF_BY_ID = "Cannot get a staff by its id";

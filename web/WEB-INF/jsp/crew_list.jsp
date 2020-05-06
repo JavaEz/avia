@@ -42,6 +42,7 @@
                         <td>${crew.id}</td>
                         <td><c:if test="${crew.id != 0}">
                             <c:if test="${crew.crewStatusId == 3}"><fmt:message key="jsp.free.for.flight"/></c:if>
+                            <c:if test="${crew.crewStatusId == 2}"><fmt:message key="jsp.not.ready"/></c:if>
                             <c:if test="${crew.crewStatusId == 1}">
                                 <c:forEach var="flight" items="${flightList}">
                                     <c:if test="${flight.crewId == crew.id}">

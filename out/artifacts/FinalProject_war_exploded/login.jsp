@@ -49,7 +49,7 @@ after you submit current form.
 					</fieldset><br/>
 					<fieldset>
 						<legend><fmt:message key="jsp.password"/></legend>
-						<input type="password" name="password" required pattern=".{3,20}"/>
+						<input type="password" name="password" required pattern="[a-zA-Z]{3,20}"/>
 					</fieldset><br/>
 					
 					<input type="submit" value="<fmt:message key="jsp.header.login"/>">

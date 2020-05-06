@@ -84,7 +84,7 @@
                                 </option>
                                 </c:if>
                             </c:forEach>
-                                <option>
+                                <option value="WITHOUT TEAM">
                                     <fmt:message key="jsp.without.team"/>
                                 </option>
                         </select>

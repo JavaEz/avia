@@ -90,6 +90,7 @@ public class DBManager {
     private static final String SQL_UPDATE_REQUEST_STATUS = "UPDATE request SET request_status = ? WHERE id = ?";
     private static final String SQL_FIND_ALL_FREE_CREW = "SELECT * FROM crew WHERE crew.crewstatus_id = 3";
     private static final String SQL_UPDATE_CREW_BY_ID = "UPDATE crew SET crewstatus_id = ? WHERE id = ?";
+    private static final String SQL_FIND_FLIGHT_BY_CREW_ID = "SELECT * FROM flights WHERE flights.crew_id = ?";
 
     /**
      * Returns a user with the given login.
@@ -200,6 +201,36 @@ public class DBManager {
             con.rollback();
             LOG.error(Messages.ERR_CANNOT_GET_FLIGHT_BY_ID, e);
             throw new DBException(Messages.ERR_CANNOT_GET_FLIGHT_BY_ID, e);
+        } finally {
+            close(con, statement, rs);
+        }
+        return flight;
+    }
+
+    /**
+     * Find flight by crew id.
+     *
+     * @param id;
+     */
+
+    public Flight findFLightByCrewId(int id) throws SQLException, DBException {
+        Flight flight = null;
+        PreparedStatement statement = null;
+        ResultSet rs = null;
+        Connection con = null;
+        try {
+            con = getConnection();
+            statement = con.prepareStatement(SQL_FIND_FLIGHT_BY_CREW_ID);
+            statement.setInt(1, id);
+            rs = statement.executeQuery();
+            if (rs.next()) {
+                flight = extractFlight(rs);
+            }
+            con.commit();
+        } catch (SQLException e) {
+            con.rollback();
+            LOG.error(Messages.ERR_CANNOT_GET_FLIGHT_BY_CREW_ID, e);
+            throw new DBException(Messages.ERR_CANNOT_GET_FLIGHT_BY_CREW_ID, e);
         } finally {
             close(con, statement, rs);
         }
